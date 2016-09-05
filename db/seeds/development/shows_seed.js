@@ -21,8 +21,8 @@ exports.seed = function(knex, Promise) {
       });
     }).then(function () {
       return knex('spending').insert({
-        username: 'User-Two',
-        user: 'Single User',
+        username: 'User',
+        user: 'Mr User',
         date: '2016-09-01',
         amount: 109.83,
         category: 'groceries',
@@ -39,3 +39,4 @@ exports.seed = function(knex, Promise) {
       });
     });
 };
+
