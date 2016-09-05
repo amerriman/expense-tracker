@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.string('username').notNullable();
     table.string('user').notNullable();
     table.date('date').notNullable();
-    table.decimal('channel', 6, 2).notNullable();
+    table.decimal('amount', 6, 2).notNullable();
     table.string('category').notNullable();
     table.string('description').nullable();
   });
