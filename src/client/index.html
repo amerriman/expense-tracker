@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='myApp'>
   <head>
     <meta charset="utf-8">
     <title>Angular Boilerplate</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
-    <script src="https://code.angularjs.org/1.5.2/angular-route.js"></script>
     <link rel="stylesheet" href="/css/main.css">
+
   </head>
   <body>
-  <p>Welcome to the app!</p>
-      <div ng-view>
-          <!--load partials here -->
-      </div>
+
+    <h2>This is going to be an expense tracker!!!!!</h2>
+    <br>
+    <br>
+    <div ng-view></div>
+
+
+    <!-- Link up all the necessary stuff -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- Angular JS Files -->
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <!-- JS Files -->
     <script type="text/javascript" src="/js/main.js"></script>
+
+    <!-- Directives -->
+    <script type="text/javascript" src="/signup/signup.js"></script>
+    <script type="text/javascript" src="/login/login.js"></script>
+
+
+
   </body>
 </html>

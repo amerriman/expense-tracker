@@ -42,8 +42,8 @@ describe('API Routes', function() {
       res.should.be.json; // jshint ignore:line
       res.body.should.be.a('array');
       // console.log(res.body, "RES BODY");
-      res.body[0].should.have.property('user');
-      res.body[0].user.should.equal('Mr User');
+      res.body[0].should.have.property('user_indiv');
+      res.body[0].user_indiv.should.equal('Mr User');
       res.body[0].should.have.property('date');
       res.body[0].date.should.equal('2016-09-01T06:00:00.000Z');
       res.body[0].should.have.property('amount');
@@ -68,8 +68,8 @@ describe('API Routes', function() {
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
         // console.log(res.body, "RES BODY");
-        res.body.should.have.property('user');
-        res.body.user.should.equal('Ms User');
+        res.body.should.have.property('user_indiv');
+        res.body.user_indiv.should.equal('Ms User');
         res.body.should.have.property('date');
         res.body.date.should.equal('2016-09-01T06:00:00.000Z');
         res.body.should.have.property('amount');
@@ -89,8 +89,8 @@ describe('API Routes', function() {
       chai.request(server)
       .post('/api/spending')
       .send({
-        username: 'User',
-        user: 'Mr User',
+        user_id: 1,
+        user_indiv: 'Mr User',
         date: '2016-09-05',
         amount: 20.05,
         category: 'groceries',
@@ -100,8 +100,8 @@ describe('API Routes', function() {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
-        res.body.should.have.property('user');
-        res.body.user.should.equal('Mr User');
+        res.body.should.have.property('user_indiv');
+        res.body.user_indiv.should.equal('Mr User');
         res.body.should.have.property('date');
         res.body.should.have.property('amount');
         res.body.amount.should.equal('20.05');
@@ -127,8 +127,8 @@ describe('API Routes', function() {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
-        res.body.should.have.property('user');
-        res.body.user.should.equal('Mr User');
+        res.body.should.have.property('user_indiv');
+        res.body.user_indiv.should.equal('Mr User');
         res.body.should.have.property('date');
         res.body.date.should.equal('2016-09-01T06:00:00.000Z');
         res.body.should.have.property('amount');
@@ -152,8 +152,8 @@ describe('API Routes', function() {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
-        res.body.should.have.property('user');
-        res.body.user.should.equal('Ms User');
+        res.body.should.have.property('user_indiv');
+        res.body.user_indiv.should.equal('Ms User');
         res.body.should.have.property('date');
         res.body.date.should.equal('2016-09-01T06:00:00.000Z');
         res.body.should.have.property('amount');
@@ -169,8 +169,8 @@ describe('API Routes', function() {
           res.should.be.json; // jshint ignore:line
           res.body.should.be.a('array');
           res.body.length.should.equal(3);
-          res.body[1].should.have.property('user');
-          res.body[1].user.should.equal('Mr User');
+          res.body[1].should.have.property('user_indiv');
+          res.body[1].user_indiv.should.equal('Mr User');
           res.body[1].should.have.property('date');
           res.body[1].date.should.equal('2016-09-01T06:00:00.000Z');
           res.body[1].should.have.property('amount');

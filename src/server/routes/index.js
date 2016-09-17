@@ -3,9 +3,9 @@ var router = express.Router();
 
 var queries = require('../../../db/queries');
 
-router.get('/', function(req, res, next) {
-  res.render('index.html');
-});
+// router.get('/', function(req, res, next) {
+//   res.render('index.html');
+// });
 
 // *** GET all expenses *** //
 router.get('/spending', function(req, res, next) {
