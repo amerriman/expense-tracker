@@ -10,7 +10,9 @@ var jwt = require('jsonwebtoken');
 
 
 // *** routes *** //
-var routes = require('./routes/index.js');
+var expenseRoutes = require('./routes/expense.js');
+var userRoutes = require('./routes/user.js');
+
 
 // *** express instance *** //
 var app = express();
@@ -30,7 +32,8 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 
 // *** main routes *** //
-app.use('/api', routes);
+app.use('/expenseAPI', expenseRoutes);
+app.use('/userAPI', userRoutes);
 
 
 // catch 404 and forward to error handler

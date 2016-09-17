@@ -1,15 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var queries = require('../../../db/queries');
+var Expense = require('../../../db/expenseQueries');
 
-// router.get('/', function(req, res, next) {
-//   res.render('index.html');
-// });
 
 // *** GET all expenses *** //
 router.get('/spending', function(req, res, next) {
-  queries.getAll()
+  Expense.getAll()
   .then(function(expenses) {
     res.status(200).json(expenses);
   })
@@ -20,7 +17,7 @@ router.get('/spending', function(req, res, next) {
 
 // *** GET single expense *** //
 router.get('/spending/:id', function(req, res, next) {
-  queries.getSingle(req.params.id)
+  Expense.getSingle(req.params.id)
   .then(function(expense) {
     res.status(200).json(expense);
   })
@@ -31,9 +28,9 @@ router.get('/spending/:id', function(req, res, next) {
 
 // *** add expense *** //
 router.post('/spending', function(req, res, next) {
-  queries.add(req.body, 'id')
+  Expense.addExpense(req.body, 'id')
   .then(function(expenseID) {
-    return queries.getSingle(expenseID);
+    return Expense.getSingle(expenseID);
   })
   .then(function(expense) {
     res.status(200).json(expense);
@@ -45,9 +42,9 @@ router.post('/spending', function(req, res, next) {
 
 // *** update expense *** //
 router.put('/spending/:id', function(req, res, next) {
-  queries.update(req.params.id, req.body)
+  Expense.updateExpense(req.params.id, req.body)
   .then(function() {
-    return queries.getSingle(req.params.id);
+    return Expense.getSingle(req.params.id);
   })
   .then(function(expense) {
     res.status(200).json(expense);
@@ -59,9 +56,9 @@ router.put('/spending/:id', function(req, res, next) {
 
 // *** delete expense *** //
 router.delete('/spending/:id', function(req, res, next) {
-  queries.getSingle(req.params.id)
+  Expense.getSingle(req.params.id)
   .then(function(expense) {
-    queries.deleteItem(req.params.id)
+    Expense.deleteExpense(req.params.id)
     .then(function() {
       res.status(200).json(expense);
     })
@@ -72,5 +69,16 @@ router.delete('/spending/:id', function(req, res, next) {
     next(error);
   });
 });
+
+//can also do this, but then it return a number (index?) so, doing it the above way returns the item that was deleted for better verification
+// router.delete('/spending/:id', function(req, res, next){
+//   expense.deleteItem(req.params.id)
+//   .then(function(expense){
+//     res.status(200).json(expense);
+//   })
+//   .catch(function(error){
+//     next(error);
+//   });
+// });
 
 module.exports = router;

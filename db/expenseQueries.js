@@ -14,15 +14,15 @@ function getSingle(id){
 return Spending().where('id', parseInt(id)).first();
 }
 
-function add(expense) {
+function addExpense(expense) {
   return Spending().insert(expense, 'id');
 }
 
-function update(expenseID, updates) {
+function updateExpense(expenseID, updates) {
   return Spending().where('id', parseInt(expenseID)).update(updates);
 }
 
-function deleteItem(expenseID) {
+function deleteExpense(expenseID) {
   return Spending().where('id', parseInt(expenseID)).del();
 }
 
@@ -30,7 +30,7 @@ function deleteItem(expenseID) {
 module.exports = {
   getAll: getAll,
   getSingle: getSingle,
-  add: add,
-  update: update,
-  deleteItem: deleteItem
+  addExpense: addExpense,
+  updateExpense: updateExpense,
+  deleteExpense: deleteExpense
 };
