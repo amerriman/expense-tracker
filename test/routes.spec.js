@@ -210,8 +210,6 @@ describe('API Routes', function() {
       res.should.have.status(200);
       res.should.be.json; // jshint ignore:line
       res.body.should.be.a('array');
-      res.body[0].should.have.property('username');
-      res.body[0].username.should.equal('Test');
       res.body[0].should.have.property('password');
       res.body[0].password.should.equal('test');
       res.body[0].should.have.property('email');
@@ -232,8 +230,6 @@ describe('API Routes', function() {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
-        res.body.should.have.property('username');
-        res.body.username.should.equal('Test');
         res.body.should.have.property('password');
         res.body.password.should.equal('test');
         res.body.should.have.property('email');
@@ -251,7 +247,6 @@ describe('API Routes', function() {
       chai.request(server)
       .post('/userAPI/user')
       .send({
-        username: 'Test3',
         password: 'test3',
         email: 'test3@test.com',
         users: 'Mr User3, Ms User3'
@@ -261,8 +256,6 @@ describe('API Routes', function() {
         res.should.be.json; // jshint ignore:line
         // console.log(res.body)
         res.body.should.be.a('object');
-        res.body.should.have.property('username');
-        res.body.username.should.equal('Test3');
         res.body.should.have.property('password');
         res.body.password.should.equal('test3');
         res.body.should.have.property('email');
@@ -286,8 +279,6 @@ describe('API Routes', function() {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
-        res.body.should.have.property('username');
-        res.body.username.should.equal('Test');
         res.body.should.have.property('password');
         res.body.password.should.equal('test');
         res.body.should.have.property('email');
@@ -315,7 +306,7 @@ describe('API Routes', function() {
           res.body.should.be.a('array');
           res.body.length.should.equal(1);
           // console.log(res.body, "res.body")
-          res.body[0].should.have.property('username');
+          res.body[0].should.have.property('password');
           done();
         });
       });
