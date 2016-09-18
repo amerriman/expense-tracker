@@ -5,7 +5,7 @@ app.config(['$routeProvider', '$authProvider', function($routeProvider, $authPro
   // *** satellizer settings ***
   $authProvider.google({
     url: '/auth/google',
-    clientId: '',
+    clientId: test,
     redirectUri: window.location.origin
   });
 
