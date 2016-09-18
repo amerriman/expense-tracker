@@ -8,10 +8,13 @@ var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
+// *** config file *** //
+var config = require('../../_config.js');
 
 // *** routes *** //
 var expenseRoutes = require('./routes/expense.js');
 var userRoutes = require('./routes/user.js');
+var authRoutes = require('./routes/auth.js');
 
 
 // *** express instance *** //
@@ -34,6 +37,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 // *** main routes *** //
 app.use('/expenseAPI', expenseRoutes);
 app.use('/userAPI', userRoutes);
+app.use('/auth', authRoutes);
 
 
 // catch 404 and forward to error handler

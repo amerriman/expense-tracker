@@ -2,44 +2,37 @@ app.directive('signup', function () {
   return {
     restrict: 'E',
     templateUrl: '/signup/signup.html',
-    controller: ["$scope", function ($scope) {
+    controller: ["$scope", "$http", "$auth", "$location", "$timeout", function ($scope, $http, $auth, $location, $timeout) {
 
-      console.log("Oh hey, here I am")
+      console.log("Oh hey, here I am");
 
-      // $scope.studentSignup = {};
-      // $scope.error = false;
-      // $scope.message= "";
+      $scope.signup = {};
+      $scope.error = false;
+      $scope.message= "";
 
-      // function messageTimeout(){
-      //   $scope.success = false;
-      // }
+      function messageTimeout(){
+        $scope.success = false;
+      }
 
-      // $scope.studentSignup = function() {
-      //   var student = {
-      //     username: $scope.studentSignup.username,
-      //     password: $scope.studentSignup.password,
-      //     code: $scope.studentSignup.code,
-      //     section: $scope.studentSignup.section,
-      //   };
+      $scope.register = function() {
+        var user = {
+          email: $scope.signup.email,
+          password: $scope.signup.password,
+        };
+        console.log(user, "USER IN THE SIGN UP")
 
-      // $http.post('/auth/register', student)
-      //   .then(function(response){
-      //     // console.log(response, 'RESPONSE');
-      //     $scope.studentSignup = {};
-      //     if(!response.data.token){
-      //       $scope.error = true;
-      //       $scope.message= "Whoops! Invalid code!";
-      //       $timeout(messageTimeout, 3000);
-      //     } else{
-      //       $location.path('/login');
-      //     }
-      //   })
-      //   .catch(function(response){
-      //       console.log(response, 'response');
-
-      //   });
-
-      // };
+        $auth.signup(user)
+          .then(function(response){
+            $scope.signupForm = {};
+            $location.path('/login');
+          })
+          .catch(function(response) {
+            console.log(response, "RESPONSE.DATA in signp");
+              $scope.error = true;
+              $scope.message= "Whoops! The Email you entered is already taken!";
+              $timeout(messageTimeout, 3000);
+          });
+      };
 
     }],
   };

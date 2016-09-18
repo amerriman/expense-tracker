@@ -14,9 +14,12 @@
     "express-jwt": "^3.3.0",
     "jsonwebtoken": "^5.7.0",
     "knex": "^0.11.10",
+    "moment": "^2.15.0",
     "morgan": "~1.6.1",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.0",
+    "querystring": "^0.2.0",
+    "request": "^2.75.0",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
