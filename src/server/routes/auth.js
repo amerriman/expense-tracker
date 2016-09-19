@@ -3,9 +3,10 @@ var router = express.Router();
 var moment = require('moment');
 var knex = require('../../../db/knex');
 var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+var jwt = require('jwt-simple');
+var request = require('request');
 
-var config = require('../../../_config');
+var config = require('../../../config');
 
 // *** login required *** // (user in the update eventually)
 function ensureAuthenticated(req, res, next) {
@@ -19,7 +20,6 @@ function ensureAuthenticated(req, res, next) {
   var header = req.headers.authorization.split(' ');
   var token = header[1];
   var payload = jwt.decode(token, config.TOKEN_SECRET);
-  console.log(payload, "PAYLOAD IN THE ENSURE AUTHENTICATED")
   var now = moment().unix();
 
   // check if the token has expired
@@ -31,25 +31,16 @@ function ensureAuthenticated(req, res, next) {
 
   // check if the user still exists in the db - modify for psql to set the user?
   knex('users').where('id', payload.sub)
-  .then(function(data){
-    if(!data){
+  .then(function(user){
+    console.log(user, "user in ensureAuthenticated");
+    if(!user){
         return res.status(400).send({
-            message: 'Teacher no longer exists. '
+            message: 'User no longer exists. '
       });
     }
     req.user = user;
     next();
   });
-
-  // Teacher.findById(payload.sub, function(err, user) {
-  //   if (!user) {
-  //     return res.status(400).send({
-  //       message: 'Teacher no longer exists. '
-  //     });
-  //   }
-  //   req.user = user;
-  //   next();
-  // });
 }
 
 
@@ -78,6 +69,7 @@ function comparePassword(password, hashedpassword) {
 router.post('/signup', function(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
+    var username = req.body.username;
     // check if email is unique
     knex('users').where('email',email)
         .then(function(data){
@@ -92,16 +84,24 @@ router.post('/signup', function(req, res, next) {
                 // if user is not in the database, insert
                 knex('users').insert({
                         email: email,
-                        password: hashedPassword
-                    })
-                    .returning('id')
-                    .into('users')
-                    .then(function(user) {
-
-                        var token = createToken(user);
-                        res.send({
-                            token: token,
-                            user: user
+                        password: hashedPassword,
+                        username: username
+                    }, 'id')
+                    .then(function(userID) {
+                        knex('users').where('id', parseInt(userID)).first()
+                        .then(function(user){
+                            //do we even need to do this?  Shouldn't we just send them to the login page right away? Why are we sending a token?
+                            var token = createToken(user);
+                            var userData = {
+                                userId: user.id,
+                                username: user.username,
+                                users: user.users,
+                                image: user.image
+                            };
+                            res.send({
+                                token: token,
+                                user: userData
+                            });
                         });
                     })
                     .catch(function(err) {
@@ -126,15 +126,20 @@ router.post('/login', function(req, res, next) {
                 return res.send('Incorrect email.');
             }
             var user = data[0];
+            // console.log(user, "USER before comparing passwords")
             // email found but do the passwords match?
             if (comparePassword(password, user.password)) {
                 // passwords match! return user
-                var token = jwt.sign(user, 'superSecret', {
-                    expiresIn: 14400 // expires in 24 hours;
-                });
-
+                // console.log(user, "USER");
+                var token = createToken(user);
+                var userData = {
+                    userId: user.id,
+                    username: user.username,
+                    users: user.users,
+                    image: user.image
+                };
                 res.json({
-                    user: user.id,
+                    user: userData,
                     success: true,
                     message: 'Enjoy your token!',
                     token: token
@@ -149,6 +154,101 @@ router.post('/login', function(req, res, next) {
             return res.send('Incorrect email and/or password.');
         });
 });
+
+//Google Login
+router.post('/google', function(req, res) {
+  var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
+  var peopleApiUrl = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect';
+  var params = {
+    code: req.body.code,
+    client_id: req.body.clientId,
+    client_secret: "NnHIA98FQJoL7WFEnG1sgTz5",
+    redirect_uri: req.body.redirectUri,
+    grant_type: 'authorization_code'
+  };
+  // Step 1. Exchange authorization code for access token.
+  request.post(accessTokenUrl, { json: true, form: params }, function(err, response, token) {
+    var accessToken = token.access_token;
+    var headers = { Authorization: 'Bearer ' + accessToken };
+
+    // Step 2. Retrieve profile information about the current user.
+    request.get({ url: peopleApiUrl, headers: headers, json: true }, function(err, response, profile) {
+      if (profile.error) {
+        return res.status(500).send({message: profile.error.message});
+      }
+      // Step 3a. Link user accounts.
+      if (req.headers.authorization) {
+        knex('users').where('email', profile.email)
+        .then(function(existingUser){
+            if(existingUser){
+                return res.status(409).send({ message: 'There is already a Google account that belongs to you' });
+            }
+            var token = req.headers.authorization.split(' ')[1];
+            var payload = jwt.decode(token, config.TOKEN_SECRET);
+            knex('users').where('email', payload.email)
+            .then(function(user){
+                if (!user) {
+                    return res.status(400).send({ message: 'User not found' });
+                }
+                knex('users').where('email', payload.email).update({googleid: profile.sub })
+                .then(function(user){
+                    // console.log(user, "user successfully updated");
+                })
+                .catch(function(error){
+                    // console.log(error, "error when updating user");
+                });
+
+            });
+        });
+
+      } else {
+        // Step 3b. Create a new user account or return an existing one.
+        knex('users').where('email', profile.email)
+        .then(function(existingUser){
+            if(existingUser[0]){
+                 var userData = {
+                    userId: existingUser[0].id,
+                    username: existingUser[0].username,
+                    users: existingUser[0].users,
+                    image: existingUser[0].image
+                };
+                return res.send({
+                    token: createToken(existingUser),
+                    user: userData
+                });
+            }
+            var hashedPassword = hashing(profile.sub);
+            knex('users').insert({
+                googleid: profile.sub,
+                email: profile.email,
+                username: profile.name,
+                password: hashedPassword
+            }, 'id')
+            .then(function(userID) {
+                knex('users').where('id', parseInt(userID)).first()
+                .then(function(user){
+                    var token = createToken(user);
+                    var userData = {
+                        userId: user.id,
+                        username: user.username,
+                        users: user.users,
+                        image: user.image
+                    };
+                    res.send({
+                        token:userData
+                    });
+                });
+            })
+            .catch(function(err) {
+                return res.json('crap');
+            });
+        });
+      }
+
+    });
+  });
+});
+
 
 module.exports = router;
 

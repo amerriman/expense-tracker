@@ -5,7 +5,7 @@ app.config(['$routeProvider', '$authProvider', function($routeProvider, $authPro
   // *** satellizer settings ***
   $authProvider.google({
     url: '/auth/google',
-    clientId: test,
+    clientId: GOOGLE_CLIENTID,
     redirectUri: window.location.origin
   });
 
@@ -27,14 +27,14 @@ app.config(['$routeProvider', '$authProvider', function($routeProvider, $authPro
 
 }]);
 
-app.run(function ($rootScope, $location, $route, $auth) {
-  $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    if (next.access.restricted && !$auth.isAuthenticated()) {
-      $location.path('/login');
-      $route.reload();
-    }
-  });
-});
+// app.run(function ($rootScope, $location, $route, $auth) {
+//   $rootScope.$on('$routeChangeStart', function (event, next, current) {
+//     if (next.access.restricted && !$auth.isAuthenticated()) {
+//       $location.path('/login');
+//       $route.reload();
+//     }
+//   });
+// });
 
 //examples:
     // .when('/writing/:id', {

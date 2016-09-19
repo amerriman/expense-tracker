@@ -247,6 +247,7 @@ describe('API Routes', function() {
       chai.request(server)
       .post('/userAPI/user')
       .send({
+        username: 'testUser3',
         password: 'test3',
         email: 'test3@test.com',
         users: 'Mr User3, Ms User3'

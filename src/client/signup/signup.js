@@ -2,9 +2,7 @@ app.directive('signup', function () {
   return {
     restrict: 'E',
     templateUrl: '/signup/signup.html',
-    controller: ["$scope", "$http", "$auth", "$location", "$timeout", function ($scope, $http, $auth, $location, $timeout) {
-
-      console.log("Oh hey, here I am");
+    controller: ["$rootScope", "$scope", "$http", "$auth", "$location", "$timeout", "$window", function ($rootScope, $scope, $http, $auth, $location, $timeout, $window) {
 
       $scope.signup = {};
       $scope.error = false;
@@ -18,20 +16,33 @@ app.directive('signup', function () {
         var user = {
           email: $scope.signup.email,
           password: $scope.signup.password,
+          username: $scope.signup.username
         };
-        console.log(user, "USER IN THE SIGN UP")
 
         $auth.signup(user)
           .then(function(response){
-            $scope.signupForm = {};
+            $scope.signup = {};
             $location.path('/login');
           })
           .catch(function(response) {
-            console.log(response, "RESPONSE.DATA in signp");
               $scope.error = true;
               $scope.message= "Whoops! The Email you entered is already taken!";
               $timeout(messageTimeout, 3000);
           });
+      };
+
+      $scope.authenticate = function(provider) {
+        $auth.authenticate(provider)
+          .then(function(response) {
+            $window.localStorage.currentUser = JSON.stringify(response.data.user);
+            $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            $location.path('/');
+          })
+        .catch(function(response) {
+          $scope.error = true;
+          $scope.message= "You must be registered with a Gmail account to sign in with Google";
+          $timeout(messageTimeout, 3000);
+        });
       };
 
     }],
