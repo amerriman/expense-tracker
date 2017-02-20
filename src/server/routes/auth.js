@@ -32,7 +32,6 @@ function ensureAuthenticated(req, res, next) {
   // check if the user still exists in the db - modify for psql to set the user?
   knex('users').where('id', payload.sub)
   .then(function(user){
-    console.log(user, "user in ensureAuthenticated");
     if(!user){
         return res.status(400).send({
             message: 'User no longer exists. '
@@ -67,23 +66,21 @@ function comparePassword(password, hashedpassword) {
 // Create Email and Password Account
 
 router.post('/signup', function(req, res, next) {
-    var email = req.body.email;
     var password = req.body.password;
     var username = req.body.username;
     // check if email is unique
-    knex('users').where('email',email)
+    knex('users').where('username',username)
         .then(function(data){
             // if username is in the database send an error
             if(data.length) {
                 return res.status(409).send({
-                     message: 'Email is already taken'
+                     message: 'username is already taken'
                 });
             } else {
                 // hash and salt the password
                 var hashedPassword = hashing(password);
                 // if user is not in the database, insert
                 knex('users').insert({
-                        email: email,
                         password: hashedPassword,
                         username: username
                     }, 'id')
@@ -117,20 +114,18 @@ router.post('/signup', function(req, res, next) {
 // Login with email and password
 
 router.post('/login', function(req, res, next) {
-    var email = req.body.email;
+    var username = req.body.username;
     var password = req.body.password;
-    knex('users').where('email', email)
+    knex('users').where('username', username)
         .then(function(data) {
-            // email does not exist. return error.
+            // username does not exist. return error.
             if (!data.length) {
-                return res.send('Incorrect email.');
+                return res.send('Incorrect username.');
             }
             var user = data[0];
-            // console.log(user, "USER before comparing passwords")
-            // email found but do the passwords match?
+            // username found but do the passwords match?
             if (comparePassword(password, user.password)) {
                 // passwords match! return user
-                // console.log(user, "USER");
                 var token = createToken(user);
                 var userData = {
                     userId: user.id,
@@ -151,7 +146,7 @@ router.post('/login', function(req, res, next) {
         })
         .catch(function(err) {
             // issue with SQL/knex query
-            return res.send('Incorrect email and/or password.');
+            return res.send('Incorrect username and/or password.');
         });
 });
 
@@ -192,10 +187,8 @@ router.post('/google', function(req, res) {
                 }
                 knex('users').where('email', payload.email).update({googleid: profile.sub })
                 .then(function(user){
-                    // console.log(user, "user successfully updated");
                 })
                 .catch(function(error){
-                    // console.log(error, "error when updating user");
                 });
 
             });
@@ -235,7 +228,8 @@ router.post('/google', function(req, res) {
                         image: user.image
                     };
                     res.send({
-                        token:userData
+                        token:token,
+                        user: userData
                     });
                 });
             })

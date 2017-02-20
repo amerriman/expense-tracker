@@ -14,7 +14,7 @@ app.directive('signup', function () {
 
       $scope.register = function() {
         var user = {
-          email: $scope.signup.email,
+          // email: $scope.signup.email,
           password: $scope.signup.password,
           username: $scope.signup.username
         };
@@ -26,17 +26,29 @@ app.directive('signup', function () {
           })
           .catch(function(response) {
               $scope.error = true;
-              $scope.message= "Whoops! The Email you entered is already taken!";
+              $scope.message= "Whoops! The user name you entered is already taken!";
               $timeout(messageTimeout, 3000);
           });
       };
 
+//need better error messaging here for the user/me
       $scope.authenticate = function(provider) {
         $auth.authenticate(provider)
           .then(function(response) {
-            $window.localStorage.currentUser = JSON.stringify(response.data.user);
-            $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            $location.path('/');
+            if(response.status == 409){
+              $scope.error = true;
+              $scope.message= response.data.message;
+              $timeout(messageTimeout, 3000);
+            } else if(response.status == 200){
+              $window.localStorage.currentUser = JSON.stringify(response.data.user);
+              $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+              $location.path('/');
+            } else {
+                $scope.error = true;
+                $scope.message= "Hm, something didn't work.  Please try again."
+                $timeout(messageTimeout, 3000);
+            }
+
           })
         .catch(function(response) {
           $scope.error = true;

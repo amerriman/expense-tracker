@@ -1,7 +1,8 @@
+
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('spending', function(table){
+  return knex.schema.createTable('expenses', function(table){
     table.increments('id');
-    table.integer('user_id').notNullable();
+    table.string('user_name').notNullable().references('username').inTable('users');
     table.string('user_indiv').nullable();
     table.date('date').notNullable();
     table.decimal('amount', 6, 2).notNullable();
@@ -11,5 +12,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('spending');
+  return knex.schema.dropTable('expenses');
 };
