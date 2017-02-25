@@ -5,25 +5,26 @@ function Transactions() {
 }
 
 // *** queries *** //
-
-function getAll() {
-  return Transactions().select();
+//get all the transactions for a specific username
+function getAll(trans_username) {
+  // return Transactions().select();
+  return Transactions().where('trans_username', trans_username);
 }
 
 function getSingle(id){
 return Transactions().where('id', parseInt(id)).first();
 }
 
-function addTransaction(expense) {
-  return Transactions().insert(expense, 'id');
+function addTransaction(transaction) {
+  return Transactions().insert(transaction, 'id');
 }
 
-function updateTransactions(expenseID, updates) {
-  return Transactions().where('id', parseInt(expenseID)).update(updates);
+function updateTransactions(transactionID, updates) {
+  return Transactions().where('id', parseInt(transactionID)).update(updates);
 }
 
-function deleteTransaction(expenseID) {
-  return Transactions().where('id', parseInt(expenseID)).del();
+function deleteTransaction(transactionID) {
+  return Transactions().where('id', parseInt(transactionID)).del();
 }
 
 

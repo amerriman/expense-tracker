@@ -4,9 +4,9 @@ var router = express.Router();
 var Transactions = require('../../../db/transactionQueries');
 
 
-// *** GET all transactions *** //
-router.get('/transactions', function(req, res, next) {
-  Transactions.getAll()
+// *** GET all transactions for a spacific username *** //
+router.get('/:trans_username', function(req, res, next) {
+  Transactions.getAll(req.params.trans_username)
   .then(function(transaction) {
     res.status(200).json(transaction);
   })
@@ -15,8 +15,9 @@ router.get('/transactions', function(req, res, next) {
   });
 });
 
-// *** GET single transaction *** //
+// *** GET single transaction - *** //
 router.get('/transactions/:id', function(req, res, next) {
+  // console.log(req.params, "req params!")
   Transactions.getSingle(req.params.id)
   .then(function(transaction) {
     res.status(200).json(transaction);

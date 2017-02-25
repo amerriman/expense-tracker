@@ -28,9 +28,10 @@ router.get('/user/:id', function(req, res, next) {
 
 
 router.post('/user', function(req, res, next) {
-  Users.addUser(req.body, 'id')
-  .then(function(userId) {
-    return Users.getSingle(userId);
+  Users.addUser(req.body, 'username')
+  .then(function(username) {
+    // console.log(username, "username")
+    return Users.getSingle(username[0]);
   })
   .then(function(user){
     res.status(200).json(user);

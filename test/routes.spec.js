@@ -37,12 +37,12 @@ describe('API Routes', function() {
   //********************************//
 
   //get all the transactions
-  describe('GET /expenseAPI/transactions', function() {
+  describe('GET /expenseAPI/transactions/:trans_username', function() {
     it('should return all the transactions', function(done) {
       chai.request(server)
-      .get('/transactionAPI/transactions')
+      .get('/transactionAPI/testUser')
       .end(function(err, res) {
-        // console.log(res, "GET ALL RES")
+        // console.log(res.body, "GET ALL RES BODY")
       res.should.have.status(200);
       res.should.be.json; // jshint ignore:line
       res.body.should.be.a('array');
@@ -69,6 +69,7 @@ describe('API Routes', function() {
       chai.request(server)
       .get('/transactionAPI/transactions/2')
       .end(function(err, res) {
+        // console.log(res.body, "res.body")
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
@@ -169,12 +170,12 @@ describe('API Routes', function() {
         // res.body.should.have.property('description');
         // res.body.description.should.equal('New work shoes');
         chai.request(server)
-        .get('/transactionAPI/transactions')
+        .get('/transactionAPI/testUser')
         .end(function(err, res) {
           res.should.have.status(200);
           res.should.be.json; // jshint ignore:line
           res.body.should.be.a('array');
-          res.body.length.should.equal(8);
+          res.body.length.should.equal(4);
           res.body[1].should.have.property('user_indiv');
           // res.body[1].user_indiv.should.equal('Mr User');
           // res.body[1].should.have.property('date');
@@ -223,7 +224,7 @@ describe('API Routes', function() {
   describe('GET /userAPI/user/:id', function() {
     it('should return a single user', function(done) {
       chai.request(server)
-      .get('/userAPI/user/1')
+      .get('/userAPI/user/testUser')
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
@@ -245,7 +246,6 @@ describe('API Routes', function() {
       chai.request(server)
       .post('/userAPI/user')
       .send({
-        id: 3,
         username: 'testUser3',
         password: 'test3',
         email: 'test3@test.com',
@@ -254,7 +254,7 @@ describe('API Routes', function() {
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
-        // console.log(res.body)
+        // console.log(res.body, "res")
         res.body.should.be.a('object');
         res.body.should.have.property('password');
         res.body.password.should.equal('test3');
@@ -271,7 +271,7 @@ describe('API Routes', function() {
   describe('PUT /userAPI/user/:id', function() {
     it('should update a user', function(done) {
       chai.request(server)
-      .put('/userAPI/user/1')
+      .put('/userAPI/user/testUser')
       .send({
         email: 'testtest@test.com',
       })
@@ -293,7 +293,7 @@ describe('API Routes', function() {
   describe('DELETE /userAPI/user/:id', function() {
     it('should delete an user', function(done) {
       chai.request(server)
-      .delete('/userAPI/user/1')
+      .delete('/userAPI/user/testUser')
       .end(function(error, res) {
         // console.log(res, "res")
         res.should.have.status(200);

@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('transactions', function(table){
-    table.increments('id').primary();
+    table.increments('id');
     table.string('trans_username').notNullable().references('username').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.string('user_indiv').nullable();
     table.date('date').notNullable();

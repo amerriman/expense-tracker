@@ -12,19 +12,19 @@ function getAll() {
 
 //the first makes the return an object, otherwise it's an array with a single object
 function getSingle(id){
-return Users().where('id', parseInt(id)).first();
+return Users().where('username', id).first();
 }
 
 function addUser(user) {
-  return Users().insert(user, 'id');
+  return Users().insert(user, 'username');
 }
 
-function updateUser(userID, updates) {
-  return Users().where('id', parseInt(userID)).update(updates);
+function updateUser(id, updates) {
+  return Users().where('username', id).update(updates);
 }
 
-function deleteUser(userID) {
-  return Users().where('id', parseInt(userID)).del();
+function deleteUser(id) {
+  return Users().where('username', id).del();
 }
 
 
