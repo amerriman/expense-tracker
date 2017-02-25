@@ -16,7 +16,7 @@ router.get('/:trans_username', function(req, res, next) {
 });
 
 // *** GET single transaction - *** //
-router.get('/transactions/:id', function(req, res, next) {
+router.get('/transaction/:id', function(req, res, next) {
   // console.log(req.params, "req params!")
   Transactions.getSingle(req.params.id)
   .then(function(transaction) {
@@ -28,7 +28,7 @@ router.get('/transactions/:id', function(req, res, next) {
 });
 
 // *** add transaction *** //
-router.post('/transactions', function(req, res, next) {
+router.post('/transaction', function(req, res, next) {
   Transactions.addTransaction(req.body, 'id')
   .then(function(transactionID) {
     return Transactions.getSingle(transactionID);
@@ -42,8 +42,8 @@ router.post('/transactions', function(req, res, next) {
 });
 
 // *** update transaction *** //
-router.put('/transactions/:id', function(req, res, next) {
-  Transactions.updateTransactions(req.params.id, req.body)
+router.put('/transaction/:id', function(req, res, next) {
+  Transactions.updateTransaction(req.params.id, req.body)
   .then(function() {
     return Transactions.getSingle(req.params.id);
   })
@@ -56,7 +56,7 @@ router.put('/transactions/:id', function(req, res, next) {
 });
 
 // *** delete transaction *** //
-router.delete('/transactions/:id', function(req, res, next) {
+router.delete('/transaction/:id', function(req, res, next) {
   Transactions.getSingle(req.params.id)
   .then(function(transaction) {
     Transactions.deleteTransaction(req.params.id)

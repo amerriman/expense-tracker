@@ -4,6 +4,8 @@ exports.seed = function(knex, Promise) {
   return knex('users').del()
     .then(function(){
       return knex('transactions').del();
+    }).then(function(){
+      return knex('categories').del();
     }).then(function () {
       return knex('users').insert({
         // id: 1,
@@ -110,5 +112,34 @@ exports.seed = function(knex, Promise) {
         description: 'Quarterly bonus',
         type: 'income'
       });
+    }).then(function (){
+      return knex('categories').insert({
+        cat_username: 'testUser',
+        category_name: 'groceries',
+        type: 'expense',
+        repeat: false,
+      });
+    }).then(function (){
+      return knex('categories').insert({
+        cat_username: 'testUser',
+        category_name: 'Ms User paycheck',
+        type: 'income',
+        repeat: true,
+        repeat_amount: 2000
+      });
+    }).then(function (){
+      return knex('categories').insert({
+        cat_username: 'testUser2',
+        category_name: 'cats',
+        type: 'expense',
+      });
+    }).then(function (){
+      return knex('categories').insert({
+        cat_username: 'testUser2',
+        category_name: 'Mortgage',
+        type: 'expense',
+        repeat: true,
+        repeat_amount: 1376.42
     });
+  });
 };

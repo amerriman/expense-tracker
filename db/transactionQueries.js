@@ -19,7 +19,7 @@ function addTransaction(transaction) {
   return Transactions().insert(transaction, 'id');
 }
 
-function updateTransactions(transactionID, updates) {
+function updateTransaction(transactionID, updates) {
   return Transactions().where('id', parseInt(transactionID)).update(updates);
 }
 
@@ -32,6 +32,6 @@ module.exports = {
   getAll: getAll,
   getSingle: getSingle,
   addTransaction: addTransaction,
-  updateTransactions: updateTransactions,
+  updateTransaction: updateTransaction,
   deleteTransaction: deleteTransaction
 };
