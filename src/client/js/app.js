@@ -1,6 +1,11 @@
-var app = angular.module('myApp', ['ngRoute', 'satellizer']);
+angular.module('myApp', [
+  'ngRoute',
+  'satellizer',
+  'com.expensetracker.directives.login',
+  'com.expensetracker.directives.signup'
+  ])
 
-app.config(['$routeProvider', '$authProvider', function($routeProvider, $authProvider) {
+.config(['$routeProvider', '$authProvider', function($routeProvider, $authProvider) {
 
   // *** satellizer settings ***
   $authProvider.google({

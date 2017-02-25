@@ -1,4 +1,5 @@
-app.directive('signup', function () {
+angular.module('com.expensetracker.directives.signup', [])
+.directive('signup', function () {
   return {
     restrict: 'E',
     templateUrl: '/signup/signup.html',

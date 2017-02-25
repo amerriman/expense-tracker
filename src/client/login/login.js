@@ -1,4 +1,5 @@
-app.directive('login', function () {
+angular.module('com.expensetracker.directives.login', [])
+.directive('login', function () {
   return {
     restrict: 'E',
     templateUrl: '/login/login.html',
