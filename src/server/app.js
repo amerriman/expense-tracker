@@ -12,7 +12,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../../_config.js');
 
 // *** routes *** //
-var expenseRoutes = require('./routes/expense.js');
+var transactionRoutes = require('./routes/transaction.js');
 var userRoutes = require('./routes/user.js');
 var authRoutes = require('./routes/auth.js');
 
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 
 // *** main routes *** //
-app.use('/expenseAPI', expenseRoutes);
+app.use('/transactionAPI', transactionRoutes);
 app.use('/userAPI', userRoutes);
 app.use('/auth', authRoutes);
 

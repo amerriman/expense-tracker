@@ -3,8 +3,8 @@ process.env.NODE_ENV = 'test';
 var chai = require('chai');
 var should = chai.should();
 var chaiHttp = require('chai-http');
-var server = require('../src/server/app');
 var knex = require('../db/knex');
+var server = require('../src/server/app');
 
 chai.use(chaiHttp);
 
@@ -14,14 +14,12 @@ describe('API Routes', function() {
   beforeEach(function(done) {
     knex.migrate.rollback()
     .then(function() {
-      knex.migrate.latest()
-      .then(function() {
-        return knex.seed.run()
-        .then(function() {
-          done();
-        });
+     return knex.migrate.latest();
+      }).then(function(){
+        return knex.seed.run();
+      }).then(function() {
+        done();
       });
-    });
   });
 
   //when we're done, roll it back again
@@ -38,11 +36,11 @@ describe('API Routes', function() {
   //                                //
   //********************************//
 
-  //get all the spending
-  describe('GET /expenseAPI/spending', function() {
-    it('should return all the spending', function(done) {
+  //get all the transactions
+  describe('GET /expenseAPI/transactions', function() {
+    it('should return all the transactions', function(done) {
       chai.request(server)
-      .get('/expenseAPI/spending')
+      .get('/transactionAPI/transactions')
       .end(function(err, res) {
         // console.log(res, "GET ALL RES")
       res.should.have.status(200);
@@ -52,7 +50,7 @@ describe('API Routes', function() {
       res.body[0].should.have.property('user_indiv');
       res.body[0].user_indiv.should.equal('Mr User');
       res.body[0].should.have.property('date');
-      res.body[0].date.should.equal('2016-09-01T06:00:00.000Z');
+      // res.body[0].date.should.equal('2016-09-01T06:00:00.000Z');
       res.body[0].should.have.property('amount');
       res.body[0].amount.should.equal('35.63');
       res.body[0].should.have.property('category');
@@ -65,11 +63,11 @@ describe('API Routes', function() {
     });
   });
 
-  //get one transaction of spending
-  describe('GET /expenseAPI/spending/:id', function() {
-    it('should return a single spending transaction', function(done) {
+  //get one transaction of transactions
+  describe('GET /expenseAPI/transactions/:id', function() {
+    it('should return a single transactions transaction', function(done) {
       chai.request(server)
-      .get('/expenseAPI/spending/2')
+      .get('/transactionAPI/transactions/2')
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
@@ -90,23 +88,23 @@ describe('API Routes', function() {
     });
   });
 
-  //post one transaction of spending
-  describe('POST /expenseAPI/spending', function() {
+  //post one transaction of transactions
+  describe('POST /transactionAPI/transactions', function() {
     it('should add a transaction', function(done) {
       chai.request(server)
-      .post('/expenseAPI/spending')
+      .post('/transactionAPI/transactions')
       .send({
-        user_id: 1,
+        trans_username: 'testUser',
         user_indiv: 'Mr User',
         date: '2016-09-05',
         amount: 20.05,
         category: 'groceries',
-        description: 'Broncos game'
+        description: 'Broncos game',
+        type: 'expense'
       })
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
-        // console.log(res.body, "res body spending")
         res.body.should.be.a('object');
         res.body.should.have.property('user_indiv');
         res.body.user_indiv.should.equal('Mr User');
@@ -123,10 +121,10 @@ describe('API Routes', function() {
   });
 
   //put a trasaction
-  describe('PUT /expenseAPI/spending/:id', function() {
-    it('should update an expense', function(done) {
+  describe('PUT /transactionAPI/transactions/:id', function() {
+    it('should update a transaction', function(done) {
       chai.request(server)
-      .put('/expenseAPI/spending/1')
+      .put('/transactionAPI/transactions/1')
       .send({
         category: 'cats',
         description: 'catnip'
@@ -152,10 +150,10 @@ describe('API Routes', function() {
 
 
   //delete an expense - Why is this inconsistent?  Seeding isn't always in the right order???
-  describe('DELETE /expenseAPI/spending/:id', function() {
-    it('should delete an expense', function(done) {
+  describe('DELETE /transactionAPI/transactions/:id', function() {
+    it('should delete a transaction', function(done) {
       chai.request(server)
-      .delete('/expenseAPI/spending/2')
+      .delete('/transactionAPI/transactions/2')
       .end(function(error, res) {
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
@@ -171,12 +169,12 @@ describe('API Routes', function() {
         // res.body.should.have.property('description');
         // res.body.description.should.equal('New work shoes');
         chai.request(server)
-        .get('/expenseAPI/spending')
+        .get('/transactionAPI/transactions')
         .end(function(err, res) {
           res.should.have.status(200);
           res.should.be.json; // jshint ignore:line
           res.body.should.be.a('array');
-          res.body.length.should.equal(3);
+          res.body.length.should.equal(8);
           res.body[1].should.have.property('user_indiv');
           // res.body[1].user_indiv.should.equal('Mr User');
           // res.body[1].should.have.property('date');
@@ -243,10 +241,11 @@ describe('API Routes', function() {
 
   //add one user
   describe('POST /userAPI/user', function() {
-    it('should add a transaction', function(done) {
+    it('should add a user', function(done) {
       chai.request(server)
       .post('/userAPI/user')
       .send({
+        id: 3,
         username: 'testUser3',
         password: 'test3',
         email: 'test3@test.com',
@@ -296,6 +295,7 @@ describe('API Routes', function() {
       chai.request(server)
       .delete('/userAPI/user/1')
       .end(function(error, res) {
+        // console.log(res, "res")
         res.should.have.status(200);
         res.should.be.json; // jshint ignore:line
         res.body.should.be.a('object');
