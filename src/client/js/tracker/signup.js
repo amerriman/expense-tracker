@@ -2,7 +2,7 @@ angular.module('com.expensetracker.directives.signup', [])
 .directive('signup', function () {
   return {
     restrict: 'E',
-    templateUrl: '/signup/signup.html',
+    templateUrl: '../../templates/signup.html',
     controller: ["$rootScope", "$scope", "$http", "$auth", "$location", "$timeout", "$window", function ($rootScope, $scope, $http, $auth, $location, $timeout, $window) {
 
       $scope.signup = {};
@@ -46,7 +46,7 @@ angular.module('com.expensetracker.directives.signup', [])
               $location.path('/');
             } else {
                 $scope.error = true;
-                $scope.message= "Hm, something didn't work.  Please try again."
+                $scope.message= "Hm, something didn't work.  Please try again.";
                 $timeout(messageTimeout, 3000);
             }
 

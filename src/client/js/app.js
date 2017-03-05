@@ -5,7 +5,7 @@ angular.module('myApp', [
   'com.expensetracker.directives.signup'
   ])
 
-.config(['$routeProvider', '$authProvider', function($routeProvider, $authProvider) {
+.config(['$routeProvider', '$authProvider', '$locationProvider', function($routeProvider, $authProvider, $locationProvider) {
 
   // *** satellizer settings ***
   $authProvider.google({
@@ -17,7 +17,7 @@ angular.module('myApp', [
 
   $routeProvider
     .when('/', {
-      templateUrl: 'partials/login.html',
+      templateUrl: 'partials/home.html',
       access: {restricted: false}
     })
     .when('/login', {
@@ -28,7 +28,14 @@ angular.module('myApp', [
       templateUrl: 'partials/signup.html',
       access: {restricted: false}
     })
+    .when('/account', {
+      templateUrl: 'partials/account.html',
+      access: {restricted: false}
+    })
     .otherwise('/');
+
+
+    $locationProvider.html5Mode(true);
 
 }]);
 

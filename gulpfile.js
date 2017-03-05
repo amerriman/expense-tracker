@@ -13,6 +13,7 @@ var minifyCSS = require('gulp-minify-css');
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
+var less = require('gulp-less');
 
 
 /**
@@ -20,10 +21,14 @@ var runSequence = require('run-sequence');
  */
 
 var paths = {
-  styles: [
-    './src/client/css/*.css',
+  CssStyles: [
+    './src/client/styles/css/*.css',
+  ],
+  lessStyles: [
+    './src/client/styles/less/*.less',
   ],
   scripts: [
+    './src/client/js/**/*.js',
     './src/client/js/*.js',
   ],
   server: [
@@ -36,13 +41,13 @@ var paths = {
 
 var nodemonConfig = {
   script: paths.server,
-  ext: 'html js css',
+  ext: 'html js css less',
   ignore: ['node_modules']
 };
 
 var nodemonDistConfig = {
   script: paths.distServer,
-  ext: 'html js css',
+  ext: 'html js css less',
   ignore: ['node_modules']
 };
 
@@ -81,20 +86,40 @@ gulp.task('nodemon', function (cb) {
   });
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['lint']);
-});
 
 gulp.task('clean', function() {
   gulp.src('./dist/*')
     .pipe(clean({force: true}));
 });
 
+gulp.task('clean-css', function() {
+  gulp.src('./src/client/styles/css/*.css')
+    .pipe(clean({force: true}));
+});
+
+/* Task to compile less */
+// gulp.task('compile-less', function() {
+//   gulp.src(paths.styles)
+//     .pipe(less())
+//     .pipe(gulp.dest('./dist/client/less/'));
+// });
+// // /* Task to watch less changes */
+// gulp.task('watch-less', function() {
+//   gulp.watch(paths.less , ['compile-less']);
+// });
+
+
+gulp.task('compile-less', function () {
+  gulp.src(paths.lessStyles)
+      .pipe(less())
+      .pipe(gulp.dest('./src/client/styles/css'));
+});
+
 gulp.task('minify-css', function() {
   var opts = {comments:true, spare:true};
-  gulp.src(paths.styles)
+  gulp.src(paths.CssStyles)
     .pipe(minifyCSS(opts))
-    .pipe(gulp.dest('./dist/client/css/'));
+    .pipe(gulp.dest('./dist/client/styles/'));
 });
 
 gulp.task('minify-js', function() {
@@ -125,14 +150,27 @@ gulp.task('connectDist', function (cb) {
   });
 });
 
+gulp.task('watch', function() {
+  gulp.watch(paths.scripts, ['lint']);
+  gulp.watch(paths.lessStyles, ['compile-less']);
+});
 
 // *** default task *** //
-gulp.task('default', ['browser-sync', 'watch'], function(){});
+// gulp.task('default', ['compile-less', 'browser-sync', 'watch'], function(){});
+gulp.task('default', function() {
+  runSequence(
+    ['clean-css'],
+    ['compile-less'],
+    ['browser-sync', 'watch']
+  );
+});
+
 
 // *** build task *** //
 gulp.task('build', function() {
   runSequence(
     ['clean'],
+    ['compile-less'],
     ['lint', 'minify-css', 'minify-js', 'copy-server-files', 'connectDist']
   );
 });

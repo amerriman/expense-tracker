@@ -2,7 +2,7 @@ angular.module('com.expensetracker.directives.login', [])
 .directive('login', function () {
   return {
     restrict: 'E',
-    templateUrl: '/login/login.html',
+    templateUrl: '../../templates/login.html',
     controller: ["$rootScope", "$scope", "$auth", "$window", "$timeout", "$location", function ($rootScope, $scope, $auth, $window, $timeout, $location) {
 
         $scope.login = {};
@@ -25,7 +25,7 @@ angular.module('com.expensetracker.directives.login', [])
               $window.localStorage.currentUser = JSON.stringify(response.data.user);
               $rootScope.currentUser = JSON.parse(localStorage.getItem('currentUser'));
               $location.path('/');
-              $scope.message = "HOORAY!!!!"
+              $scope.message = "HOORAY!!!!";
             })
             .catch(function(response) {
               $scope.error = true;
