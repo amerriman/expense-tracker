@@ -6,6 +6,7 @@
     'com.expensetracker.directives.login',
     'com.expensetracker.directives.signup',
     'com.expensetracker.directives.categories',
+    'com.expensetracker.directives.track',
 
     'com.expensetracker.services.api'
     ])
@@ -43,9 +44,6 @@
               if(resp.length === 0){
                 //take the user to categories page to set up categories
                 $location.path('/categories');
-              } else {
-                //take user to tracking page
-                //$location.path('/track')
               }
             });
           });

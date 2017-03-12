@@ -5,7 +5,7 @@
     return {
       restrict: 'E',
       templateUrl: '../../templates/signup.html',
-      controller: ["$rootScope", "$scope", "$http", "$auth", "$location", "$timeout", "$window", "$log", function ($rootScope, $scope, $http, $auth, $location, $timeout, $window, $log) {
+      controller: ["$rootScope", "$scope", "$http", "$auth", "$location", "$timeout", "$window", "$log", "expenseApi", function ($rootScope, $scope, $http, $auth, $location, $timeout, $window, $log, expenseApi) {
 
         $scope.signup = {};
         $scope.error = false;
@@ -13,6 +13,20 @@
 
         function messageTimeout(){
           $scope.success = false;
+        }
+
+        function postLogin(user){
+          //see if user has categories
+        expenseApi.categories.getAll(user).then(function(resp){
+            if(resp.length === 0){
+              $location.path('/categories');
+            } else {
+              $location.path('/track');
+            }
+          }).catch(function(err){
+            $log.error('login.categories ', err);
+            $location.path('/');
+          });
         }
 
         $scope.register = function() {
@@ -32,7 +46,7 @@
                   $scope.$emit('authenticated', response.data.user);
                   $window.localStorage.uid = JSON.stringify(response.data.user.userId);
                   $log.debug('login success');
-                  $location.path('/');
+                  postLogin(reponse.data.user.usernam);
                 })
                 .catch(function(response) {
                   $scope.error = true;
@@ -59,7 +73,7 @@
                 $window.localStorage.uid = JSON.stringify(response.data.user.userId);
                 $scope.$emit('authenticated', response.data.user);
                 $log.debug('google register success');
-                $location.path('/');
+                postLogin(response.data.user.username);
               } else {
                   $scope.error = true;
                   $scope.message= "Hm, something didn't work.  Please try again.";

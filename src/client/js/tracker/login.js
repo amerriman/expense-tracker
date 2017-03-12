@@ -5,7 +5,7 @@
     return {
       restrict: 'E',
       templateUrl: '../../templates/login.html',
-      controller: ["$rootScope", "$scope", "$auth", "$window", "$timeout", "$location", "$log", function ($rootScope, $scope, $auth, $window, $timeout, $location, $log) {
+      controller: ["$rootScope", "$scope", "$auth", "$window", "$timeout", "$location", "$log", "expenseApi", function ($rootScope, $scope, $auth, $window, $timeout, $location, $log, expenseApi) {
 
           $scope.login = {};
           $scope.error = false;
@@ -13,6 +13,21 @@
 
           function messageTimeout(){
             $scope.success = false;
+          }
+          //after successful login - determine whether to direct user to adding expenses, or adding categories
+          function postLogin(user){
+            //see if user has categories
+            expenseApi.categories.getAll(user).then(function(resp){
+              if(resp.length === 0){
+                $location.path('/categories');
+              } else {
+                $location.path('/');
+              }
+            }).catch(function(err){
+              $log.error('login.categories ', err);
+              $location.path('/track');
+            });
+            // $location.path('/');
           }
 
           $scope.login = function() {
@@ -25,10 +40,9 @@
               .then(function(response) {
                 $scope.login = {};
                 $scope.$emit('authenticated', response.data.user);
-                console.log(response.data.user, "response data user")
                 $window.localStorage.uid = JSON.stringify(response.data.user.userId);
                 $log.debug('login success');
-                $location.path('/');
+                postLogin(response.data.user.username);
               })
               .catch(function(response) {
                 $scope.error = true;
@@ -44,7 +58,7 @@
                 $scope.$emit('authenticated', response.data.user);
                 $window.localStorage.uid = JSON.stringify(response.data.user.userId);
                 $log.debug('google login success');
-                $location.path('/');
+                postLogin(response.data.user.username);
               })
             .catch(function(response) {
               $scope.error = true;

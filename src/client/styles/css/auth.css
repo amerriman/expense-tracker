@@ -1,0 +1,11 @@
+.form-auth {
+  max-width: 340px;
+  margin: 0 auto;
+}
+.btn-google {
+  margin-left: 16px;
+  width: 47%;
+}
+.auth-btn {
+  width: 47%;
+}
