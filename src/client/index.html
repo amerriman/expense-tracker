@@ -13,7 +13,7 @@
 
 
   </head>
-  <body>
+  <body ng-controller="mainCtrl">
    <!-- navigation -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -24,7 +24,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Brand</a>
+          <a class="navbar-brand" href="/">Expense Tracker</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,17 +40,17 @@
             <button type="submit" class="btn btn-default">Submit</button>
           </form> -->
           <ul class="nav navbar-nav navbar-right">
-            <li class="no-link-item">User Name</li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="#">Logout</a></li>
-            <li><a href="/register">Register</a></li>
-            <li><a href="/account">My Account</a></li>
+            <li class="no-link-item" ng-if="isAuthenticated()" ng-bind="currentUser.username"></li>
+            <li><a href="/register" ng-if="!isAuthenticated()">Register</a></li>
+            <li><a href="/login" ng-if="!isAuthenticated()">Login</a></li>
+            <li><a href="/" ng-if="isAuthenticated()" ng-click="logout()">Logout</a></li>
+            <li><a href="/account" ng-if="isAuthenticated()">My Account</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
-    <h2>This is going to be an expense tracker!!!!!</h2>
+    <h2>Ooohhh lala expense trackrrrrr</h2>
     <br>
     <br>
     <div ng-view></div>
@@ -74,6 +74,10 @@
     <!-- Directives -->
     <script type="text/javascript" src="/js/tracker/signup.js"></script>
     <script type="text/javascript" src="/js/tracker/login.js"></script>
+    <script type="text/javascript" src="/js/tracker/categories.js"></script>
+
+    <!-- Services -->
+    <script type="text/javascript" src="/js/tracker/api.js"></script>
 
 
 

@@ -102,11 +102,13 @@ router.post('/signup', function(req, res, next) {
                         });
                     })
                     .catch(function(err) {
-                        return res.json('crap');
+                        // console.log('signup failed', err);
+                        return res.json('Signup failed');
                     });
             }
         })
         .catch(function(err){
+        // console.log('signup failed', err);
             return next(err);
         });
 });

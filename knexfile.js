@@ -15,9 +15,9 @@ module.exports = {
     migrations: {
       directory: __dirname + '/db/migrations'
     },
-    seeds: {
-      directory: __dirname + '/db/seeds/development'
-    }
+    // seeds: {
+    //   directory: __dirname + '/db/seeds/development'
+    // }
   },
   production: {
     client: 'pg',
@@ -25,8 +25,8 @@ module.exports = {
     migrations: {
       directory: __dirname + '/db/migrations'
     },
-    seeds: {
-      directory: __dirname + '/db/seeds/production'
-    }
+    // seeds: {
+    //   directory: __dirname + '/db/seeds/production'
+    // }
   }
 };

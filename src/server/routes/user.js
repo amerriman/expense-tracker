@@ -27,6 +27,23 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 
+router.get('/userById/:id', function(req, res, next) {
+  Users.getSingleById(req.params.id)
+  .then(function(user) {
+    var userObj = {
+      // id: user.id,
+      image: user.image,
+      username: user.username,
+      users: user.users
+    };
+    res.status(200).json(userObj);
+  })
+  .catch(function(error){
+    next(error);
+  });
+});
+
+
 router.post('/user', function(req, res, next) {
   Users.addUser(req.body, 'username')
   .then(function(username) {
