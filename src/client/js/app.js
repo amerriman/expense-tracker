@@ -7,6 +7,7 @@
     'com.expensetracker.directives.signup',
     'com.expensetracker.directives.categories',
     'com.expensetracker.directives.track',
+    'com.expensetracker.directives.home',
 
     'com.expensetracker.services.api'
     ])

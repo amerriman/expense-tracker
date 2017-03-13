@@ -53,13 +53,6 @@
     <!-- Views -->
     <div ng-view></div>
 
-    <!-- Tracking main for logged in users-->
-    <track ng-if="isAuthenticated()"></track>
-
-    <!-- info main for non-logged in users -->
-    <section ng-if="!isAuthenticated()">
-      Not Logged In
-    </section>
 
 
     <!-- Link up all the necessary CDNs -->
@@ -85,6 +78,7 @@
     <script type="text/javascript" src="/js/tracker/login.js"></script>
     <script type="text/javascript" src="/js/tracker/categories.js"></script>
     <script type="text/javascript" src="/js/tracker/track.js"></script>
+    <script type="text/javascript" src="/js/tracker/home.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="/js/tracker/api.js"></script>

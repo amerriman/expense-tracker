@@ -1,10 +1,10 @@
 (function() {
   'use strict';
-  angular.module('com.expensetracker.directives.track', [])
-  .directive('track', ["$window", "$timeout", "$location", "$log", "expenseApi", function ($window, $timeout, $location, $log, expenseApi) {
+  angular.module('com.expensetracker.directives.home', [])
+  .directive('home', ["$window", "$timeout", "$location", "$log", "expenseApi", function ($window, $timeout, $location, $log, expenseApi) {
     return {
       restrict: 'E',
-      templateUrl: '../../templates/track.html',
+      templateUrl: '../../templates/home.html',
       link: function(vm, elem, attrs, modelCtrl){
 
           vm.error = false;
@@ -17,7 +17,7 @@
 
 
           function init(){
-            $log.debug("init track");
+            $log.debug("init home");
             // expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
             //   vm.categories = resp;
             // }).catch(function(err){
