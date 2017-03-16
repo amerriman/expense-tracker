@@ -28,7 +28,6 @@
         },
 
         add: function(params){
-          console.log("HERererererer", params)
           return $http.post('categoryAPI/category', params).then(function(response){
             return response.data;
           }).catch(function(err){
@@ -36,7 +35,29 @@
           });
         }
 
+      },
+
+      transactions: {
+
+        getAll: function(params){
+          // params is the username
+          return $http.get('transactionAPI/' + params).then(function(response){
+            return response.data;
+          }).catch(function(err){
+            $log.error("transactions: getAll", err);
+          });
+        },
+
+        add: function(params){
+          return $http.post('transactionAPI/transaction', params).then(function(response){
+            return response.data;
+          }).catch(function(err){
+            $log.error("categories: add", err);
+          });
+        }
+
       }
+
 
 
     };

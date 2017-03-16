@@ -8,12 +8,17 @@
     'com.expensetracker.directives.categories',
     'com.expensetracker.directives.track',
     'com.expensetracker.directives.home',
+    'com.expensetracker.directives.datepicker',
 
     'com.expensetracker.services.api'
     ])
 
   .controller('mainCtrl',['$scope', '$auth', '$window', '$location', '$log', 'expenseApi', function($scope, $auth, $window, $location, $log,expenseApi){
     var vm = $scope;
+
+    vm.categories = [];
+    vm.transactions = [];
+    vm.users = [];
 
     vm.$on('authenticated', function(e, args){
       if($auth.isAuthenticated() && args != null){
@@ -40,12 +45,25 @@
           //get the user
           expenseApi.user.get(uid).then(function(resp){
             vm.currentUser = resp;
+            if(resp.users != null){
+              vm.users = resp.users;
+            }
             $log.debug('current user set');
-            expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
-              if(resp.length === 0){
-                //take the user to categories page to set up categories
-                $location.path('/categories');
+            //get all the transactions before getting all the categories - maybe limit this to...? 100 initially?
+            expenseApi.transactions.getAll(vm.currentUser.username).then(function(resp){
+              if(resp.length > 0){
+                vm.transactions = resp;
+                $log.debug('transactions set');
               }
+              expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
+                if(resp.length === 0){
+                  //take the user to categories page to set up categories
+                  $location.path('/categories');
+                } else {
+                  vm.categories = resp;
+                  $log.debug('categories set');
+                }
+              });
             });
           });
         //if uid is null, redirect home

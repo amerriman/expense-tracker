@@ -37,4 +37,8 @@ a {
 }
 .view-window {
   padding: 50px;
+  padding-top: 100px;
+}
+.navbar {
+  margin-bottom: 0;
 }

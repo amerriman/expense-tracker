@@ -1,4 +1,5 @@
-        <!-- info main for non-logged in users -->
+<!-- <section class="view-window"> -->
+            <!-- info main for non-logged in users -->
         <!-- put another directive in here for the main stuff -->
     <section ng-if="!isAuthenticated()">
       Not Logged In
@@ -6,10 +7,12 @@
 
     <!-- Tracking main for logged in users-->
     <!-- in here we can render all the tracked stuff -->
-    <div ng-if="isAuthenticated()">
-    I should only be here if I am authenticated
-          <track ></track>
-    </div>
+    <section ng-if="isAuthenticated()">
+        <track ></track>
+    </<section>
+
+<!-- </section> -->
+
 
 
 

@@ -6,6 +6,7 @@
     <title>Angular Boilerplate</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css" />
     <!-- <link rel="stylesheet/less" href="/styles/main.less"> -->
     <!-- <link rel="stylesheet/less" href="../../../dist/client/styles/main.css"> -->
 
@@ -15,7 +16,7 @@
   </head>
   <body ng-controller="mainCtrl">
    <!-- navigation -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -59,12 +60,14 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
+    <script src="//cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
 
     <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/7886d571bc.js"></script>
+    <script src="//use.fontawesome.com/7886d571bc.js"></script>
 
     <!-- Angular JS Files -->
     <script type="text/javascript" src="/js/app.js"></script>
@@ -79,6 +82,7 @@
     <script type="text/javascript" src="/js/tracker/categories.js"></script>
     <script type="text/javascript" src="/js/tracker/track.js"></script>
     <script type="text/javascript" src="/js/tracker/home.js"></script>
+    <script type="text/javascript" src="/js/tracker/datepicker.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="/js/tracker/api.js"></script>

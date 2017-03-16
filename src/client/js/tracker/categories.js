@@ -11,7 +11,6 @@
             type: 'expense',
             repeat: false
           };
-          vm.categories = [];
 
           vm.error = false;
           vm.message = "";
@@ -25,12 +24,9 @@
           };
 
           vm.addCategory = function(){
-            console.log(vm.category, "category?");
             //add it to the database!
-
             expenseApi.categories.add(vm.category).then(function(resp){
-              console.log(resp, "response in the directive");
-              vm.categories.push(resp)
+              vm.categories.push(resp);
               vm.category = {
                 cat_username: vm.currentUser.username,
                 type: 'expense',
@@ -55,12 +51,6 @@
 
           function init(){
             $log.debug("init categories");
-            expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
-              vm.categories = resp;
-            }).catch(function(err){
-              $log.error('init.categories ', err);
-            });
-
 
 
           }
