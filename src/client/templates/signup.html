@@ -2,6 +2,9 @@
   <div class="form-auth">
     <h3>REGISTER</h3>
     <form method="post" ng-submit="register()" name="signupForm">
+        <div class="message-section" ng-show="error">
+          <p class="alert alert-danger" role="alert" id="message">{{message}}</p>
+        </div>
        <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" placeholder="Username" ng-model="signup.username" required>

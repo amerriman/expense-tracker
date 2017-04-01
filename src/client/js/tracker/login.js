@@ -17,7 +17,7 @@ app.directive('login', function () {
           //see if user has categories
           expenseApi.categories.getAll(user).then(function(resp){
             if(resp.length === 0){
-              $location.path('/categories');
+              $location.path('/account');
             } else {
               $location.path('/');
             }

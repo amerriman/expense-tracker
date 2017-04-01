@@ -1,4 +1,5 @@
 // *** main dependencies *** //
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 // *** config file *** //
 var config = require('../../config.js');

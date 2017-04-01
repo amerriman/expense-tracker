@@ -34,7 +34,7 @@ function ensureAuthenticated(req, res, next) {
   .then(function(user){
     if(!user){
         return res.status(400).send({
-            message: 'User no longer exists. '
+            message: 'User no longer exists.'
       });
     }
     req.user = user;
@@ -102,13 +102,11 @@ router.post('/signup', function(req, res, next) {
                         });
                     })
                     .catch(function(err) {
-                        // console.log('signup failed', err);
                         return res.json('Signup failed');
                     });
             }
         })
         .catch(function(err){
-        // console.log('signup failed', err);
             return next(err);
         });
 });
