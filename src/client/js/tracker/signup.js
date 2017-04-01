@@ -44,7 +44,7 @@ app.directive('signup', function () {
                 $scope.$emit('authenticated', response.data.user);
                 $window.localStorage.uid = JSON.stringify(response.data.user.userId);
                 $log.debug('login success');
-                postLogin(reponse.data.user.usernam);
+                postLogin(response.data.user.username);
               })
               .catch(function(response) {
                 $scope.error = true;

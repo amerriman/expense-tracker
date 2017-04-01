@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // *** config file *** //
 var config = require('../../config.js');
