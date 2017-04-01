@@ -9,7 +9,7 @@ var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
 // *** config file *** //
-var config = require('../../_config.js');
+var config = require('../../config.js');
 
 // *** routes *** //
 var categoryRoutes = require('./routes/category.js');
