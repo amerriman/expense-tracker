@@ -11,7 +11,7 @@ app.directive('account', ["$window", "$timeout", "$location", "$log", "expenseAp
         vm.categoryEditing = false;
 
         function messageTimeout(){
-          vm.success = false;
+          vm.error = false;
         }
 
         //Things we want to be able to adjust on this page -

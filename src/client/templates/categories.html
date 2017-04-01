@@ -9,20 +9,20 @@
   </div>
   <div class="col-xs-12 col-sm-6">
     <div class="form-group">
-      <input type="number" step="0.01" min="0" class="form-control repeat-amt" ng-model="category.repeat_amount" placeholder="Recurring Amount">
+      <input type="number" step="0.01" min="0" class="form-control repeat-amt" ng-model="category.repeat_amount" placeholder="Recurring Amount (optional)">
     </div>
   </div>
 
   <div class="col-xs-12 col-sm-6">
     <div class="form-group btn-group">
-      <button type="button" ng-click="toggleCatType('expense')" ng-class="{active: category.type == 'expense'}" class="btn btn-default">Expense</button>
-      <button type="button" ng-click="toggleCatType('income')" ng-class="{active: category.type == 'income'}" class="btn btn-default">Income</button>
+      <button type="button" ng-click="toggleCatType('expense')" ng-class="{active: category.type == 'expense'}" class="btn btn-info">Expense</button>
+      <button type="button" ng-click="toggleCatType('income')" ng-class="{active: category.type == 'income'}" class="btn btn-info">Income</button>
     </div>
   </div>
   <div class="col-xs-12 col-sm-6">
     <div class="form-group">
-      <button ng-if="!editing" type="submit" class="add-cat-btn btn btn-info" ng-click="addCategory(); categoryEditing = ! categoryEditing">Add Category</button>
-      <button ng-if="editing" type="submit" class="add-cat-btn btn btn-info" ng-click="updateCategory(category); categoryEditing = ! categoryEditing">Update Category</button>
+      <button ng-if="!editing" type="submit" class="add-cat-btn btn btn-success" ng-click="addCategory(); categoryEditing = ! categoryEditing">Add Category</button>
+      <button ng-if="editing" type="submit" class="add-cat-btn btn btn-success" ng-click="updateCategory(category); categoryEditing = ! categoryEditing">Update Category</button>
       <button type="button" class="btn btn-warning" ng-click="cancelEdit()">Cancel</button>
     </div>
   </div>

@@ -9,7 +9,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="cat in categories | orderBy: 'category_name'">
+        <tr ng-repeat="cat in categories | orderBy: 'category_name'"
+            ng-class="{danger: cat.type == 'expense', success: cat.type == 'income'}">
           <td>
             <span>{{cat.category_name}}</span>
           </td>
