@@ -106,10 +106,6 @@
         templateUrl: 'partials/account.html',
         access: {restricted: true}
       })
-      // .when('/categories', {
-      //   templateUrl: 'partials/categories.html',
-      //   access: {restricted: true}
-      // })
       .otherwise('/');
 
 

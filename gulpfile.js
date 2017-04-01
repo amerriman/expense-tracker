@@ -167,10 +167,10 @@ gulp.task('default', function() {
 
 
 // *** build task *** //
-// gulp.task('build', function() {
-//   runSequence(
-//     ['clean'],
-//     ['compile-less'],
-//     ['lint', 'minify-css', 'minify-js', 'copy-server-files', 'connectDist']
-//   );
-// });
+gulp.task('build', function() {
+  runSequence(
+    ['clean'],
+    ['compile-less'],
+    ['lint', 'minify-css', 'minify-js', 'copy-server-files', 'connectDist']
+  );
+});
