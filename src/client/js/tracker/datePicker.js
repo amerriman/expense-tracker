@@ -9,7 +9,7 @@ app.directive('datepicker', ["$log", "$timeout", function($log, $timeout) {
           $timeout(function(){
             var id = '#' + element[0].id;
 
-          $(function(){
+
             $(id).datepicker({
               format: "mm/dd/yyyy",
               todayBtn: "linked",
@@ -20,7 +20,7 @@ app.directive('datepicker', ["$log", "$timeout", function($log, $timeout) {
               vm.$apply();
             });
           });
-        });
+
 
         }
     };
