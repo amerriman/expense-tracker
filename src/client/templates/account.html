@@ -1,1 +1,61 @@
-Oh hey, I'm going to be an account page!
+<section class="view-window">
+  <h3>Account Details</h3>
+  <div class="row">
+    <div class="col col-xs-12 col-sm-4">
+      <!-- start User section -->
+      <section class="user-section">
+        <div class="add-heading">
+          <h3>Users</h3>
+          <button class="btn btn-sm btn-success" ng-show="!userAdd" ng-click="userAdd = ! userAdd"><i class="fa fa-plus-circle" aria-hidden="true"></i> New</button>
+        </div>
+        <!-- show current users/ability to update them -->
+        <div  ng-show="userAdd">
+          <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="User Name" ng-model="newUser">
+            </div>
+            <button type="submit" ng-click="addUser(newUser)" class="btn btn-sm btn-info">Add User</button>
+            <button type="button" ng-click="userAdd = ! userAdd" class="btn btn-sm btn-warning">Cancel</button>
+          </form>
+        </div>
+        <!-- current users table -->
+        <div >
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Current Users</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in users">
+                <td ng-bind="user"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- end User Section -->
+    </div>
+    <!-- category/col start -->
+    <div class="col col-xs-12 col-sm-7 col-sm-offset-1">
+      <!-- <div> -->
+        <!-- <h3>Categories</h3> -->
+        <section class="category-group">
+          <section class="category-form" id="section-category-form">
+            <div class="add-heading">
+              <h3>Categories</h3>
+              <button type="button" class="btn btn-sm btn-success" ng-show="!categoryEditing" ng-click="categoryEditing = ! categoryEditing"><i class="fa fa-plus-circle" aria-hidden="true"></i> New</button>
+            </div>
+            <categories ng-show="categoryEditing"></categories>
+          </section>
+          <!-- <section class="category-table category-table-regular" ng-if="!editing"> -->
+            <category-list></category-list>
+          <!-- </section> -->
+        </section>
+      <!-- </div> -->
+    </div>
+    <!-- category/col end -->
+
+    <!-- row end -->
+  </div>
+</section>

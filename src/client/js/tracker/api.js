@@ -13,6 +13,14 @@
           }).catch(function(err){
             $log.error("user: get", err);
           });
+        },
+
+        update: function(params, id){
+          return $http.put('/userAPI/user/' + id, params).then(function(response){
+            return response.data;
+          }).catch(function(err){
+            $log.error("user: get", err);
+          });
         }
 
       },
@@ -32,6 +40,14 @@
             return response.data;
           }).catch(function(err){
             $log.error("categories: add", err);
+          });
+        },
+
+        update: function(params){
+          return $http.put('categoryAPI/category/' + params.id, params).then(function(response){
+            return response.data;
+          }).catch(function(err){
+            $log.error("category: update", err);
           });
         }
 

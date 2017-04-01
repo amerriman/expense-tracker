@@ -9,13 +9,14 @@
 
           vm.error = false;
           vm.message = "";
+          vm.showAddCategoryForm = false;
 
           vm.transaction = {
             trans_username: vm.currentUser.username
           };
 
           function messageTimeout(){
-            $scope.success = false;
+            vm.error = false;
           }
 
           vm.setCategory = function(cat){
@@ -29,10 +30,40 @@
             }
           };
 
+          vm.setUser = function(user){
+            if(!user){
+              delete vm.transaction.user_indiv;
+            }
+            if(user){
+              vm.transaction.user_indiv = user;
+            }
+          };
+
+          vm.setToday = function(){
+            vm.transaction.date = moment().format("L");
+          };
+
+          vm.setYesterday = function(){
+            vm.transaction.date = moment().subtract(1, 'days').format("L");
+          };
+
+          vm.toggleAddCategory = function(){
+            vm.showAddCategoryForm === false ? vm.showAddCategoryForm = true : vm.showAddCategoryForm = false;
+          };
+
+          vm.$on('HideCategoryForm', function(){
+            vm.toggleAddCategory();
+          });
+
           vm.addTransaction =function(){
-            //add it to the database!
-            console.log(vm.transaction, "this is the transaction");
+            if(vm.transaction.category){
+              vm.transaction.type = vm.transaction.category.type;
+              vm.transaction.category = vm.transaction.category.category_name;
+            }
             if(!vm.transaction.type || !vm.transaction.category || !vm.transaction.date || !vm.transaction.trans_username || !vm.transaction.amount){
+              vm.error = true;
+              vm.message = "Missing required information";
+              $timeout(messageTimeout, 3000);
               $log.debug('addTransaction: missing required information');
               return;
             }
@@ -41,24 +72,22 @@
             if (isNaN(amount)) {
               vm.message = "You must enter a valid transaction amount";
               $timeout(messageTimeout, 3000);
+              return;
             }
             vm.transaction.amount = parseFloat(vm.transaction.amount.toFixed(2));
-
             expenseApi.transactions.add(vm.transaction).then(function(resp){
-              console.log(resp, "response in the directive");
               //add new transaction to transaction array
-              resp.push(vm.transactions);
-              vm.transaction = {
-                trans_username: vm.currentUser.username,
-                type: 'expense',
-                category: null,
-                repeat: false
-              };
+              vm.transactions.push(resp);
+                vm.transaction = {
+                  trans_username: vm.currentUser.username,
+                  category: null
+                };
+
               //clear the datepicker
               $('#chosen-date').val( '');
             }).catch(function(err){
               vm.error = true;
-              vm.message("Oooops - something went wrong");
+              vm.message = "Oooops - something went wrong";
               $timeout(messageTimeout, 3000);
               $log.debug('addTransaction', err);
             });
@@ -68,7 +97,6 @@
 
           function init(){
             $log.debug("init track");
-
           }
 
           init();

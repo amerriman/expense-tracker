@@ -1,65 +1,108 @@
 <section class="view-window">
-  <!-- Add new transactions
-
-  individual user
-  amount
-  category
-  type (get this from the category)
-  description
-  then just show the dropdown and a place for the cost and a submit -->
-  <section>
-    <form class="form-horizontal" name="categoryForm">
+  <section ng-if="!showAddCategoryForm" class="transaction-form">
+    <h4>Track Your Spending</h4>
+    <form name="transactionForm">
       <div class="message-section" ng-show="error">
         <p class="alert alert-danger" role="alert" id="message">{{message}}</p>
       </div>
 
       <div class="row">
         <!-- date -->
-        <div class="form-group col-xs-12 col-sm-3">
-                <label>Date *</label>
-          <div class="input-group date" id="date-picker" datepicker ng-model="transaction.date">
-            <input data-format="mm-dd-yyyy type="text" class="form-control" placeholder="Select a date" id="chosen-date" required>
-            <div class="input-group-addon">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
+        <div class="col-xs-12 col-md-2">
+          <div class="form-group">
+            <button class="btn btn-warning btn-date" name="submit" type="button" ng-click="setToday()">Today</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="form-group">
+            <button class="btn btn-warning btn-date" name="submit" type="button" ng-click="setYesterday()">Yesterday</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="form-group">
+            <!-- <label>Date</label> -->
+            <div class="input-group date btn-date" id="date-picker" datepicker ng-model="transaction.date">
+              <input data-format="mm-dd-yyyy" type="text" class="form-control" placeholder="Select a date" id="chosen-date">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- amount -->
-        <div class="form-group col-xs-12 col-sm-3">
-          <label>Amount *</label>
-          <input type="number" step="0.01" min="0" class="form-control" placeholder="$" ng-model="transaction.amount">
-        </div>
+
+
       </div>
 
       <div class="row">
-        <!-- cateogry dropdown -->
-        <div class="form-group col-xs-12 col-sm-3">
-          <label>Category *</label>
-          <select class="form-control" ng-model="selectedCategory" ng-options="category as category.category_name for category in categories | orderBy: 'category_name'" ng-change="setCategory(selectedCategory)" required>
-            <option label="" value=""></option>
-            option
-          </select>
+              <!-- amount -->
+        <div class="col-xs-12 col-md-2">
+          <div class="form-group">
+            <label>Amount *</label>
+            <input type="number" step="0.01" min="0" class="form-control" placeholder="$" ng-model="transaction.amount">
+          </div>
         </div>
+        <!-- cateogry dropdown -->
+        <div class=" col-xs-12 col-md-2">
+          <div class="form-group">
+            <label>Category * <span ng-click="toggleAddCategory()" style="color: green; font-size: 12px; cursor: pointer;">New<span></label>
+            <select class="form-control category-select" ng-model="transaction.category" ng-options="category as category.category_name for category in categories | orderBy: 'category_name'">
+              <option label="" value=""></option>
+            </select>
+          </div>
+        </div>
+<!--         <div class="col-xs-3 col-md-1">
+          <div class="form-group">
+            <button class="quick-add-category-btn btn btn-info btn-sm" ng-click="toggleAddCategory()">Add New</button>
+          </div>
+        </div> -->
+
 
         <!-- individual user (if exists) -->
+        <div class="col-xs-12 col-md-2" ng-if="users.length > 0">
+          <div class="form-group ">
+            <label>User</label>
+            <select class="form-control" ng-model="transaction.user_indiv" ng-options="user as user for user in users">
+              <option label="" value=""></option>
+              option
+            </select>
+          </div>
+        </div>
+
       </div>
 
       <div class="row">
         <!-- desctiption -->
-        <div class="form-group col-xs-12 col-sm-6">
-          <label>Description</label>
-          <textarea name="description" class="form-control" ng-model="transaction.description"></textarea>
+        <div class=" col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" class="form-control" ng-model="transaction.description"></textarea>
+          </div>
         </div>
       </div>
 
-      <div class="row col-xs-12 col-sm-6">
-        <div class="form-group">
-          <button class="btn btn-primary " name="submit" type="submit" ng-click="addTransaction()">Add Transaction</button>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <button class="btn btn-primary " name="submit" type="submit" ng-click="addTransaction()">Add Transaction</button>
+          </div>
         </div>
       </div>
     </form>
 
+  </section>
+
+  <!-- <section class="quick-add-category" ng-if="showAddCategoryForm"> -->
+  <section class="quick-add-category" ng-if="showAddCategoryForm">
+    <!-- <div class="row" > -->
+      <div class="col-xs-12 col-sm-6">
+        <div class="form group">
+          <categories></categories>
+        </div>
+      </div>
+    <!-- </div> -->
   </section>
 
 </section>

@@ -1,0 +1,7 @@
+.user-section .add-heading h3 {
+  display: inline-block;
+  margin-right: 8px;
+}
+.user-section .add-heading button {
+  margin-bottom: 6px;
+}

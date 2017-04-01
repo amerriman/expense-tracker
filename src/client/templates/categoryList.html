@@ -1,0 +1,26 @@
+<section class="category-table category-table-regular" ng-if="!editing">
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Recurring Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="cat in categories | orderBy: 'category_name'">
+          <td>
+            <span>{{cat.category_name}}</span>
+          </td>
+          <td>
+            <span>{{cat.repeat_amount}}</span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-xs btn-primary" ng-click="editCategory(cat)" ng-show="!categoryAdd">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

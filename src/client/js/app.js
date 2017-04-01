@@ -6,9 +6,11 @@
     'com.expensetracker.directives.login',
     'com.expensetracker.directives.signup',
     'com.expensetracker.directives.categories',
+    'com.expensetracker.directives.categoryList',
     'com.expensetracker.directives.track',
     'com.expensetracker.directives.home',
     'com.expensetracker.directives.datepicker',
+    'com.expensetracker.directives.account',
 
     'com.expensetracker.services.api'
     ])
@@ -46,7 +48,7 @@
           expenseApi.user.get(uid).then(function(resp){
             vm.currentUser = resp;
             if(resp.users != null){
-              vm.users = resp.users;
+              vm.users = resp.users.split(',');
             }
             $log.debug('current user set');
             //get all the transactions before getting all the categories - maybe limit this to...? 100 initially?
@@ -58,7 +60,7 @@
               expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
                 if(resp.length === 0){
                   //take the user to categories page to set up categories
-                  $location.path('/categories');
+                  $location.path('/account');
                 } else {
                   vm.categories = resp;
                   $log.debug('categories set');
@@ -104,10 +106,10 @@
         templateUrl: 'partials/account.html',
         access: {restricted: true}
       })
-      .when('/categories', {
-        templateUrl: 'partials/categories.html',
-        access: {restricted: true}
-      })
+      // .when('/categories', {
+      //   templateUrl: 'partials/categories.html',
+      //   access: {restricted: true}
+      // })
       .otherwise('/');
 
 

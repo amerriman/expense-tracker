@@ -65,7 +65,8 @@ router.put('/user/:id', function(req,res,next) {
     return Users.getSingle(req.params.id);
   })
   .then(function(user){
-    res.status(200).json(user);
+    console.log(user, "This is the user");
+    res.status(200).json({users: user.users});
   })
   .catch(function(error){
     next(error);

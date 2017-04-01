@@ -7,8 +7,9 @@ var Transactions = require('../../../db/transactionQueries');
 // *** GET all transactions for a spacific username *** //
 router.get('/:trans_username', function(req, res, next) {
   Transactions.getAll(req.params.trans_username)
-  .then(function(transaction) {
-    res.status(200).json(transaction);
+  .then(function(transactions) {
+    //should clean out the
+    res.status(200).json(transactions);
   })
   .catch(function(error) {
     next(error);
