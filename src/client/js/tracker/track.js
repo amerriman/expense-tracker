@@ -37,6 +37,22 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
           }
         };
 
+        vm.checkAmount = function(user){
+          if(vm.transaction && vm.transaction.category && vm.transaction.category.repeat){
+            if(vm.transaction.category.repeat_amount && vm.transaction.category.repeat_amount != null)
+            amount = parseFloat(vm.transaction.category.repeat_amount);
+            if (isNaN(amount)) {
+              vm.message = "You must enter a valid transaction amount";
+              $timeout(messageTimeout, 3000);
+              return;
+            } else {
+              vm.transaction.amount = amount;
+            }
+          } else {
+            vm.transaction.amount = null;
+          }
+        };
+
         vm.setToday = function(){
           vm.transaction.date = moment().format("L");
         };
@@ -52,6 +68,8 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
         vm.$on('HideCategoryForm', function(){
           vm.toggleAddCategory();
         });
+
+
 
         vm.addTransaction =function(){
           if(vm.transaction.category){
