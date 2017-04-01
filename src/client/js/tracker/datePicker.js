@@ -6,7 +6,7 @@ app.directive('datepicker', ["$log", "$timeout", function($log, $timeout) {
         link: function(vm, element, attrs, ngModelCtrl) {
           //element must have an id and an ng-model
           //grab the id of the elements and append the picker to that
-          $timeout(function(){
+
             // var id = '#' + element[0].id;
             var id = element[0].id;
 
@@ -20,7 +20,7 @@ app.directive('datepicker', ["$log", "$timeout", function($log, $timeout) {
               ngModelCtrl.$setViewValue(e.date);
               vm.$apply();
             });
-          });
+
 
 
         }
