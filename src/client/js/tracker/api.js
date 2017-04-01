@@ -1,8 +1,8 @@
 (function() {
-  'use strict';
-  angular.module('com.expensetracker.services.api', [])
+  // 'use strict';
+  // angular.module('com.expensetracker.services.api', [])
 
-  .factory('expenseApi', ['$http', '$q', '$log', function($http, $q, $log){
+  app.factory('expenseApi', ['$http', '$q', '$log', function($http, $q, $log){
     var expenseApi = {
 
       user: {

@@ -1,7 +1,7 @@
 (function() {
-  'use strict';
-  angular.module('com.expensetracker.directives.signup', [])
-  .directive('signup', function () {
+  // 'use strict';
+  // angular.module('com.expensetracker.directives.signup', [])
+  app.directive('signup', function () {
     return {
       restrict: 'E',
       templateUrl: '../../templates/signup.html',

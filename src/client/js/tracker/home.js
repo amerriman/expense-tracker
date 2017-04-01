@@ -1,7 +1,7 @@
 (function() {
-  'use strict';
-  angular.module('com.expensetracker.directives.home', [])
-  .directive('home', ["$window", "$timeout", "$location", "$log", "expenseApi", function ($window, $timeout, $location, $log, expenseApi) {
+  // 'use strict';
+  // angular.module('com.expensetracker.directives.home', [])
+  app.directive('home', ["$window", "$timeout", "$location", "$log", "expenseApi", function ($window, $timeout, $location, $log, expenseApi) {
     return {
       restrict: 'E',
       templateUrl: '../../templates/home.html',

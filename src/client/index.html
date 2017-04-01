@@ -46,7 +46,7 @@
             <li class="no-link-item" ng-if="isAuthenticated()" ng-bind="currentUser.username"></li>
             <li><a href="/register" ng-if="!isAuthenticated()">Register</a></li>
             <li><a href="/login" ng-if="!isAuthenticated()">Login</a></li>
-            <li><a href="/" ng-if="isAuthenticated()" ng-click="logout()">Logout: {{2 + 2}}</a></li>
+            <li><a href="/" ng-if="isAuthenticated()" ng-click="logout()">Logout</a></li>
             <li><a href="/account" ng-if="isAuthenticated()"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -73,8 +73,8 @@
 
     <!-- JS Files -->
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/_config2.js"></script>
-
+<!--     <script type="text/javascript" src="/js/_config2.js"></script>
+ -->
     <!-- Directives -->
     <script type="text/javascript" src="/js/tracker/signup.js"></script>
     <script type="text/javascript" src="/js/tracker/login.js"></script>
@@ -87,8 +87,6 @@
 
     <!-- Services -->
     <script type="text/javascript" src="/js/tracker/api.js"></script>
-
-
 
   </body>
 </html>

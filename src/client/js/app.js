@@ -1,18 +1,18 @@
-(function() {
-  'use strict';
-  angular.module('myApp', [
+// (function() {
+  // 'use strict';
+  var app = angular.module('myApp', [
     'ngRoute',
     'satellizer',
-    'com.expensetracker.directives.login',
-    'com.expensetracker.directives.signup',
-    'com.expensetracker.directives.categories',
-    'com.expensetracker.directives.categoryList',
-    'com.expensetracker.directives.track',
-    'com.expensetracker.directives.home',
-    'com.expensetracker.directives.datepicker',
-    'com.expensetracker.directives.account',
+    // 'com.expensetracker.directives.login',
+    // 'com.expensetracker.directives.signup',
+    // 'com.expensetracker.directives.categories',
+    // 'com.expensetracker.directives.categoryList',
+    // 'com.expensetracker.directives.track',
+    // 'com.expensetracker.directives.home',
+    // 'com.expensetracker.directives.datepicker',
+    // 'com.expensetracker.directives.account',
 
-    'com.expensetracker.services.api'
+    // 'com.expensetracker.services.api'
     ])
 
   .controller('mainCtrl',['$scope', '$auth', '$window', '$location', '$log', 'expenseApi', function($scope, $auth, $window, $location, $log,expenseApi){
@@ -82,11 +82,11 @@
   .config(['$routeProvider', '$authProvider', '$locationProvider', function($routeProvider, $authProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     // *** satellizer settings ***
-    $authProvider.google({
-      url: '/auth/google',
-      clientId: GOOGLE_CLIENTID,
-      redirectUri: window.location.origin
-    });
+    // $authProvider.google({
+    //   url: '/auth/google',
+    //   clientId: process.env.GOOGLE_CLIENTID,
+    //   redirectUri: window.location.origin
+    // });
 
 
     $routeProvider
@@ -119,6 +119,6 @@
       }
     });
   });
-})();
+// })();
 
 

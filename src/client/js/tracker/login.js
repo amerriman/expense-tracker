@@ -1,7 +1,7 @@
 (function() {
-  'use strict';
-  angular.module('com.expensetracker.directives.login', [])
-  .directive('login', function () {
+  // 'use strict';
+  // angular.module('com.expensetracker.directives.login', [])
+  app.directive('login', function () {
     return {
       restrict: 'E',
       templateUrl: '../../templates/login.html',

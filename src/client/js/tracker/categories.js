@@ -1,7 +1,7 @@
 (function() {
-  'use strict';
-  angular.module('com.expensetracker.directives.categories', [])
-  .directive('categories', ["$window", "$timeout", "$location", "$log", "expenseApi", function ($window, $timeout, $location, $log, expenseApi) {
+  // 'use strict';
+  // angular.module('com.expensetracker.directives.categories', [])
+  app.directive('categories', ["$window", "$timeout", "$location", "$log", "expenseApi", function ($window, $timeout, $location, $log, expenseApi) {
     return {
       restrict: 'E',
       templateUrl: '../../templates/categories.html',

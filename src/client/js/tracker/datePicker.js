@@ -1,7 +1,7 @@
 (function() {
   'use strict';
-  angular.module('com.expensetracker.directives.datepicker', [])
-  .directive('datepicker', ["$log", function($log) {
+  // angular.module('com.expensetracker.directives.datepicker', [])
+  app.directive('datepicker', ["$log", function($log) {
       return {
           restrict: 'A',
           require : 'ngModel',
