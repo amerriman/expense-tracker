@@ -42,8 +42,8 @@ app.use('/auth', authRoutes);
 
 //for Angular router
 app.use('*', function(req, res, next) {
-  res.sendFile('index.html', {root: path.join(__dirname, '../client')})
-})
+  res.sendFile('index.html', {root: path.join(__dirname, '../client')});
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
