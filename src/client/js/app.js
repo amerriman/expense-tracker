@@ -54,8 +54,8 @@ var app = angular.module('myApp', [
             if(resp.length > 0){
               vm.transactions = resp;
               vm.transactions.forEach(function(transaction){
-                $log.debug(transaction, "transaction")
-                $log.debug(transaction.date, "transaction.date")
+                // $log.debug(transaction, "transaction")
+                // $log.debug(transaction.date, "transaction.date")
                 transaction.date = moment(transaction.date).format('L');
               });
               $log.debug('transactions set');

@@ -74,8 +74,6 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
           vm.toggleAddCategory();
         });
 
-
-
         vm.addTransaction =function(){
           if(vm.transaction.category){
             vm.transaction.type = vm.transaction.category.type;
@@ -96,6 +94,10 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
             return;
           }
           vm.transaction.amount = parseFloat(vm.transaction.amount.toFixed(2));
+          //if the date is not an ISO string, format it correctly
+          if(vm.transaction.date instanceof Date == false){
+            vm.transaction.date = moment(vm.transaction.date, "MM-DD-YYYY").toISOString();
+          }
           expenseApi.transactions.add(vm.transaction).then(function(resp){
 
             vm.transactionSuccess = true;
