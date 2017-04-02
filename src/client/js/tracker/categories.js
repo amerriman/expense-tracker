@@ -11,6 +11,7 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
         };
 
         vm.error = false;
+        vm.categorySuccess = false;
         vm.message = "";
         vm.categoryEditing = false;
         vm.editing = false;
@@ -90,6 +91,7 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
             var updatedCategories = vm.categories.filter(function(cat){
               return cat.id != resp.id;
             });
+            vm.categorySuccess = true;
             updatedCategories.push(resp);
             vm.categories = updatedCategories;
             vm.category = {
@@ -99,6 +101,9 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
             };
             vm.editing = false;
             vm.categoryEditing = false;
+            $timeout(function(){
+              vm.categorySuccess = false;
+            }, 2500);
           }).catch(function(err){
             vm.error = true;
             vm.message("Oooops - something went wrong");
@@ -113,13 +118,17 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
           if(cleanCategory == null) return;
           //add it to the database!
           expenseApi.categories.add(cleanCategory).then(function(resp){
+            vm.categorySuccess = true;
             vm.categories.push(resp);
             vm.category = {
               cat_username: vm.currentUser.username,
               type: 'expense',
               repeat: false
             };
-            vm.$emit('HideCategoryForm');
+            $timeout(function(){
+              vm.categorySuccess = false;
+              vm.$emit('HideCategoryForm');
+            }, 2500);
           }).catch(function(err){
             vm.error = true;
             vm.message("Oooops - something went wrong");

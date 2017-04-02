@@ -7,6 +7,20 @@
   margin-top: 22px;
   width: 100%;
 }
+.transaction-form .btn-full {
+  width: 100%;
+}
+.transaction-form .add-success {
+  color: green;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.transaction-form .fa-check-circle {
+  color: green;
+}
 .quick-add-category h4 {
   margin-left: 16px;
 }

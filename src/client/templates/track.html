@@ -85,9 +85,15 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 col-sm-2">
           <div class="form-group">
-            <button class="btn btn-primary " name="submit" type="submit" ng-click="addTransaction()">Add Transaction</button>
+            <button class="btn btn-primary btn-full" name="submit" type="submit" ng-click="addTransaction()">Add Transaction</button>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="message-section" ng-show="transactionSuccess">
+            <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+            <p class="add-success"> Transaction successfully added!</p>
           </div>
         </div>
       </div>

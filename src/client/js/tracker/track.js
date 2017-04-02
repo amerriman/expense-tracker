@@ -6,6 +6,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
     link: function(vm, elem, attrs, modelCtrl){
 
         vm.error = false;
+        vm.transactionSuccess = false;
         vm.message = "";
         vm.showAddCategoryForm = false;
 
@@ -96,12 +97,17 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
           }
           vm.transaction.amount = parseFloat(vm.transaction.amount.toFixed(2));
           expenseApi.transactions.add(vm.transaction).then(function(resp){
+
+            vm.transactionSuccess = true;
             //add new transaction to transaction array
             vm.transactions.push(resp);
-              vm.transaction = {
-                trans_username: vm.currentUser.username,
-                category: null
-              };
+            vm.transaction = {
+              trans_username: vm.currentUser.username,
+              category: null
+            };
+            $timeout(function(){
+              vm.transactionSuccess = false;
+            }, 2500);
 
             //clear the datepicker
             $('#chosen-date').val( '');

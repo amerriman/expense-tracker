@@ -39,6 +39,20 @@ section.category-form .add-heading button {
   margin-top: 22px;
   width: 100%;
 }
+.transaction-form .btn-full {
+  width: 100%;
+}
+.transaction-form .add-success {
+  color: green;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.transaction-form .fa-check-circle {
+  color: green;
+}
 .quick-add-category h4 {
   margin-left: 16px;
 }
@@ -54,6 +68,21 @@ a {
 }
 .navbar {
   margin-bottom: 0;
+}
+.cat-success {
+  text-align: center;
+  padding: 12px;
+}
+.cat-success .add-success {
+  color: green;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.cat-success .fa-check-circle {
+  color: green;
 }
 @media only screen and (max-width: 600px) {
   .view-window {
