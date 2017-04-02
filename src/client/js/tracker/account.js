@@ -33,7 +33,6 @@ app.directive('account', ["$window", "$timeout", "$location", "$log", "expenseAp
           };
 
           expenseApi.user.update(params, vm.currentUser.username).then(function(response){
-            console.log(response, "This is the response in account???");
             vm.newUser = null;
             vm.currentUser.users = response.users.split('');
           }).catch(function(err){

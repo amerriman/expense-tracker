@@ -76,15 +76,10 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
         vm.updateCategory = function(category){
           var cleanCategory = validateCategory(category);
           if(cleanCategory == null) return;
-          // {
-          //   vm.error = true;
-          //   vm.message("Oooops - something went wrong");
-          //   $timeout(messageTimeout, 3000);
-          //   $log.debug('updateCategory - no call', err);
-          //   // vm.editing = false;
-          //   // vm.categoryEditing = false;
-          //   return;
-          // }
+          //check if category name has changed - if it has, 'name' array will be empty
+          var name = vm.categories.filter(function(cat){
+            return cat.category_name === cleanCategory.category_name;
+          });
 
           expenseApi.categories.update(cleanCategory).then(function(resp){
             // replace the old with this new version
@@ -104,6 +99,11 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
             $timeout(function(){
               vm.categorySuccess = false;
             }, 2500);
+
+            if(name.length == 0){
+              //need to update the name in all the transactions for this use with that name
+            }
+
           }).catch(function(err){
             vm.error = true;
             vm.message("Oooops - something went wrong");
