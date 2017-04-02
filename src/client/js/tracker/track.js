@@ -100,6 +100,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
 
             vm.transactionSuccess = true;
             //add new transaction to transaction array
+            resp.date = moment(resp.date).format('L');
             vm.transactions.push(resp);
             vm.transaction = {
               trans_username: vm.currentUser.username,

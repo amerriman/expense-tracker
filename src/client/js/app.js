@@ -53,6 +53,9 @@ var app = angular.module('myApp', [
           expenseApi.transactions.getAll(vm.currentUser.username).then(function(resp){
             if(resp.length > 0){
               vm.transactions = resp;
+              vm.transactions.forEach(function(transaction){
+                transaction.date = moment(transaction.date).format('L');
+              });
               $log.debug('transactions set');
             }
             expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
