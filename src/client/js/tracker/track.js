@@ -55,10 +55,14 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
 
         vm.setToday = function(){
           vm.transaction.date = moment().format("L");
+          //clear the datepicker
+            $('#chosen-date').val(vm.transaction.date);
         };
 
         vm.setYesterday = function(){
           vm.transaction.date = moment().subtract(1, 'days').format("L");
+          //clear the datepicker
+            $('#chosen-date').val(vm.transaction.date);
         };
 
         vm.toggleAddCategory = function(){
