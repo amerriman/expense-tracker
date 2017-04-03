@@ -22,7 +22,6 @@ app.directive('categoryList', ["$timeout", "$log", "expenseApi", function ($time
           vm.category = angular.copy(cat);
           if(vm.category.repeat_amount){
             vm.category.repeat_amount = parseFloat(vm.category.repeat_amount);
-
           }
         };
 

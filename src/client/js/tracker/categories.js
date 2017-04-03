@@ -56,11 +56,24 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
             $timeout(messageTimeout, 3000);
             return;
           }
+          //don't let them make a category that they already have
+          if(!vm.editing){
+            var dupes = vm.categories.filter(function(cat){
+              return cat.category_name == category.category_name;
+            });
+            if (dupes.length > 0){
+              vm.error = true;
+              vm.message = "Category name already exists";
+              $timeout(messageTimeout, 3000);
+              return;
+            }
+          }
 
           if(category.repeat_amount){
             category.repeat = true;
             category.repeat_amount = parseFloat(category.repeat_amount);
             if (isNaN(category.repeat_amount)) {
+              vm.error = true;
               vm.message = "You must enter a valid amount";
               $timeout(messageTimeout, 3000);
               return;
@@ -106,7 +119,7 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
 
           }).catch(function(err){
             vm.error = true;
-            vm.message("Oooops - something went wrong");
+            vm.message = "Oooops - something went wrong";
             $timeout(messageTimeout, 3000);
             $log.debug('updateCategory', err);
           });
@@ -131,7 +144,7 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
             }, 2500);
           }).catch(function(err){
             vm.error = true;
-            vm.message("Oooops - something went wrong");
+            vm.message = "Oooops - something went wrong" ;
             $timeout(messageTimeout, 2500);
             $log.debug('addCategory', err);
           });

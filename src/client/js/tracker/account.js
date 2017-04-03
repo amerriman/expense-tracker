@@ -26,6 +26,17 @@ app.directive('account', ["$window", "$timeout", "$location", "$log", "expenseAp
 
         vm.addUser = function(user){
           if(!user || !vm.currentUser.username) return;
+          var dupes = vm.users.filter(function(u){
+            return u == user;
+          });
+          if(dupes.length > 0){
+            vm.userError = true;
+            vm.message = "User alreay exists";
+            $timeout(function(){
+              vm.userError = false;
+            }, 3000);
+            return;
+          }
           vm.users.push(user);
           var userString = vm.users.join();
           var params ={
@@ -37,7 +48,7 @@ app.directive('account', ["$window", "$timeout", "$location", "$log", "expenseAp
             vm.currentUser.users = response.users.split('');
           }).catch(function(err){
             vm.error = true;
-            vm.message("Oooops - something went wrong");
+            vm.message = "Oooops - something went wrong";
             $timeout(messageTimeout, 3000);
             $log.debug('addUser', err);
           });
