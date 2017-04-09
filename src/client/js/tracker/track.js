@@ -117,7 +117,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
             var updatedTransactions = vm.transactions.filter(function(transaction){
               return transaction.id != resp.id;
             });
-            vm.transactionSuccess = true;
+            vm.transactionUpdateSuccess = true;
             resp.date = moment.utc(resp.date).format('L');
             updatedTransactions.push(resp);
             vm.transactions = updatedTransactions;
