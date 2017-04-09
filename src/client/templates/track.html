@@ -87,13 +87,25 @@
       <!-- <div class="row"> -->
         <div class="col-xs-12 col-sm-4">
           <div class="form-group">
-            <button class="btn btn-primary btn-full" name="submit" type="submit" ng-click="addTransaction()">Add Transaction</button>
+            <button class="btn btn-primary btn-full" name="submit" type="submit" ng-if="!editing" ng-click="addTransaction()">Add Transaction</button>
+            <button class="btn btn-primary btn-full" name="submit" type="submit" ng-if="editing" ng-click="updateTransaction()">Update</button>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="form-group">
+            <button style="width: 100%" type="button" class="btn btn-warning" ng-if="editing" ng-click="cancelEdit()">Cancel</button>
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
           <div class="message-section" ng-show="transactionSuccess">
             <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
             <p class="add-success"> Transaction successfully added!</p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+          <div class="message-section" ng-show="transactionUpdateSuccess">
+            <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+            <p class="add-success"> Transaction successfully updated!</p>
           </div>
         </div>
       <!-- </div> -->

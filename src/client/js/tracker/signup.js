@@ -13,20 +13,6 @@ app.directive('signup', function () {
         $scope.success = false;
       }
 
-      function postLogin(user){
-        //see if user has categories
-      expenseApi.categories.getAll(user).then(function(resp){
-          if(resp.length === 0){
-            $location.path('/categories');
-          } else {
-            $location.path('/track');
-          }
-        }).catch(function(err){
-          $log.error('login.categories ', err);
-          $location.path('/');
-        });
-      }
-
       $scope.register = function() {
         var user = {
           // email: $scope.signup.email,
@@ -44,7 +30,7 @@ app.directive('signup', function () {
                 $scope.$emit('authenticated', response.data.user);
                 $window.localStorage.uid = JSON.stringify(response.data.user.userId);
                 $log.debug('login success');
-                postLogin(response.data.user.username);
+                $location.path('/account');
               })
               .catch(function(response) {
                 $scope.error = true;
@@ -71,7 +57,7 @@ app.directive('signup', function () {
               $window.localStorage.uid = JSON.stringify(response.data.user.userId);
               $scope.$emit('authenticated', response.data.user);
               $log.debug('google register success');
-              postLogin(response.data.user.username);
+              $location.path('/account');
             } else {
                 $scope.error = true;
                 $scope.message= "Hm, something didn't work.  Please try again.";

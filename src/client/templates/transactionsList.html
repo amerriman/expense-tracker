@@ -15,7 +15,7 @@
         <tr ng-repeat="t in transactions | orderBy: 'date'"
             ng-class="{danger: t.type == 'expense', success: t.type == 'income'}">
           <td>
-            <span>{{t.date}}</span>
+            <span>{{t.date | shortDate}}</span>
           </td>
           <td>
             <span>{{t.category}}</span>
@@ -27,10 +27,10 @@
             <span>{{t.description}}</span>
           </td>
           <td>
-            <span>{{t.user_individ}}</span>
+            <span>{{t.user_indiv}}</span>
           </td>
           <td>
-            <!-- <button type="button" class="btn btn-xs btn-primary" ng-click="editTransaction(t)" ng-show="!categoryAdd">Edit</button> -->
+            <button type="button" class="btn btn-xs btn-primary" ng-click="editTransaction(t); editing = true;">Edit</button>
           </td>
         </tr>
       </tbody>

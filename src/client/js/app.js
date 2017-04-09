@@ -23,6 +23,7 @@ var app = angular.module('myApp', [
   vm.$on('authenticated', function(e, args){
     if($auth.isAuthenticated() && args != null){
       vm.currentUser = args;
+      getUserData(vm.currentUser.userId);
     }
   });
 
@@ -37,38 +38,42 @@ var app = angular.module('myApp', [
     return $auth.isAuthenticated();
   };
 
+  function getUserData(id){
+      //get the user
+    expenseApi.user.get(id).then(function(resp){
+      vm.currentUser = resp;
+      if(resp.users != null){
+        vm.users = resp.users.split(',');
+      }
+      $log.debug('current user set');
+      //get all the transactions before getting all the categories - maybe limit this to...? 100 initially?
+      expenseApi.transactions.getAll(vm.currentUser.username).then(function(resp){
+        if(resp.length > 0){
+          vm.transactions = resp;
+          vm.transactions.forEach(function(transaction){
+            transaction.date = moment.utc(transaction.date).format('L');
+          });
+          $log.debug('transactions set');
+        }
+      });
+      expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
+        if(resp.length === 0){
+          //take the user to categories page to set up categories
+          $location.path('/account');
+        } else {
+          vm.categories = resp;
+          $log.debug('categories set');
+        }
+      });
+    });
+  }
+
   function init(){
     $log.debug("init: app");
     if(vm.isAuthenticated()){
       var uid = $window.localStorage.uid;
       if(uid != null){
-        //get the user
-        expenseApi.user.get(uid).then(function(resp){
-          vm.currentUser = resp;
-          if(resp.users != null){
-            vm.users = resp.users.split(',');
-          }
-          $log.debug('current user set');
-          //get all the transactions before getting all the categories - maybe limit this to...? 100 initially?
-          expenseApi.transactions.getAll(vm.currentUser.username).then(function(resp){
-            if(resp.length > 0){
-              vm.transactions = resp;
-              vm.transactions.forEach(function(transaction){
-                transaction.date = moment.utc(transaction.date).format('L');
-              });
-              $log.debug('transactions set');
-            }
-            expenseApi.categories.getAll(vm.currentUser.username).then(function(resp){
-              if(resp.length === 0){
-                //take the user to categories page to set up categories
-                $location.path('/account');
-              } else {
-                vm.categories = resp;
-                $log.debug('categories set');
-              }
-            });
-          });
-        });
+        getUserData(uid);
       //if uid is null, redirect home
       } else {
         $location.path('/');

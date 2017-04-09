@@ -110,9 +110,9 @@ app.directive('categories', ["$window", "$timeout", "$location", "$log", "expens
             vm.editing = false;
             vm.categoryEditing = false;
             $timeout(function(){
-              vm.categorySuccess = false;
+              vm.categoryUpdateSuccess = false;
             }, 2500);
-
+            //for later, when/if updating transaction name is allowed
             if(name.length == 0){
               //need to update the name in all the transactions for this use with that name
             }

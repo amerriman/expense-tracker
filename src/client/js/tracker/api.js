@@ -16,7 +16,7 @@ app.factory('expenseApi', ['$http', '$q', '$log', function($http, $q, $log){
         return $http.put('/userAPI/user/' + id, params).then(function(response){
           return response.data;
         }).catch(function(err){
-          $log.error("user: get", err);
+          $log.error("user: update", err);
         });
       }
 
@@ -65,7 +65,15 @@ app.factory('expenseApi', ['$http', '$q', '$log', function($http, $q, $log){
         return $http.post('transactionAPI/transaction', params).then(function(response){
           return response.data;
         }).catch(function(err){
-          $log.error("categories: add", err);
+          $log.error("transactions: add", err);
+        });
+      },
+
+      update: function(params, id){
+        return $http.put('/transactionAPI/transaction/' + id, params).then(function(response){
+          return response.data;
+        }).catch(function(err){
+          $log.error("transactions: update", err);
         });
       }
 
