@@ -61,6 +61,14 @@ app.factory('expenseApi', ['$http', '$q', '$log', function($http, $q, $log){
         });
       },
 
+      getRange: function(params){
+        return $http.get('transactionAPI/' + params.id + '/' + params.start + '/' + params.end).then(function(response){
+          return response.data;
+        }).catch(function(err){
+          $log.error("transactions: getRange", err);
+        });
+      },
+
       add: function(params){
         return $http.post('transactionAPI/transaction', params).then(function(response){
           return response.data;

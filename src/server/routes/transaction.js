@@ -28,6 +28,17 @@ router.get('/transaction/:id', function(req, res, next) {
   });
 });
 
+// *** GET date range transactions - *** //
+router.get('/:id/:start/:end', function(req, res, next) {
+  Transactions.getDateRange(req.params.id, req.params.start, req.params.end)
+  .then(function(transactions) {
+    res.status(200).json(transactions);
+  })
+  .catch(function(error) {
+    next(error);
+  });
+});
+
 // *** add transaction *** //
 router.post('/transaction', function(req, res, next) {
   Transactions.addTransaction(req.body, 'id')

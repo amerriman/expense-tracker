@@ -46,8 +46,13 @@ var app = angular.module('myApp', [
         vm.users = resp.users.split(',');
       }
       $log.debug('current user set');
-      //get all the transactions before getting all the categories - maybe limit this to...? 100 initially?
-      expenseApi.transactions.getAll(vm.currentUser.username).then(function(resp){
+      var rangeParams = {
+        id: vm.currentUser.username,
+        start: moment().subtract('d', 7).format('L').replace(/[/]/g, '-'),
+        end: moment().format('L').replace(/[/]/g, '-')
+      };
+      //get all the transactions before getting all the categories - initially limit to last 7 days
+      expenseApi.transactions.getRange(rangeParams).then(function(resp){
         if(resp.length > 0){
           vm.transactions = resp;
           vm.transactions.forEach(function(transaction){

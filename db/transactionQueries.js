@@ -15,6 +15,10 @@ function getSingle(id){
 return Transactions().where('id', parseInt(id)).first();
 }
 
+function getDateRange(id, start, end){
+  return Transactions().whereBetween('date', [start, end]).where('trans_username', id);
+}
+
 function addTransaction(transaction) {
   return Transactions().insert(transaction, 'id');
 }
@@ -31,6 +35,7 @@ function deleteTransaction(transactionID) {
 module.exports = {
   getAll: getAll,
   getSingle: getSingle,
+  getDateRange: getDateRange,
   addTransaction: addTransaction,
   updateTransaction: updateTransaction,
   deleteTransaction: deleteTransaction
