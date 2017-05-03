@@ -11,6 +11,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
         vm.message = "";
         vm.showAddCategoryForm = false;
         vm.editing = false;
+        vm.expenseRange = 7;
 
         vm.transaction = {
           trans_username: vm.currentUser.username
@@ -19,6 +20,13 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
         function messageTimeout(){
           vm.error = false;
         }
+
+        vm.toggleRange = function(val){
+          if(val == null) {
+            return;
+          }
+          vm.expenseRange = val;
+        };
 
         vm.setCategory = function(cat){
           if(!cat){

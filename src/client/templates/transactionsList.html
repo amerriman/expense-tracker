@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="t in transactions| orderBy: 'date'"
+        <tr ng-repeat="t in transactions| orderBy: 'date' | transactionRange:expenseRange"
             ng-class="{danger: t.type == 'expense', success: t.type == 'income'}">
           <td>
             <span>{{t.date | shortDate}}</span>

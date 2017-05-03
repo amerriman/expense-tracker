@@ -1,6 +1,6 @@
 app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($timeout, $log, expenseApi) {
   return {
-    restrict: 'E',
+    restrict: 'AE',
     templateUrl: '../../templates/transactionsList.html',
     link: function(vm, elem, attrs, modelCtrl){
 
