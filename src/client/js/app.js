@@ -48,7 +48,7 @@ var app = angular.module('myApp', [
       $log.debug('current user set');
       var rangeParams = {
         id: vm.currentUser.username,
-        start: moment().subtract('d', 7).format('L').replace(/[/]/g, '-'),
+        start: moment().subtract(30, 'd').format('L').replace(/[/]/g, '-'),
         end: moment().format('L').replace(/[/]/g, '-')
       };
       //get all the transactions before getting all the categories - initially limit to last 7 days
@@ -115,6 +115,10 @@ var app = angular.module('myApp', [
     })
     .when('/account', {
       templateUrl: 'partials/account.html',
+      access: {restricted: true}
+    })
+    .when('/analysis', {
+      templateUrl: 'partials/analysis.html',
       access: {restricted: true}
     })
     .otherwise('/');

@@ -38,6 +38,7 @@
             <button type="submit" class="btn btn-default">Submit</button>
           </form> -->
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="/analysis" ng-if="isAuthenticated()">Analysis</a></li>
             <li><a href="/register" ng-if="!isAuthenticated()">Register</a></li>
             <li><a href="/login" ng-if="!isAuthenticated()">Login</a></li>
             <li><a href="/" ng-if="isAuthenticated()" ng-click="logout()">Logout</a></li>
@@ -78,6 +79,7 @@
     <script type="text/javascript" src="/js/tracker/home.js"></script>
     <script type="text/javascript" src="/js/tracker/datePicker.js"></script>
     <script type="text/javascript" src="/js/tracker/account.js"></script>
+    <script type="text/javascript" src="/js/tracker/analize.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="/js/tracker/api.js"></script>
