@@ -1,0 +1,14 @@
+.analysis .message-section {
+  padding: 8px 0;
+}
+.analysis .message-section .add-success {
+  color: green;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.analysis .message-section .fa-check-circle {
+  color: green;
+}

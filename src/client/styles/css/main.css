@@ -56,6 +56,41 @@ section.category-form .add-heading button {
 .quick-add-category h4 {
   margin-left: 16px;
 }
+@media only screen and (max-width: 500px) {
+  .col-xs-1,
+  .col-xs-10,
+  .col-xs-11,
+  .col-xs-12,
+  .col-xs-2,
+  .col-xs-3,
+  .col-xs-4,
+  .col-xs-5,
+  .col-xs-6,
+  .col-xs-7,
+  .col-xs-8,
+  .col-xs-9 {
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .hide-sm {
+    display: none;
+  }
+}
+.analysis .message-section {
+  padding: 8px 0;
+}
+.analysis .message-section .add-success {
+  color: green;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.analysis .message-section .fa-check-circle {
+  color: green;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }

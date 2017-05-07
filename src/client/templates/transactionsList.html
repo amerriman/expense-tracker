@@ -6,13 +6,13 @@
           <th>Date</th>
           <th>Category</th>
           <th>Amount</th>
-          <th>Description</th>
-          <th>User</th>
+          <th class="hide-sm">Description</th>
+          <th class="hide-sm">User</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="t in transactions| orderBy: 'date' | transactionRange:expenseRange"
+        <tr ng-repeat="t in transactions| orderBy: 'date' : true | transactionRange:expenseRange"
             ng-class="{danger: t.type == 'expense', success: t.type == 'income'}">
           <td>
             <span>{{t.date | shortDate}}</span>
@@ -23,14 +23,15 @@
           <td>
             <span>{{t.amount}}</span>
           </td>
-          <td>
+          <td class="hide-sm">
             <span>{{t.description}}</span>
           </td>
-          <td>
+          <td class="hide-sm">
             <span>{{t.user_indiv}}</span>
           </td>
           <td>
-            <button type="button" class="btn btn-xs btn-primary" ng-click="editTransaction(t); editing = true;">Edit</button>
+            <button type="button" class="btn btn-xs btn-primary" ng-click="editTransaction(t); editing = true;"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="btn btn-danger btn-xs" ng-click="deleteTransaction(t)"><i class="fa fa-trash-o "></i></button>
           </td>
         </tr>
       </tbody>

@@ -98,14 +98,8 @@
         </div>
         <div class="col-xs-12 col-sm-8">
           <div class="message-section" ng-show="transactionSuccess">
-            <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
-            <p class="add-success"> Transaction successfully added!</p>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-8">
-          <div class="message-section" ng-show="transactionUpdateSuccess">
-            <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
-            <p class="add-success"> Transaction successfully updated!</p>
+            <i ng-show="transactionSuccess" class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+            <p class="add-success"> {{successMessage}}</p>
           </div>
         </div>
       <!-- </div> -->
@@ -137,7 +131,6 @@
         <div style="margin-top: 10px;" transactions-list></div>
       <div>
     </div>
-
   </section>
 
 </section>

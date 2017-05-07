@@ -83,6 +83,14 @@ app.factory('expenseApi', ['$http', '$q', '$log', function($http, $q, $log){
         }).catch(function(err){
           $log.error("transactions: update", err);
         });
+      },
+
+      delete: function(id){
+        return $http.delete('/transactionAPI/transaction/' + id).then(function(response){
+          return response.data
+        }).catch(function(err){
+          $log.error("transactions: delete", err);
+        });
       }
 
     }

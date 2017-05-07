@@ -12,7 +12,13 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
           $scope.error = false;
         }
 
-        // vm.transactions = [];
+        vm.toggleRange = function(val){
+          if(val == null) {
+            return;
+          }
+          vm.expenseRange = val;
+        };
+
 
         function init(){
           $log.debug("analize home");
