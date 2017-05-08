@@ -300,6 +300,10 @@ select:not([multiple]) {
 .navbar-default .navbar-toggle .icon-bar {
   background-color: white ;
 }
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover {
+  background-color: #527E6A;
+}
 @media only screen and (max-width: 600px) {
   .view-window {
     padding: 25px;
