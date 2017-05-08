@@ -15,14 +15,14 @@
 
   <div class="col-xs-12 col-sm-6">
     <div class="form-group btn-group">
-      <button type="button" ng-click="toggleCatType('expense')" ng-class="{active: category.type == 'expense'}" class="btn btn-info">Expense</button>
-      <button type="button" ng-click="toggleCatType('income')" ng-class="{active: category.type == 'income'}" class="btn btn-info">Income</button>
+      <button type="button" ng-click="toggleCatType('expense')" ng-class="{active: category.type == 'expense'}" class="btn btn-blue">Expense</button>
+      <button type="button" ng-click="toggleCatType('income')" ng-class="{active: category.type == 'income'}" class="btn btn-blue">Income</button>
     </div>
   </div>
   <div class="col-xs-12 col-sm-6">
     <div class="form-group">
-      <button ng-if="!editing" type="submit" class="add-cat-btn btn btn-success" ng-click="addCategory(); categoryEditing = ! categoryEditing">Add Category</button>
-      <button ng-if="editing" type="submit" class="add-cat-btn btn btn-success" ng-click="updateCategory(category); categoryEditing = ! categoryEditing">Update Category</button>
+      <button ng-if="!editing" type="submit" class="add-cat-btn btn btn-green" ng-click="addCategory(); categoryEditing = ! categoryEditing">Add Category</button>
+      <button ng-if="editing" type="submit" class="add-cat-btn btn btn-green" ng-click="updateCategory(category); categoryEditing = ! categoryEditing">Update Category</button>
       <button type="button" class="btn btn-warning" ng-click="cancelEdit()">Cancel</button>
     </div>
   </div>

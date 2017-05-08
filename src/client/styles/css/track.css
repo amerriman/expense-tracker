@@ -11,7 +11,7 @@
   width: 100%;
 }
 .transaction-form .add-success {
-  color: green;
+  color: #527E6A;
   display: inline;
   position: relative;
   top: -4px;
@@ -19,7 +19,7 @@
   font-size: 16px;
 }
 .transaction-form .fa-check-circle {
-  color: green;
+  color: #527E6A;
 }
 .quick-add-category h4 {
   margin-left: 16px;

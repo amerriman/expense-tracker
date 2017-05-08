@@ -2,7 +2,7 @@
   padding: 8px 0;
 }
 .analysis .message-section .add-success {
-  color: green;
+  color: #527E6A;
   display: inline;
   position: relative;
   top: -4px;
@@ -10,5 +10,5 @@
   font-size: 16px;
 }
 .analysis .message-section .fa-check-circle {
-  color: green;
+  color: #527E6A;
 }
