@@ -14,42 +14,42 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
         function messageTimeout(){
           vm.success = false;
         }
-
         vm.editTransaction = function(transaction){
           if(!transaction) return;
           vm.categoryEditing = true;
           vm.editing = true;
           var selectedCategory;
-          vm.transaction = angular.copy(transaction);
-          $('#chosen-date').val(vm.transaction.date);
-          vm.transaction.amount = parseFloat(vm.transaction.amount);
+          vm.editTran = angular.copy(transaction);
+          $('#chosen-date-edit').val(vm.editTran.date);
+          vm.editTran.amount = parseFloat(vm.editTran.amount);
           if(vm.categories && vm.categories.length > 0){
             selectedCategory = vm.categories.filter(function(cat){
-              return cat.category_name === vm.transaction.category;
+              return cat.category_name === vm.editTran.category;
             });
           }
           if(selectedCategory.length === 1){
-            vm.transaction.category = selectedCategory[0];
+            vm.editTran.category = selectedCategory[0];
           }
         };
 
-        vm.cancelEdit = function(){
-          vm.transaction = {
-            trans_username: vm.currentUser.username,
-            category: null
-          };
-          $('#chosen-date').val( '');
-          vm.editing = false;
+        vm.setEditToday = function(){
+          vm.editTran.date = moment().format("L");
+          $('#chosen-date-edit').val(vm.editTran.date);
         };
 
-        vm.updateTransaction = function(){
+        vm.setEditYesterday = function(){
+          vm.editTran.date = moment().subtract(1, 'days').format("L");
+          $('#chosen-date-edit').val(vm.editTran.date);
+        };
 
-          if(vm.transaction.category){
-            vm.transaction.type = vm.transaction.category.type;
-            vm.transaction.category = vm.transaction.category.category_name;
+        vm.updateTransaction = function(transaction){
+
+          if(transaction.category){
+            transaction.type = transaction.category.type;
+            transaction.category = transaction.category.category_name;
           }
 
-          if(!vm.transaction.type || !vm.transaction.category || !vm.transaction.date || !vm.transaction.trans_username || !vm.transaction.amount){
+          if(!transaction.type || !transaction.category || !transaction.date || !transaction.trans_username || !transaction.amount){
             vm.error = true;
             vm.message = "Missing required information";
             $timeout(messageTimeout, 3000);
@@ -58,34 +58,29 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
           }
 
           // * make sure the amount is an acutal number
-          var amount = parseFloat(vm.transaction.amount);
+          var amount = parseFloat(transaction.amount);
           if (isNaN(amount)) {
             vm.message = "You must enter a valid transaction amount";
             $timeout(messageTimeout, 3000);
             return;
           }
-          vm.transaction.amount = parseFloat(vm.transaction.amount.toFixed(2));
+          transaction.amount = parseFloat(transaction.amount.toFixed(2));
           //if the date is not an ISO string, format it correctly
-          if(vm.transaction.date instanceof Date == false){
-            vm.transaction.date = moment(vm.transaction.date, "MM-DD-YYYY").toISOString();
+          if(transaction.date instanceof Date == false){
+            transaction.date = moment(transaction.date, "MM-DD-YYYY").toISOString();
           }
 
-          expenseApi.transactions.update(vm.transaction, vm.transaction.id).then(function(resp){
+          expenseApi.transactions.update(transaction, transaction.id).then(function(resp){
             //replace old with new transaction in the way
-            var updatedTransactions = vm.transactions.filter(function(transaction){
-              return transaction.id != resp.id;
+            var updatedTransactions = vm.transactions.filter(function(t){
+              return t.id != resp.id;
             });
             vm.transactionSuccess = true;
             vm.successMessage = "Transaction successfully updated!";
             resp.date = moment.utc(resp.date).format('L');
             updatedTransactions.push(resp);
             vm.transactions = updatedTransactions;
-            vm.transaction = {
-              trans_username: vm.currentUser.username,
-              category: null
-            };
-            //clear the datepicker
-            $('#chosen-date').val( '');
+
             $timeout(function(){
               vm.transactionSuccess = false;
               vm.successMessage = "";
@@ -113,6 +108,9 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
 
               vm.transactionSuccess = true;
               vm.successMessage = "Transaction Deleted";
+              // //clear the datepicker
+              // $('#chosen-date-edit').val( '');
+              // vm.editTransaction = null;
 
               $timeout(function(){
                 vm.transactionSuccess = false;

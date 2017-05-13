@@ -9,9 +9,8 @@ app.directive('datepicker', ["$log", "$timeout", function($log, $timeout) {
           //grab the id of the elements and append the picker to that
             // vm.element = element;
             // var id = '#' + element[0].children[0].id;
-
             var id = '#' + element[0].id;
-
+            // console.log(id, "id")
 
             $(id).datepicker({
               format: "mm/dd/yyyy",
