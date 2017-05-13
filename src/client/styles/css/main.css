@@ -91,6 +91,9 @@ section.category-form .add-heading button {
 .analysis .message-section .fa-check-circle {
   color: #527E6A;
 }
+.edit-transaction-modal .delete {
+  float: left;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }

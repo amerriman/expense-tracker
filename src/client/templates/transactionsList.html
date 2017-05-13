@@ -8,12 +8,13 @@
           <th>Amount</th>
           <th class="hide-sm">Description</th>
           <th class="hide-sm">User</th>
-          <th></th>
+          <th class="hide-sm"></th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="t in transactions| orderBy: 'date' : true | transactionRange:expenseRange"
-            ng-class="{danger: t.type == 'expense', success: t.type == 'income'}">
+            ng-class="{danger: t.type == 'expense', success: t.type == 'income'}"
+            ng-click="editTransaction(t)" data-toggle="modal" data-target="#editTransaction">
           <td>
             <span>{{t.date | shortDate}}</span>
           </td>
@@ -29,10 +30,11 @@
           <td class="hide-sm">
             <span>{{t.user_indiv}}</span>
           </td>
-          <td>
-            <button type="button" class="btn btn-xs btn-blue" ng-click="editTransaction(t)" data-toggle="modal" data-target="#editTransaction"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <td class="hide-sm">
+            <button type="button" class="btn btn-xs btn-blue"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          </td>
 
-              <!-- Modal -->
+          <!-- Modal -->
             <div class="modal fade edit-transaction-modal" id="editTransaction" role="dialog">
               <div class="modal-dialog" role="document">
                 <!-- Modal content-->
@@ -109,16 +111,20 @@
                         </div>
                   </div>
                   <div class="modal-footer" style="display: inline-block; width: 100%">
-                    <button class="btn btn-red" ng-click="deleteTransaction(editTran)" data-dismiss="modal"><i class="fa fa-trash-o "></i></button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-green btn-full" name="submit" type="submit" data-dismiss="modal" ng-click="updateTransaction(editTran)">Update</button>
+                    <div class="delete">
+                      <button class="btn btn-red delete" ng-show="!deleting" ng-click="deleting = ! deleting"><i class="fa fa-trash-o "></i></button>
+                      <div ng-show="deleting">
+                        <button class="btn btn-blue delete" ng-click="deleting = ! deleting">Cancel</button>
+                        <button class="btn btn-red delete" ng-click="deleteTransaction(editTran);deleting = ! deleting" data-dismiss="modal">Delete</button>
+                      </div>
+                    </div>
+                    <button ng-show="!deleting" type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button ng-show="!deleting" class="btn btn-green btn-full" name="submit" type="submit" data-dismiss="modal" ng-click="updateTransaction(editTran)">Update</button>
                   </div>
                 </div>
               </div>
             </div>
             <!-- END MODAL -->
-
-          </td>
         </tr>
       </tbody>
     </table>
