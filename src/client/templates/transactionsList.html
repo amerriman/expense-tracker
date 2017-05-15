@@ -63,7 +63,7 @@
                             <!-- <label>Date</label> -->
                             <div class="input-group date btn-date" id="date-picker-edit" datepicker ng-model="editTran.date">
                               <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Select a date" id="chosen-date-edit">
-                              <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Other" id="chosen-date-sm">
+                              <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Other" id="chosen-date-edit-sm">
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                               </div>
@@ -116,11 +116,11 @@
                       <button class="btn btn-red delete" ng-show="!deleting" ng-click="deleting = ! deleting"><i class="fa fa-trash-o "></i></button>
                       <div ng-show="deleting">
                         <button class="btn btn-blue delete" ng-click="deleting = ! deleting">Cancel</button>
-                        <button class="btn btn-red delete" ng-click="deleteTransaction(editTran);deleting = ! deleting" data-dismiss="modal">Delete</button>
+                        <button class="btn btn-red delete" ng-disabled="posting" ng-click="deleteTransaction(editTran);deleting = ! deleting" data-dismiss="modal">Delete</button>
                       </div>
                     </div>
                     <button ng-show="!deleting" type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                    <button ng-show="!deleting" class="btn btn-green btn-full" name="submit" type="submit" data-dismiss="modal" ng-click="updateTransaction(editTran)">Update</button>
+                    <button ng-show="!deleting" class="btn btn-green btn-full" name="submit" type="submit" data-dismiss="modal" ng-disabled="posting" ng-click="updateTransaction(editTran)">Update</button>
                   </div>
                 </div>
               </div>

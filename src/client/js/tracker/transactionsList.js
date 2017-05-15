@@ -10,6 +10,7 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
         vm.message = "";
         vm.successMessage = "";
         vm.expenseRange = 7;
+        vm.posting = false;
 
         function messageTimeout(){
           vm.success = false;
@@ -21,6 +22,7 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
           var selectedCategory;
           vm.editTran = angular.copy(transaction);
           $('#chosen-date-edit').val(vm.editTran.date);
+          $('#chosen-date-edit-sm').val(vm.editTran.date);
           vm.editTran.amount = parseFloat(vm.editTran.amount);
           if(vm.categories && vm.categories.length > 0){
             selectedCategory = vm.categories.filter(function(cat){
@@ -33,16 +35,16 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
         };
 
         vm.setEditToday = function(){
+          console.log("HERERERER TODAYYYY")
           vm.editTran.date = moment().format("L");
           $('#chosen-date-edit').val(vm.editTran.date);
-          $('#chosen-date-sm').val(vm.editTran.date);
-
+          $('#chosen-date-edit-sm').val(vm.editTran.date);
         };
 
         vm.setEditYesterday = function(){
           vm.editTran.date = moment().subtract(1, 'days').format("L");
           $('#chosen-date-edit').val(vm.editTran.date);
-          $('#chosen-date-sm').val(vm.editTran.date);
+          $('#chosen-date-edit-sm').val(vm.editTran.date);
         };
 
         vm.updateTransaction = function(transaction){
@@ -67,6 +69,7 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
             $timeout(messageTimeout, 3000);
             return;
           }
+          vm.posting = true;
           transaction.amount = parseFloat(transaction.amount.toFixed(2));
           //if the date is not an ISO string, format it correctly
           if(transaction.date instanceof Date == false){
@@ -87,10 +90,12 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
             $timeout(function(){
               vm.transactionSuccess = false;
               vm.successMessage = "";
+              vm.posting = false;
             }, 2500);
             vm.editing = false;
           }).catch(function(err){
             vm.error = true;
+            vm.posting = false;
             vm.message = "Oooops - something went wrong";
             $timeout(messageTimeout, 3000);
             $log.debug('addTransaction', err);
@@ -100,6 +105,7 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
         vm.deleteTransaction = function(transaction){
           if(!transaction) return;
           if(transaction.id && transaction.id != null){
+            vm.posting = true;
             expenseApi.transactions.delete(transaction.id).then(function(resp){
               //remove the transaction from the array
               for(var i = 0; i < vm.transactions.length; i++){
@@ -117,11 +123,13 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
 
               $timeout(function(){
                 vm.transactionSuccess = false;
+                vm.posting = false;
                 vm.successMessage = "";
               }, 2500);
 
             }).catch(function(err){
               vm.error = true;
+              vm.posting = false;
               vm.message = "Oooops - something went wrong";
               $timeout(messageTimeout, 3000);
               $log.debug('deleteTransaction', err);

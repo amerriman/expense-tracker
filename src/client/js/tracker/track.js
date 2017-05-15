@@ -12,6 +12,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
         vm.showAddCategoryForm = false;
         vm.editing = false;
         vm.expenseRange = 7;
+        vm.posting = false;
 
         vm.transaction = {
           trans_username: vm.currentUser.username
@@ -108,6 +109,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
             $timeout(messageTimeout, 3000);
             return;
           }
+          vm.posting = true;
           vm.transaction.amount = parseFloat(vm.transaction.amount.toFixed(2));
           //if the date is not an ISO string, format it correctly
           if(vm.transaction.date instanceof Date == false){
@@ -126,6 +128,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
             };
             $timeout(function(){
               vm.transactionSuccess = false;
+              vm.posting = false;
               vm.successMessage = " ";
             }, 2500);
 
@@ -133,6 +136,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
             $('#chosen-date').val( '');
           }).catch(function(err){
             vm.error = true;
+            vm.posting = false;
             vm.message = "Oooops - something went wrong";
             $timeout(messageTimeout, 3000);
             $log.debug('addTransaction', err);
