@@ -48,21 +48,22 @@
                         <p class="alert alert-danger" role="alert" id="message">{{message}}</p>
                       </div>
                         <!-- date -->
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-4 col-md-4 col-sm-12">
                           <div class="form-group">
-                            <button class="btn btn-green btn-date" style="width: 100%" name="submit" type="button" ng-click="setEditToday()">Today</button>
+                            <button class="btn btn-green btn-date phone-btn" name="submit" type="button" ng-click="setEditToday()">Today</button>
                           </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-4 col-md-4 col-sm-12">
                           <div class="form-group">
-                            <button class="btn btn-green btn-date" style="width: 100%" name="submit" type="button" ng-click="setEditYesterday()">Yesterday</button>
+                            <button class="btn btn-green btn-date phone-btn" name="submit" type="button" ng-click="setEditYesterday()">Yesterday</button>
                           </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-4 col-md-4 col-sm-12">
                           <div class="form-group">
                             <!-- <label>Date</label> -->
                             <div class="input-group date btn-date" id="date-picker-edit" datepicker ng-model="editTran.date">
-                              <input data-format="mm-dd-yyyy" type="text" class="form-control" placeholder="Select a date" id="chosen-date-edit">
+                              <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Select a date" id="chosen-date-edit">
+                              <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Select a date" id="chosen-date-sm">
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                               </div>

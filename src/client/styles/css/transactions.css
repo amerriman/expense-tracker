@@ -1,3 +1,50 @@
 .edit-transaction-modal .delete {
   float: left;
 }
+.edit-transaction-modal .btn-date {
+  width: 100%;
+}
+.edit-transaction-modal input.track-input {
+  display: inline;
+}
+.edit-transaction-modal input.phone-btn {
+  display: none;
+}
+@media only screen and (max-width: 500px) {
+  .edit-transaction-modal body {
+    font-size: 16px;
+  }
+  .edit-transaction-modal .col-xs-1,
+  .edit-transaction-modal .col-xs-10,
+  .edit-transaction-modal .col-xs-11,
+  .edit-transaction-modal .col-xs-12,
+  .edit-transaction-modal .col-xs-2,
+  .edit-transaction-modal .col-xs-3,
+  .edit-transaction-modal .col-xs-4,
+  .edit-transaction-modal .col-xs-5,
+  .edit-transaction-modal .col-xs-6,
+  .edit-transaction-modal .col-xs-7,
+  .edit-transaction-modal .col-xs-8,
+  .edit-transaction-modal .col-xs-9 {
+    padding: 0;
+  }
+  .edit-transaction-modal .phone-btn {
+    width: 88%;
+    height: 70px;
+    padding: 2px;
+  }
+  .edit-transaction-modal input.track-input {
+    display: none;
+  }
+  .edit-transaction-modal input.phone-btn {
+    display: inline;
+    text-align: center;
+  }
+  .edit-transaction-modal .input-group-addon {
+    display: none;
+  }
+  .edit-transaction-modal .modal-footer button {
+    height: 70px;
+    min-width: 70px;
+  }
+}

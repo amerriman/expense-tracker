@@ -35,11 +35,14 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
         vm.setEditToday = function(){
           vm.editTran.date = moment().format("L");
           $('#chosen-date-edit').val(vm.editTran.date);
+          $('#chosen-date-sm').val(vm.editTran.date);
+
         };
 
         vm.setEditYesterday = function(){
           vm.editTran.date = moment().subtract(1, 'days').format("L");
           $('#chosen-date-edit').val(vm.editTran.date);
+          $('#chosen-date-sm').val(vm.editTran.date);
         };
 
         vm.updateTransaction = function(transaction){

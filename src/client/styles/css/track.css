@@ -21,10 +21,19 @@
 .transaction-form .fa-check-circle {
   color: #527E6A;
 }
+.transaction-form input.track-input {
+  display: inline;
+}
+.transaction-form input.phone-btn {
+  display: none;
+}
 .quick-add-category h4 {
   margin-left: 16px;
 }
 @media only screen and (max-width: 500px) {
+  body {
+    font-size: 16px !important;
+  }
   .col-xs-1,
   .col-xs-10,
   .col-xs-11,
@@ -38,6 +47,28 @@
   .col-xs-8,
   .col-xs-9 {
     padding: 0;
+  }
+  section.transaction-form .phone-btn {
+    width: 88%;
+    height: 70px;
+    padding: 2px;
+  }
+  section.transaction-form input.track-input {
+    display: none;
+  }
+  section.transaction-form input.phone-btn {
+    display: inline;
+    text-align: center;
+  }
+  section.transaction-form .input-group-addon {
+    display: none;
+  }
+  section.transaction-form .btn-reg-edit {
+    height: 70px;
+  }
+  section.transactions-list .range-btn-group button {
+    height: 70px;
+    width: 70px;
   }
 }
 @media only screen and (max-width: 450px) {

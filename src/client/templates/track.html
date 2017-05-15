@@ -8,23 +8,24 @@
 
       <!-- <div class="row"> -->
         <!-- date -->
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-4 col-md-4 col-sm-12">
           <div class="form-group">
-            <button class="btn btn-green btn-date" name="submit" type="button" ng-click="setToday()">Today</button>
+            <button class="btn btn-green btn-date phone-btn" name="submit" type="button" ng-click="setToday()">Today</button>
           </div>
         </div>
 
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-4 col-md-4 col-sm-12">
           <div class="form-group">
-            <button class="btn btn-green btn-date" name="submit" type="button" ng-click="setYesterday()">Yesterday</button>
+            <button class="btn btn-green btn-date phone-btn" name="submit" type="button" ng-click="setYesterday()">Yesterday</button>
           </div>
         </div>
 
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-4 col-md-4 col-sm-12">
           <div class="form-group">
             <!-- <label>Date</label> -->
             <div class="input-group date btn-date" id="date-picker" datepicker ng-model="transaction.date">
-              <input data-format="mm-dd-yyyy" type="text" class="form-control" placeholder="Select a date" id="chosen-date">
+              <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Date" id="chosen-date-sm">
+              <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Select a date" id="chosen-date">
               <div class="input-group-addon">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
               </div>
@@ -87,15 +88,15 @@
       <!-- <div class="row"> -->
         <div class="col-xs-12 col-md-4">
           <div class="form-group">
-            <button class="btn btn-green btn-full" name="submit" type="submit" ng-if="!editing" ng-click="addTransaction()">Add Transaction</button>
-            <button class="btn btn-green btn-full" name="submit" type="submit" ng-if="editing" ng-click="updateTransaction()">Update</button>
+            <button class="btn btn-green btn-full btn-reg-edit" name="submit" type="submit" ng-click="addTransaction()">Add Transaction</button>
+            <!-- <button class="btn btn-green btn-full" name="submit" type="submit" ng-if="editing" ng-click="updateTransaction()">Update</button> -->
           </div>
         </div>
-        <div class="col-xs-12 col-sm-4">
+<!--         <div class="col-xs-12 col-sm-4">
           <div class="form-group">
             <button style="width: 100%" type="button" class="btn btn-warning" ng-if="editing" ng-click="cancelEdit()">Cancel</button>
           </div>
-        </div>
+        </div> -->
         <div class="col-xs-12 col-sm-8">
           <div class="message-section" ng-show="transactionSuccess">
             <i ng-show="transactionSuccess" class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
@@ -123,7 +124,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6">
         <h4 style="display: inline-block;">Recent Transactions</h4>
-        <div class="btn-group" style="margin-left: 30px;">
+        <div class="btn-group range-btn-group" style="margin-left: 30px;">
           <button type="button" ng-click="toggleRange(7)" ng-class="{active: expenseRange == 7}" class="btn btn-sm btn-blue">7 Days</button>
           <button type="button" ng-click="toggleRange(14)" ng-class="{active: expenseRange == 14}" class="btn btn-sm btn-blue">14 Days</button>
           <button type="button" ng-click="toggleRange(30)" ng-class="{active: expenseRange == 30}" class="btn btn-sm btn-blue">30 Days</button>

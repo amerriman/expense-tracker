@@ -5,4 +5,48 @@
   .delete{
     float: left;
   }
+
+  .btn-date {
+    width: 100%
+  }
+
+  input.track-input {
+    display: inline;
+  }
+  input.phone-btn {
+    display: none;
+  }
+
+  @media only screen and (max-width: 500px){
+    body {
+      font-size: 16px;
+    }
+    .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+      padding: 0;
+    }
+
+    .phone-btn {
+      width: @phoneBtnWidth;
+      height: @phoneBtnHeight;
+      padding: @halfSeparator/2;
+    }
+    input.track-input {
+      display: none
+    }
+    input.phone-btn {
+      display: inline;
+      text-align: center;
+    }
+    .input-group-addon {
+      display: none
+    }
+    .modal-footer {
+      button{
+        height: @phoneBtnHeight;
+        min-width: @phoneBtnHeight;
+      }
+    }
+
+
+  }
 }
