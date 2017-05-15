@@ -62,7 +62,7 @@ section.category-form .add-heading button {
 .quick-add-category h4 {
   margin-left: 16px;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   body {
     font-size: 16px !important;
   }
@@ -157,7 +157,7 @@ section.category-form .add-heading button {
 .edit-transaction-modal input.phone-btn {
   display: none;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   .edit-transaction-modal body {
     font-size: 16px;
   }

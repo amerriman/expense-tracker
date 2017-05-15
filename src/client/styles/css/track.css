@@ -30,7 +30,7 @@
 .quick-add-category h4 {
   margin-left: 16px;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   body {
     font-size: 16px !important;
   }
