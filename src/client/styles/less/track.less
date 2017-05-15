@@ -72,12 +72,27 @@
     input.phone-btn {
       display: inline;
       text-align: center;
+      background-color: #649D79;
+      border-color: #5C826A;
+      color: #ffffff;
     }
     .input-group-addon {
       display: none
     }
     .btn-reg-edit {
       height: @phoneBtnHeight;
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #ffffff;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: #ffffff;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: #ffffff;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: #ffffff;
     }
 
   }
@@ -89,6 +104,10 @@
         height: @phoneBtnHeight;
         width: @phoneBtnHeight;
       }
+    }
+    .phone-data{
+      padding-top: 24px;
+      padding-bottom: 24px;
     }
   }
 

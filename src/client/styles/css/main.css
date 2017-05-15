@@ -91,6 +91,9 @@ section.category-form .add-heading button {
   section.transaction-form input.phone-btn {
     display: inline;
     text-align: center;
+    background-color: #649D79;
+    border-color: #5C826A;
+    color: #ffffff;
   }
   section.transaction-form .input-group-addon {
     display: none;
@@ -98,9 +101,29 @@ section.category-form .add-heading button {
   section.transaction-form .btn-reg-edit {
     height: 70px;
   }
+  section.transaction-form ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #ffffff;
+  }
+  section.transaction-form ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #ffffff;
+  }
+  section.transaction-form :-ms-input-placeholder {
+    /* IE 10+ */
+    color: #ffffff;
+  }
+  section.transaction-form :-moz-placeholder {
+    /* Firefox 18- */
+    color: #ffffff;
+  }
   section.transactions-list .range-btn-group button {
     height: 70px;
     width: 70px;
+  }
+  section.transactions-list .phone-data {
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 }
 @media only screen and (max-width: 450px) {
@@ -163,6 +186,9 @@ section.category-form .add-heading button {
   .edit-transaction-modal input.phone-btn {
     display: inline;
     text-align: center;
+    background-color: #649D79;
+    border-color: #5C826A;
+    color: #ffffff;
   }
   .edit-transaction-modal .input-group-addon {
     display: none;
@@ -170,6 +196,22 @@ section.category-form .add-heading button {
   .edit-transaction-modal .modal-footer button {
     height: 70px;
     min-width: 70px;
+  }
+  .edit-transaction-modal input.phone-btn ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #ffffff;
+  }
+  .edit-transaction-modal input.phone-btn ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #ffffff;
+  }
+  .edit-transaction-modal input.phone-btn :-ms-input-placeholder {
+    /* IE 10+ */
+    color: #ffffff;
+  }
+  .edit-transaction-modal input.phone-btn :-moz-placeholder {
+    /* Firefox 18- */
+    color: #ffffff;
   }
 }
 body {

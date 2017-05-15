@@ -15,13 +15,13 @@
         <tr ng-repeat="t in transactions| orderBy: 'date' : true | transactionRange:expenseRange"
             ng-class="{danger: t.type == 'expense', success: t.type == 'income'}"
             ng-click="editTransaction(t)" data-toggle="modal" data-target="#editTransaction">
-          <td>
+          <td class="phone-data">
             <span>{{t.date | shortDate}}</span>
           </td>
-          <td>
+          <td class="phone-data">
             <span>{{t.category}}</span>
           </td>
-          <td>
+          <td class="phone-data">
             <span>{{t.amount}}</span>
           </td>
           <td class="hide-sm">
