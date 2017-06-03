@@ -46,11 +46,41 @@
 
 }
 
+.transactions-list{
+  div.range-picker-container{
+    //display: inline-block;
+    div.form-group{
+      width: 25%;
+      display: inline-block;
+
+      input.track-input {
+        display: inline;
+      }
+
+      input.phone-btn {
+        display: none;
+      }
+    }
+
+  }
+}
+
 .quick-add-category {
   h4 {
     margin-left: @separator * 2;
   }
 }
+
+//below for max width of 768?
+
+//section.transactions-table{
+//  div.range-picker-container {
+//    button.range-get {
+//      position: relative;
+//      top: -28px;
+//    }
+//  }
+//}
 
 @media only screen and (max-width: 600px){
   body {
@@ -100,9 +130,31 @@
   section.transactions-list{
 
     .range-btn-group {
+      display: inline-block;
+      width: 100%;
       button{
         height: @phoneBtnHeight;
-        width: @phoneBtnHeight;
+        width: 25%;
+      }
+    }
+    div.range-picker-container{
+      .phone-btn {
+        width: @phoneBtnWidth;
+        height: @phoneBtnHeight;
+        padding: @halfSeparator/2;
+      }
+      input.track-input {
+        display: none
+      }
+      input.phone-btn {
+        display: inline;
+        text-align: center;
+        background-color: #649D79;
+        border-color: #5C826A;
+        color: #ffffff;
+      }
+      .input-group-addon {
+        display: none
       }
     }
     .phone-data{
@@ -110,6 +162,7 @@
       padding-bottom: 24px;
     }
   }
+
 
 }
 

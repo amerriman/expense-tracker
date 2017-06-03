@@ -1,3 +1,6 @@
+section.transactions-table .range-picker-container {
+  margin-top: 12px;
+}
 .edit-transaction-modal .delete {
   float: left;
 }
@@ -11,9 +14,6 @@
   display: none;
 }
 @media only screen and (max-width: 600px) {
-  .edit-transaction-modal body {
-    font-size: 16px;
-  }
   .edit-transaction-modal .col-xs-1,
   .edit-transaction-modal .col-xs-10,
   .edit-transaction-modal .col-xs-11,

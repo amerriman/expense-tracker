@@ -3,6 +3,7 @@
  */
 
 var gulp = require('gulp');
+var babel = require('gulp-babel');
 var jshint = require('gulp-jshint');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
@@ -22,14 +23,14 @@ var less = require('gulp-less');
 
 var paths = {
   CssStyles: [
-    './src/client/styles/css/*.css',
+    './src/client/styles/css/*.css'
   ],
   lessStyles: [
-    './src/client/styles/less/*.less',
+    './src/client/styles/less/*.less'
   ],
   scripts: [
-    './src/client/js/**/*.js',
     './src/client/js/*.js',
+    './src/client/js/**/*.js'
   ],
   server: [
     './src/server/bin/www'
@@ -133,6 +134,12 @@ gulp.task('copy-server-files', function () {
     .pipe(gulp.dest('./dist/server/'));
 });
 
+gulp.task('babel', function(){
+  gulp.src(paths.scripts)
+      .pipe(babel())
+      .pipe(gulp.dest('./dist/client/js/'));
+});
+
 
 gulp.task('connectDist', function (cb) {
   var called = false;
@@ -161,6 +168,7 @@ gulp.task('default', function() {
   runSequence(
     ['clean-css'],
     ['compile-less'],
+    ['babel'],
     ['browser-sync', 'watch']
   );
 });
@@ -171,6 +179,6 @@ gulp.task('build', function() {
   runSequence(
     ['clean'],
     ['compile-less'],
-    ['lint', 'minify-css', 'minify-js', 'copy-server-files', 'connectDist']
+    ['lint', 'minify-css', 'babel', 'minify-js', 'copy-server-files', 'connectDist']
   );
 });

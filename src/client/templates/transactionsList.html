@@ -1,5 +1,40 @@
 <section class="transactions-table">
   <div class="col-xs-12">
+    <div class="btn-group range-btn-group">
+      <button type="button" ng-click="toggleRange(7)" ng-class="{active: expenseRange == 7}" class="btn btn-blue">7 Days</button>
+      <button type="button" ng-click="toggleRange(14)" ng-class="{active: expenseRange == 14}" class="btn btn-blue">14 Days</button>
+      <button type="button" ng-click="toggleRange(30)" ng-class="{active: expenseRange == 30}" class="btn btn-blue">30 Days</button>
+      <button type="button" ng-click="toggleRange('other')" ng-class="{active: expenseRange == 'other'}" class="btn btn-blue">Other</button>
+    </div>
+    <div class="range-picker-container form-inline" ng-if="expenseRange == 'other'">
+      <!--<div class="col-xs-4 col-md-4 col-sm-12">-->
+        <div class="form-group">
+          <!-- <label>Date</label> -->
+          <div class="input-group date btn-date" id="date-range-picker-start" datepicker ng-model="dateRangeStart">
+            <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Start" id="date-range-picker-start-sm">
+            <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Start" id="date-range-picker-chosen-date-start">
+            <div class="input-group-addon">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      <!--</div>-->
+      <!--<div class="col-xs-4 col-md-4 col-sm-12">-->
+        <div class="form-group">
+          <!-- <label>Date</label> -->
+          <div class="input-group date btn-date" id="date-range-picker-end" datepicker ng-model="dateRangeEnd">
+            <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="End" id="date-range-picker-end-sm">
+            <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="End" id="-date-range-picker-chosen-date-end">
+            <div class="input-group-addon">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <button type="button" ng-click="getRange(dateRangeStart, dateRangeEnd)" class="btn btn-blue range-get">Go</button>
+      <!--</div>-->
+    </div>
     <table class="table">
       <thead>
         <tr>

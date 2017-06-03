@@ -11,7 +11,6 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
         vm.successMessage = "";
         vm.showAddCategoryForm = false;
         vm.editing = false;
-        vm.expenseRange = 7;
         vm.posting = false;
 
         vm.transaction = {
@@ -22,13 +21,6 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
           vm.error = false;
           vm.transactionSuccess = false;
         }
-
-        vm.toggleRange = function(val){
-          if(val == null) {
-            return;
-          }
-          vm.expenseRange = val;
-        };
 
         vm.setCategory = function(cat){
           if(!cat){

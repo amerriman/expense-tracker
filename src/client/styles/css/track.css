@@ -27,6 +27,16 @@
 .transaction-form input.phone-btn {
   display: none;
 }
+.transactions-list div.range-picker-container div.form-group {
+  width: 25%;
+  display: inline-block;
+}
+.transactions-list div.range-picker-container div.form-group input.track-input {
+  display: inline;
+}
+.transactions-list div.range-picker-container div.form-group input.phone-btn {
+  display: none;
+}
 .quick-add-category h4 {
   margin-left: 16px;
 }
@@ -85,9 +95,31 @@
     /* Firefox 18- */
     color: #ffffff;
   }
+  section.transactions-list .range-btn-group {
+    display: inline-block;
+    width: 100%;
+  }
   section.transactions-list .range-btn-group button {
     height: 70px;
-    width: 70px;
+    width: 25%;
+  }
+  section.transactions-list div.range-picker-container .phone-btn {
+    width: 88%;
+    height: 70px;
+    padding: 2px;
+  }
+  section.transactions-list div.range-picker-container input.track-input {
+    display: none;
+  }
+  section.transactions-list div.range-picker-container input.phone-btn {
+    display: inline;
+    text-align: center;
+    background-color: #649D79;
+    border-color: #5C826A;
+    color: #ffffff;
+  }
+  section.transactions-list div.range-picker-container .input-group-addon {
+    display: none;
   }
   section.transactions-list .phone-data {
     padding-top: 24px;

@@ -1,4 +1,4 @@
-app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($timeout, $log, expenseApi) {
+app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateService", function ($timeout, $log, expenseApi, dateService) {
   return {
     restrict: 'AE',
     templateUrl: '../../templates/transactionsList.html',
@@ -35,7 +35,6 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
         };
 
         vm.setEditToday = function(){
-          console.log("HERERERER TODAYYYY")
           vm.editTran.date = moment().format("L");
           $('#chosen-date-edit').val(vm.editTran.date);
           $('#chosen-date-edit-sm').val(vm.editTran.date);
@@ -46,6 +45,18 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", function ($
           $('#chosen-date-edit').val(vm.editTran.date);
           $('#chosen-date-edit-sm').val(vm.editTran.date);
         };
+
+        vm.toggleRange = function(val){
+          if(val == null) {
+            return;
+          }
+          vm.expenseRange = val;
+        };
+
+        vm.getRange = function(start, end){
+          console.log(start, "start, then end", end)
+            dateService.test()
+        }
 
         vm.updateTransaction = function(transaction){
 
