@@ -81,6 +81,7 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
         });
 
         vm.addTransaction =function(){
+          $log.debug('track - add transaction')
           if(vm.transaction.category){
             vm.transaction.type = vm.transaction.category.type;
             vm.transaction.category = vm.transaction.category.category_name;
@@ -114,6 +115,15 @@ app.directive('track', ["$timeout", "$location", "$log", "expenseApi", function 
             //add new transaction to transaction array
             resp.date = moment.utc(resp.date).format('L');
             vm.transactions.push(resp);
+            if(vm.expenseRange == 'other'){
+              var rangeStart = moment(vm.rangeStart).format('YYYY-MM-DD');
+              var rangeEnd = moment(vm.rangeEnd).format('YYYY-MM-DD');
+              var date = moment(resp.date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+              if(moment(date).isSameOrAfter(rangeStart) && moment(date).isSameOrBefore(rangeEnd)){
+                vm.displayTransactions.push(resp);
+              }
+            }
+           
             vm.transaction = {
               trans_username: vm.currentUser.username,
               category: null

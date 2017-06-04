@@ -5,6 +5,12 @@ section.transactions-table{
   .range-picker-container{
     margin-top: @separator * 1.5;
   }
+  .message-section {
+    margin-top: @separator;
+    margin-bottom: @separator * 2;
+    text-align: center;
+  }
+
 }
 
 .edit-transaction-modal{
@@ -21,6 +27,19 @@ section.transactions-table{
   }
   input.phone-btn {
     display: none;
+  }
+
+  p.add-success {
+    color: @successGreen;
+    display: inline;
+    position: relative;
+    top: -@halfSeparator;
+    left: @halfSeparator;
+    font-size: @separator * 2;
+  }
+
+  .fa-check-circle {
+    color: @successGreen;
   }
 
   @media only screen and (max-width: 600px){

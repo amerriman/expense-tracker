@@ -1,6 +1,11 @@
 section.transactions-table .range-picker-container {
   margin-top: 12px;
 }
+section.transactions-table .message-section {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  text-align: center;
+}
 .edit-transaction-modal .delete {
   float: left;
 }
@@ -12,6 +17,17 @@ section.transactions-table .range-picker-container {
 }
 .edit-transaction-modal input.phone-btn {
   display: none;
+}
+.edit-transaction-modal p.add-success {
+  color: #527E6A;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.edit-transaction-modal .fa-check-circle {
+  color: #527E6A;
 }
 @media only screen and (max-width: 600px) {
   .edit-transaction-modal .col-xs-1,

@@ -60,7 +60,7 @@ section.category-form .add-heading button {
   display: none;
 }
 .transactions-list div.range-picker-container div.form-group {
-  width: 25%;
+  max-width: 25%;
   display: inline-block;
 }
 .transactions-list div.range-picker-container div.form-group input.track-input {
@@ -180,6 +180,11 @@ section.category-form .add-heading button {
 section.transactions-table .range-picker-container {
   margin-top: 12px;
 }
+section.transactions-table .message-section {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  text-align: center;
+}
 .edit-transaction-modal .delete {
   float: left;
 }
@@ -191,6 +196,17 @@ section.transactions-table .range-picker-container {
 }
 .edit-transaction-modal input.phone-btn {
   display: none;
+}
+.edit-transaction-modal p.add-success {
+  color: #527E6A;
+  display: inline;
+  position: relative;
+  top: -4px;
+  left: 4px;
+  font-size: 16px;
+}
+.edit-transaction-modal .fa-check-circle {
+  color: #527E6A;
 }
 @media only screen and (max-width: 600px) {
   .edit-transaction-modal .col-xs-1,

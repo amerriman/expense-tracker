@@ -6,10 +6,11 @@
       <button type="button" ng-click="toggleRange(30)" ng-class="{active: expenseRange == 30}" class="btn btn-blue">30 Days</button>
       <button type="button" ng-click="toggleRange('other')" ng-class="{active: expenseRange == 'other'}" class="btn btn-blue">Other</button>
     </div>
+    <div class="message-section" ng-show="rangeError">
+      <p class="alert alert-danger" role="alert" id="transactionTableMessage">{{message}}</p>
+    </div>
     <div class="range-picker-container form-inline" ng-if="expenseRange == 'other'">
-      <!--<div class="col-xs-4 col-md-4 col-sm-12">-->
         <div class="form-group">
-          <!-- <label>Date</label> -->
           <div class="input-group date btn-date" id="date-range-picker-start" datepicker ng-model="dateRangeStart">
             <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Start" id="date-range-picker-start-sm">
             <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Start" id="date-range-picker-chosen-date-start">
@@ -18,10 +19,7 @@
             </div>
           </div>
         </div>
-      <!--</div>-->
-      <!--<div class="col-xs-4 col-md-4 col-sm-12">-->
         <div class="form-group">
-          <!-- <label>Date</label> -->
           <div class="input-group date btn-date" id="date-range-picker-end" datepicker ng-model="dateRangeEnd">
             <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="End" id="date-range-picker-end-sm">
             <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="End" id="-date-range-picker-chosen-date-end">
@@ -30,10 +28,7 @@
             </div>
           </div>
         </div>
-      <!--</div>-->
-      <!--<div class="form-group">-->
         <button type="button" ng-click="getRange(dateRangeStart, dateRangeEnd)" class="btn btn-blue range-get">Go</button>
-      <!--</div>-->
     </div>
     <table class="table">
       <thead>
@@ -47,7 +42,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="t in transactions| orderBy: 'date' : true | transactionRange:expenseRange"
+        <tr ng-repeat="t in displayTransactions | orderBy: 'date' : true | transactionRange:expenseRange:rangeStart:rangeEnd"
             ng-class="{danger: t.type == 'expense', success: t.type == 'income'}"
             ng-click="editTransaction(t)" data-toggle="modal" data-target="#editTransaction">
           <td class="phone-data">
@@ -79,6 +74,7 @@
                     <h4 class="modal-title">Edit </h4>
                   </div>
                   <div class="modal-body">
+                    <div ng-hide="updateSuccess">
                       <div class="message-section" ng-show="error">
                         <p class="alert alert-danger" role="alert" id="message">{{message}}</p>
                       </div>
@@ -138,13 +134,13 @@
                             <textarea name="description" class="form-control" ng-model="editTran.description"></textarea>
                           </div>
                         </div>
+                      </div>
 
-                        <div class="col-xs-12 col-sm-8">
-                          <div class="message-section" ng-show="transactionSuccess">
-                            <i ng-show="transactionSuccess" class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
-                            <p class="add-success"> {{successMessage}}</p>
-                          </div>
-                        </div>
+                      <div class="message-section" ng-show="updateSuccess">
+                        <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+                        <p class="add-success"> {{successMessage}}</p>
+                      </div>
+
                   </div>
                   <div class="modal-footer" style="display: inline-block; width: 100%">
                     <div class="delete">

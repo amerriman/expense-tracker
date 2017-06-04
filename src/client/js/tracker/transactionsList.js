@@ -6,14 +6,20 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateServic
 
         vm.editing = false;
         vm.error = false;
+        vm.rangeError = false;
         vm.transactionSuccess = false;
+        vm.updateSuccess = false;
         vm.message = "";
         vm.successMessage = "";
         vm.expenseRange = 7;
         vm.posting = false;
+        vm.displayTransactions = vm.transactions;
 
         function messageTimeout(){
-          vm.success = false;
+          vm.error = false;
+          vm.rangeError = false;
+          vm.message = "";
+          vm.successMessage = "";
         }
         vm.editTransaction = function(transaction){
           if(!transaction) return;
@@ -51,12 +57,36 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateServic
             return;
           }
           vm.expenseRange = val;
+          if(vm.expenseRange != 'other'){
+            vm.displayTransactions = vm.transactions;
+          } else {
+            vm.displayTransactions = [];
+            vm.rangeStart = null;
+            vm.rangeEnd = null;
+          }
         };
 
         vm.getRange = function(start, end){
-          console.log(start, "start, then end", end)
-            dateService.test()
-        }
+          if(!start || !end){
+            vm.rangeError = true;
+            vm.message = "Must have start and end dates";
+            $timeout(messageTimeout, 3000);
+            $log.debug('getRange: missing start or end date');
+            return;
+          }
+          vm.rangeStart = start;
+          vm.rangeEnd = end;
+          dateService.customRange(start, end, vm.currentUser.username).then(function(resp){
+            vm.formatTransactionDates(resp);
+          });
+        };
+
+        vm.formatTransactionDates = function(transactions){
+          transactions.forEach(function(t){
+            t.date = moment.utc(t.date).format('L');
+          });
+          vm.displayTransactions = transactions;
+        };
 
         vm.updateTransaction = function(transaction){
 
@@ -92,16 +122,22 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateServic
             var updatedTransactions = vm.transactions.filter(function(t){
               return t.id != resp.id;
             });
-            vm.transactionSuccess = true;
+            var updatedDisplayTransactions = vm.displayTransactions.filter(function(t){
+              return t.id != resp.id;
+            });
+            vm.updateSuccess = true;
             vm.successMessage = "Transaction successfully updated!";
             resp.date = moment.utc(resp.date).format('L');
             updatedTransactions.push(resp);
+            updatedDisplayTransactions.push(resp);
+            vm.displayTransactions = updatedDisplayTransactions;
             vm.transactions = updatedTransactions;
 
             $timeout(function(){
-              vm.transactionSuccess = false;
+              vm.updateSuccess = false;
               vm.successMessage = "";
               vm.posting = false;
+              $('#editTransaction').modal('hide');
             }, 2500);
             vm.editing = false;
           }).catch(function(err){
@@ -118,24 +154,32 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateServic
           if(transaction.id && transaction.id != null){
             vm.posting = true;
             expenseApi.transactions.delete(transaction.id).then(function(resp){
-              //remove the transaction from the array
+              //remove the transaction from the main array
               for(var i = 0; i < vm.transactions.length; i++){
                 if(vm.transactions[i].id === transaction.id){
                   vm.transactions.splice(i, 1);
                   break;
                 }
               }
+              //remove the transaction from the visible array
+              for(var i = 0; i < vm.displayTransactions.length; i++){
+                if(vm.displayTransactions[i].id === transaction.id){
+                  vm.displayTransactions.splice(i, 1);
+                  break;
+                }
+              }
 
-              vm.transactionSuccess = true;
+              vm.updateSuccess = true;
               vm.successMessage = "Transaction Deleted";
               // //clear the datepicker
               // $('#chosen-date-edit').val( '');
               // vm.editTransaction = null;
 
               $timeout(function(){
-                vm.transactionSuccess = false;
+                vm.updateSuccess = false;
                 vm.posting = false;
                 vm.successMessage = "";
+                $('#editTransaction').modal('hide');
               }, 2500);
 
             }).catch(function(err){

@@ -28,7 +28,7 @@
   display: none;
 }
 .transactions-list div.range-picker-container div.form-group {
-  width: 25%;
+  max-width: 25%;
   display: inline-block;
 }
 .transactions-list div.range-picker-container div.form-group input.track-input {

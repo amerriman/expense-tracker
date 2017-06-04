@@ -15,6 +15,10 @@ var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
 var less = require('gulp-less');
+var useref = require('gulp-useref');
+var browserify = require('browserify');
+var babelify = require('babelify');
+var source = require('vinyl-source-stream');
 
 
 /**
@@ -23,7 +27,7 @@ var less = require('gulp-less');
 
 var paths = {
   CssStyles: [
-    './src/client/styles/css/*.css'
+    './src/client/styles/css/main.css'
   ],
   lessStyles: [
     './src/client/styles/less/*.less'
@@ -89,12 +93,12 @@ gulp.task('nodemon', function (cb) {
 
 
 gulp.task('clean', function() {
-  gulp.src('./dist/*')
+  return gulp.src('./dist')
     .pipe(clean({force: true}));
 });
 
 gulp.task('clean-css', function() {
-  gulp.src('./src/client/styles/css/*.css')
+  return gulp.src('./src/client/styles/css/*.css')
     .pipe(clean({force: true}));
 });
 
@@ -111,35 +115,57 @@ gulp.task('clean-css', function() {
 
 
 gulp.task('compile-less', function () {
-  gulp.src(paths.lessStyles)
+  return gulp.src(paths.lessStyles)
       .pipe(less())
       .pipe(gulp.dest('./src/client/styles/css'));
 });
 
+// gulp.task('compile-less', function () {
+//   return gulp.src(paths.lessStyles)
+//       .pipe(less())
+//       .pipe(gulp.dest('./dist/client/less/'));
+// });
+
 gulp.task('minify-css', function() {
   var opts = {comments:true, spare:true};
-  gulp.src(paths.CssStyles)
+  return gulp.src(paths.CssStyles)
     .pipe(minifyCSS(opts))
-    .pipe(gulp.dest('./dist/client/styles/'));
+    .pipe(gulp.dest('./dist/client/styles/css'));
 });
 
 gulp.task('minify-js', function() {
-  gulp.src(paths.scripts)
+  return gulp.src(paths.scripts)
     .pipe(uglify())
-    .pipe(gulp.dest('./dist/client/js/'));
+    .pipe(gulp.dest('./dist/client/js'));
 });
 
 gulp.task('copy-server-files', function () {
-  gulp.src('./src/server/**/*')
+  return gulp.src('./src/server/**/*')
     .pipe(gulp.dest('./dist/server/'));
 });
 
-gulp.task('babel', function(){
-  gulp.src(paths.scripts)
-      .pipe(babel())
-      .pipe(gulp.dest('./dist/client/js/'));
-});
+//someday I'll get this working, in the meantime, just kill me.
 
+// gulp.task('es6', function(){
+//   return gulp.src(paths.scripts)
+//     .pipe(babel({ presets: ['es2015'] }))
+//     .pipe(gulp.dest('./dist/client/js'));
+// });
+
+// gulp.task('es6', function(){
+//  return gulp.src(paths.scripts)
+//     .pipe(browserify({entries: './src/client/js/**', debug: true}))
+//     .transform("babelify", { presets: ["es2015"] })
+//     .bundle()
+//     .pipe(source('./src/client/js/**'))
+//     .pipe(gulp.dest('./dist/js'));
+// });
+
+gulp.task('useref', function(){
+  return gulp.src('src/client/index.html')
+      .pipe(useref())
+      .pipe(gulp.dest('dist/client'));
+});
 
 gulp.task('connectDist', function (cb) {
   var called = false;
@@ -158,27 +184,32 @@ gulp.task('connectDist', function (cb) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['lint']);
-  gulp.watch(paths.lessStyles, ['compile-less']);
+  // gulp.watch(paths.scripts, ['lint']);
+  gulp.watch(paths.lessStyles, ['clean-css', 'compile-less']);
 });
 
 // *** default task *** //
 // gulp.task('default', ['compile-less', 'browser-sync', 'watch'], function(){});
 gulp.task('default', function() {
   runSequence(
-    ['clean-css'],
-    ['compile-less'],
-    ['babel'],
+    'clean',
+    'clean-css',
+    'compile-less',
     ['browser-sync', 'watch']
   );
 });
 
 
+// // *** build task *** //
+// gulp.task('build', function() {
+//   runSequence(
+//     ['clean'],
+//     ['compile-less'],
+//     ['lint', 'minify-css', 'minify-js', 'copy-server-files', 'connectDist']
+//   );
+// });
+
 // *** build task *** //
 gulp.task('build', function() {
-  runSequence(
-    ['clean'],
-    ['compile-less'],
-    ['lint', 'minify-css', 'babel', 'minify-js', 'copy-server-files', 'connectDist']
-  );
+  runSequence('clean', 'clean-css', 'compile-less', 'minify-css', 'useref', 'connectDist');
 });
