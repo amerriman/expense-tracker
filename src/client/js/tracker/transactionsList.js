@@ -14,6 +14,8 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateServic
         vm.expenseRange = 7;
         vm.posting = false;
         vm.displayTransactions = vm.transactions;
+        vm.rangeStart = null;
+        vm.rangeEnd = null;
 
         function messageTimeout(){
           vm.error = false;
