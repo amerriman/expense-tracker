@@ -1,4 +1,4 @@
-app.directive('hcPieChart', function () {
+app.directive('hcPieChart', ["$timeout", "$log", "expenseApi", function ($timeout, $log, expenseApi) {
   return {
     restrict: 'EA',
     template: '<div></div>',
@@ -86,4 +86,4 @@ app.directive('hcPieChart', function () {
       
     }
   };
-});
+}]);
