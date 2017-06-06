@@ -9,26 +9,26 @@
     <div class="message-section" ng-show="rangeError">
       <p class="alert alert-danger" role="alert" id="transactionTableMessage">{{message}}</p>
     </div>
-    <div class="range-picker-container form-inline" ng-if="expenseRange == 'other'">
-        <div class="form-group">
-          <div class="input-group date btn-date" id="date-range-picker-start" datepicker ng-model="dateRangeStart">
-            <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Start" id="date-range-picker-start-sm">
-            <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Start" id="date-range-picker-chosen-date-start">
-            <div class="input-group-addon">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-            </div>
+    <div class="range-picker-container form-inline" ng-show="expenseRange == 'other'">
+      <div class="form-group">
+        <div class="input-group date btn-date" id="date-range-picker-start" datepicker ng-model="dateRangeStart">
+          <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="Start" id="date-range-picker-start-sm">
+          <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="Start" id="date-range-picker-chosen-date-start">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
           </div>
         </div>
-        <div class="form-group">
-          <div class="input-group date btn-date" id="date-range-picker-end" datepicker ng-model="dateRangeEnd">
-            <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="End" id="date-range-picker-end-sm">
-            <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="End" id="-date-range-picker-chosen-date-end">
-            <div class="input-group-addon">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-            </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group date btn-date" id="date-range-picker-end" datepicker ng-model="dateRangeEnd">
+          <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn" placeholder="End" id="date-range-picker-end-sm">
+          <input data-format="mm-dd-yyyy" type="text" class="form-control track-input" placeholder="End" id="-date-range-picker-chosen-date-end">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
           </div>
         </div>
-        <button type="button" ng-click="getRange(dateRangeStart, dateRangeEnd)" class="btn btn-blue range-get">Go</button>
+      </div>
+      <button type="button" ng-click="getRange(dateRangeStart, dateRangeEnd)" class="btn btn-blue range-get">Go</button>
     </div>
     <table class="table">
       <thead>

@@ -19,6 +19,8 @@ var app = angular.module('myApp', [
   vm.categories = [];
   vm.transactions = [];
   vm.users = [];
+  vm.userWaiting = true;
+  vm.categoryWaiting = true;
 
   vm.$on('authenticated', function(e, args){
     if($auth.isAuthenticated() && args != null){
@@ -51,6 +53,7 @@ var app = angular.module('myApp', [
         start: moment().subtract(30, 'd').format('L').replace(/[/]/g, '-'),
         end: moment().format('L').replace(/[/]/g, '-')
       };
+      vm.userWaiting = false;
       //get all the transactions before getting all the categories - initially limit to last 7 days
       expenseApi.transactions.getRange(rangeParams).then(function(resp){
         if(resp.length > 0){
@@ -69,6 +72,7 @@ var app = angular.module('myApp', [
           vm.categories = resp;
           $log.debug('categories set');
         }
+        vm.categoryWaiting = false;
       });
     });
   }

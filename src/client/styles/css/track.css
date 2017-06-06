@@ -28,7 +28,7 @@
   display: none;
 }
 .transactions-list div.range-picker-container div.form-group {
-  max-width: 25%;
+  max-width: 40%;
   display: inline-block;
 }
 .transactions-list div.range-picker-container div.form-group input.track-input {
@@ -36,6 +36,9 @@
 }
 .transactions-list div.range-picker-container div.form-group input.phone-btn {
   display: none;
+}
+.transactions-list div.range-picker-container button.range-get {
+  vertical-align: top;
 }
 .quick-add-category h4 {
   margin-left: 16px;
@@ -103,23 +106,43 @@
     height: 70px;
     width: 25%;
   }
-  section.transactions-list div.range-picker-container .phone-btn {
-    width: 88%;
-    height: 70px;
-    padding: 2px;
-  }
-  section.transactions-list div.range-picker-container input.track-input {
+  section.transactions-list div.range-picker-container div.form-group input.track-input {
     display: none;
   }
-  section.transactions-list div.range-picker-container input.phone-btn {
+  section.transactions-list div.range-picker-container div.form-group input.phone-btn {
     display: inline;
     text-align: center;
     background-color: #649D79;
     border-color: #5C826A;
     color: #ffffff;
   }
-  section.transactions-list div.range-picker-container .input-group-addon {
+  section.transactions-list div.range-picker-container div.form-group .phone-btn {
+    width: 100%;
+    height: 70px;
+    padding: 2px;
+  }
+  section.transactions-list div.range-picker-container div.form-group .input-group-addon {
     display: none;
+  }
+  section.transactions-list div.range-picker-container div.form-group ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #ffffff;
+  }
+  section.transactions-list div.range-picker-container div.form-group ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #ffffff;
+  }
+  section.transactions-list div.range-picker-container div.form-group :-ms-input-placeholder {
+    /* IE 10+ */
+    color: #ffffff;
+  }
+  section.transactions-list div.range-picker-container div.form-group :-moz-placeholder {
+    /* Firefox 18- */
+    color: #ffffff;
+  }
+  section.transactions-list div.range-picker-container button.range-get {
+    height: 70px;
+    width: 18%;
   }
   section.transactions-list .phone-data {
     padding-top: 24px;

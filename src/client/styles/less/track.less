@@ -50,7 +50,7 @@
   div.range-picker-container{
     //display: inline-block;
     div.form-group{
-      max-width: 25%;
+      max-width: 40%;
       display: inline-block;
 
       input.track-input {
@@ -60,6 +60,9 @@
       input.phone-btn {
         display: none;
       }
+    }
+    button.range-get {
+      vertical-align: top;
     }
 
   }
@@ -138,23 +141,43 @@
       }
     }
     div.range-picker-container{
-      .phone-btn {
-        width: @phoneBtnWidth;
+      div.form-group {
+        input.track-input {
+          display: none
+        }
+        input.phone-btn {
+          display: inline;
+          text-align: center;
+          background-color: #649D79;
+          border-color: #5C826A;
+          color: #ffffff;
+        }
+        .phone-btn {
+          width: 100%;
+          height: @phoneBtnHeight;
+          padding: @halfSeparator/2;
+        }
+
+        .input-group-addon {
+          display: none
+        }
+
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+          color: #ffffff;
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+          color: #ffffff;
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+          color: #ffffff;
+        }
+        :-moz-placeholder { /* Firefox 18- */
+          color: #ffffff;
+        }
+      }
+      button.range-get {
         height: @phoneBtnHeight;
-        padding: @halfSeparator/2;
-      }
-      input.track-input {
-        display: none
-      }
-      input.phone-btn {
-        display: inline;
-        text-align: center;
-        background-color: #649D79;
-        border-color: #5C826A;
-        color: #ffffff;
-      }
-      .input-group-addon {
-        display: none
+        width: 18%;
       }
     }
     .phone-data{

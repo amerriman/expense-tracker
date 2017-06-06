@@ -42,7 +42,7 @@
         <!-- cateogry dropdown -->
         <div class=" col-xs-12 col-md-4">
           <div class="form-group">
-            <label>Category * <span ng-click="toggleAddCategory()" style="color: green; font-size: 12px; cursor: pointer;">New<span></label>
+            <label>Category * <span ng-click="toggleAddCategory()" style="color: green; font-size: 12px; cursor: pointer;">New</span></label>
             <select class="form-control category-select" ng-model="transaction.category" ng-options="category as category.category_name for category in categories | orderBy: 'category_name'" ng-change="checkAmount()">
               <option label="" value=""></option>
             </select>
