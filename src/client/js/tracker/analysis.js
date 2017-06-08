@@ -9,6 +9,7 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
       vm.error = false;
       vm.message = "";
       vm.analyzeRange = 'month';
+      vm.chartOpts = "pie";
 
 
       function messageTimeout(){
@@ -47,7 +48,7 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         expenseApi.transactions.getRange(params).then(function(resp){
           vm.expenseArray = resp;
           //send the array and the category stuff away to be figured out
-          vm.pieData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users)
+          vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users)
         })
       }
 
@@ -61,6 +62,13 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
             vm.title = moment().format('Y');
           }
         }
+      };
+      
+      vm.setChartType = function(type){
+        if(!type){
+          return
+        }
+        vm.chartOpts = type;
       };
 
       function init(){
