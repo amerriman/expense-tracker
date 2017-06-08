@@ -10,11 +10,40 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
       vm.message = "";
       vm.analyzeRange = 'month';
       vm.chartOpts = "pie";
-
+      vm.selectMonths = [];
+      vm.selectYears = [];
 
       function messageTimeout(){
         vm.error = false;
       }
+
+      function getMonths(){
+        var thisMonth = moment();
+        var dateStart = moment('2017-01', 'YYYY-MM');
+
+        while (dateStart.isBefore(thisMonth)) {
+          var month;
+          month = moment(dateStart).format('MMMM YYYY');
+          vm.selectMonths.unshift(month);
+          dateStart.add(1,'month');
+        }
+      }
+      
+      function getYears(){
+        var thisYear = moment();
+        var yearStart = moment('2017', 'YYYY');
+        while (yearStart.isSameOrBefore(thisYear)) {
+          var year;
+          year = moment(yearStart).format('YYYY');
+          vm.selectYears.unshift(year);
+          yearStart.add(1,'year');
+        }
+      }
+
+      vm.chooseTimePeriod = function(selected){
+        vm.title = selected;
+        getExpenses(selected);
+      };
       
       function categoryData(){
         var catArray = [];
@@ -37,13 +66,18 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         return catArray;
       }
 
-      function getExpenses(){
-        
+      function getExpenses(selected){
         var params = {
-          id: vm.currentUser.username,
-          start: moment().startOf('month').format('L').replace(/[/]/g, '-'),
-          end: moment().endOf('month').format('L').replace(/[/]/g, '-')
+          id: vm.currentUser.username
         };
+        //if selecting month
+        if(vm.analyzeRange == 'month'){
+          params.start = moment(selected, "MMMM YYYY").startOf('month').format('L').replace(/[/]/g, '-');
+          params.end = moment(selected, "MMMM YYYY").endOf('month').format('L').replace(/[/]/g, '-');
+        } else {
+          params.start = moment(selected, "YYYY").startOf('year').format('L').replace(/[/]/g, '-');
+          params.end = moment(selected, "YYYY").endOf('year').format('L').replace(/[/]/g, '-');
+        }
 
         expenseApi.transactions.getRange(params).then(function(resp){
           vm.expenseArray = resp;
@@ -52,14 +86,15 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         })
       }
 
-
       vm.setTime = function(time){
         if(time){
           vm.analyzeRange = time;
           if(time == 'month'){
-            vm.title = moment().format('MMMM') + " " + moment().format('Y');
+            getExpenses(vm.selectedMonth);
+            vm.title = vm.selectedMonth;
           } else {
-            vm.title = moment().format('Y');
+            getExpenses(vm.selectedYear);
+            vm.title = vm.selectedYear;
           }
         }
       };
@@ -73,12 +108,13 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
 
       function init(){
         $log.debug("analize home");
+        vm.selectedMonth = moment().format('MMMM YYYY');
+        vm.selectedYear = moment().format('YYYY');
         vm.title = moment().format('MMMM') + " " + moment().format('Y');
-        //these do not always work right because the main stuff isn't always set up.  Maybe we need an awaiter...and when that is done, then we move forward. BLARG
-
+        getMonths();
+        getYears();
         vm.categoryArray = categoryData();
-        vm.expenseArray;
-        getExpenses();
+        getExpenses(vm.selectedMonth);
       }
 
       init();

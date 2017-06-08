@@ -15,7 +15,6 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
         var colors = [],
           base = Highcharts.getOptions().colors[0],
           i;
-
         for (i = 0; i < 15; i += 1) {
           // Start out with a darkened base color (negative brighten), and end
           // up with a much brighter color
@@ -24,6 +23,7 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
         return colors;
       }());
 
+      //basic options for all the charts
       vm.chartOptions = {
         chart: {
           type: vm.opts
@@ -48,11 +48,10 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
             series: {
               dataLabels: {
                 enabled: true,
-                format: '{point.name}: {point.y:.1f}%'
+                format: '{point.name}: ${point.y:.1f}%'
               }
             }
           }
-
         },
         legend: {
           labelFormat: "{name} - ${y}"
@@ -61,21 +60,21 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
           name: 'Expenses',
           colorByPoint: true,
           data: vm.data.series
-
         }],
         drilldown:{
           series: vm.data.drilldown
         }
+      };
 
-      }
 
-      // //the opts must be initiated first
+      // //the opts must be initiated first - find a better way to deal with this and add a spinner
       $timeout(function(){
         vm.chart = Highcharts.chart(element[0], vm.chartOptions);
-      }, 1000);
+      }, 1500);
 
+
+      // Watchers
       vm.$watch('title', function (oldVal, newVal) {
-
         if(oldVal != newVal){
           $log.debug('updating pie title');
           if(vm.chart){
@@ -91,7 +90,7 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
       vm.$watch('data', function (newVal, oldVal) {
 
         if(oldVal != newVal){
-          $log.debug('updating pie data');
+          $log.debug('updating chart data');
           if(vm.chart){
             vm.chart.update({
               series: [{
@@ -110,10 +109,10 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
       vm.$watch('opts', function (newVal, oldVal) {
 
         if(oldVal != newVal){
-          $log.debug('updating pie data');
+          $log.debug('updating chart data');
           var label = "{name} - ${y}";
           if(vm.chart){
-            if(newVal == 'pie'){
+            if(newVal == 'column'){
               label = "{name} {y}"
             }
             vm.chart.update({
@@ -127,6 +126,8 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
           }
         }
       });
+
+    // End Watchers
 
     }
   };
