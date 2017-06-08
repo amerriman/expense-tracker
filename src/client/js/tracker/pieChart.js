@@ -8,6 +8,7 @@ app.directive('hcPieChart', ["$timeout", "$log", "expenseApi", function ($timeou
     },
     transclude: true,
     link: function (vm, element, attrs, modelCtrl) {
+
       // Make monochrome colors and set them as default for all pies - temporary
       Highcharts.getOptions().plotOptions.pie.colors = (function () {
         var colors = [],
@@ -22,12 +23,15 @@ app.directive('hcPieChart', ["$timeout", "$log", "expenseApi", function ($timeou
         return colors;
       }());
 
-      var pie = Highcharts.chart(element[0], {
+      var pieOptions = {
         chart: {
           type: 'pie'
         },
         title: {
           text: vm.title
+        },
+        subtitle: {
+          text: 'Click the slices to view user specific info'
         },
         plotOptions: {
           pie: {
@@ -36,7 +40,13 @@ app.directive('hcPieChart', ["$timeout", "$log", "expenseApi", function ($timeou
             dataLabels: {
               enabled: false
             },
-            showInLegend: true
+            showInLegend: true,
+            series: {
+              dataLabels: {
+                enabled: true,
+                format: '{point.name}: {point.y:.1f}%'
+              }
+            }
           }
 
         },
@@ -46,10 +56,19 @@ app.directive('hcPieChart', ["$timeout", "$log", "expenseApi", function ($timeou
         series: [{
           name: 'Expenses',
           colorByPoint: true,
-          data: vm.opts
-        }]
+          data: vm.opts.series
 
-      });
+        }],
+        drilldown:{
+          series: vm.opts.drilldown
+        }
+
+      }
+
+      // //the opts must be initiated first
+      $timeout(function(){
+        var pie = Highcharts.chart(element[0], pieOptions);
+      }, 1000);
 
       vm.$watch('title', function (oldVal, newVal) {
 
@@ -65,21 +84,22 @@ app.directive('hcPieChart', ["$timeout", "$log", "expenseApi", function ($timeou
         }
       });
 
-      vm.$watch('opts', function (oldVal, newVal) {
+      vm.$watch('opts', function (newVal, oldVal) {
 
         if(oldVal != newVal){
           $log.debug('updating pie opts');
           if(pie){
             pie.update({
-              title:{
-                text: vm.title
-              },
               series: [{
                 name: 'Expenses',
                 colorByPoint: true,
-                data: vm.opts
-              }]
+                data: newVal.series
+              }],
+              drilldown:{
+                series: newVal.drilldown
+              }
             })
+            console.log(pie, "PIE????")
           }
         }
       });

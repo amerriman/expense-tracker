@@ -47,7 +47,7 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         expenseApi.transactions.getRange(params).then(function(resp){
           vm.expenseArray = resp;
           //send the array and the category stuff away to be figured out
-          vm.pieData = chartDataService.pieData(vm.categoryArray, vm.expenseArray)
+          vm.pieData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users)
         })
       }
 

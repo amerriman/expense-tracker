@@ -28,7 +28,7 @@
   <section class="pie-chart">
     <!--<div class="col-xs-12 col-md-9">-->
       <!--<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>-->
-      <div hc-pie-chart title="{{title}}" options="pieData"></div>
+      <div ng-if="pieData != null" hc-pie-chart title="{{title}}" options="pieData" style="min-width: 310px; height: 500px; max-width: 600px; margin: 0 auto"></div>
     <!--</div>-->
   </section>
 
