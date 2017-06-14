@@ -76,6 +76,13 @@ app.directive('transactionsList', ["$timeout", "$log", "expenseApi", "dateServic
             $log.debug('getRange: missing start or end date');
             return;
           }
+          if(moment(start).isAfter(moment(end))){
+            vm.rangeError = true;
+            vm.message = "Start date must be before end date";
+            $timeout(messageTimeout, 3000);
+            $log.debug('getRange: start date after end date');
+            return;
+          }
           vm.rangeStart = start;
           vm.rangeEnd = end;
           dateService.customRange(start, end, vm.currentUser.username).then(function(resp){

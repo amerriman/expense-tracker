@@ -60,7 +60,7 @@ section.category-form .add-heading button {
   display: none;
 }
 .transactions-list div.range-picker-container div.form-group {
-  max-width: 40%;
+  max-width: 38%;
   display: inline-block;
 }
 .transactions-list div.range-picker-container div.form-group input.track-input {
@@ -104,9 +104,6 @@ section.category-form .add-heading button {
   section.transaction-form input.phone-btn {
     display: inline;
     text-align: center;
-    background-color: #649D79;
-    border-color: #5C826A;
-    color: #ffffff;
   }
   section.transaction-form .input-group-addon {
     display: none;
@@ -144,9 +141,6 @@ section.category-form .add-heading button {
   section.transactions-list div.range-picker-container div.form-group input.phone-btn {
     display: inline;
     text-align: center;
-    background-color: #649D79;
-    border-color: #5C826A;
-    color: #ffffff;
   }
   section.transactions-list div.range-picker-container div.form-group .phone-btn {
     width: 100%;
@@ -174,7 +168,7 @@ section.category-form .add-heading button {
   }
   section.transactions-list div.range-picker-container button.range-get {
     height: 70px;
-    width: 18%;
+    width: 20%;
   }
   section.transactions-list .phone-data {
     padding-top: 24px;
@@ -257,9 +251,6 @@ section.transactions-table .message-section {
   .edit-transaction-modal input.phone-btn {
     display: inline;
     text-align: center;
-    background-color: #649D79;
-    border-color: #5C826A;
-    color: #ffffff;
   }
   .edit-transaction-modal .input-group-addon {
     display: none;

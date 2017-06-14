@@ -55,9 +55,6 @@ section.transactions-table .message-section {
   .edit-transaction-modal input.phone-btn {
     display: inline;
     text-align: center;
-    background-color: #649D79;
-    border-color: #5C826A;
-    color: #ffffff;
   }
   .edit-transaction-modal .input-group-addon {
     display: none;
