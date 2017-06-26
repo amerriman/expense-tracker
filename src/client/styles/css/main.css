@@ -276,6 +276,48 @@ section.transactions-table .message-section {
     color: #ffffff;
   }
 }
+.carousel,
+.item,
+.active {
+  height: 100vh;
+}
+.carousel-inner {
+  height: 100%;
+}
+.fill {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  opacity: .15;
+}
+.carousel-control,
+.carousel-caption {
+  color: #000000;
+}
+.carousel-caption {
+  text-shadow: 1px 0px 2px rgba(255, 255, 255, 0.95);
+  height: 65%;
+}
+.carousel-control.left {
+  background-image: none;
+}
+.carousel-control.right {
+  background-image: none;
+}
+.carousel-indicators .active {
+  background-color: #000000;
+}
+.carousel-control:focus,
+.carousel-control:hover {
+  color: #000;
+}
+.carousel-indicators li {
+  border-color: #000000;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
