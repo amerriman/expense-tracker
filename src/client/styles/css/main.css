@@ -277,8 +277,7 @@ section.transactions-table .message-section {
   }
 }
 .carousel,
-.item,
-.active {
+.item {
   height: 100vh;
 }
 .carousel-inner {

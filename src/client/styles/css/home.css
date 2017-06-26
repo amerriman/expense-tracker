@@ -1,6 +1,5 @@
 .carousel,
-.item,
-.active {
+.item {
   height: 100vh;
 }
 .carousel-inner {
