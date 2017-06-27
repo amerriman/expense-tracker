@@ -195,16 +195,19 @@ section.category-form .add-heading button {
   color: #527E6A;
 }
 .analysis .analyze-options .btn-fixed {
-  width: 135px;
+  width: 130px;
 }
 .analysis .analyze-options .btn-group-label {
   float: left;
   margin-top: 8px;
-  width: 174px;
-  font-size: 16px;
+  width: 164px;
+  font-size: 15px;
 }
 .analysis .analyze-options select.chart-select {
-  max-width: 270px;
+  max-width: 260px;
+}
+.analysis .analyze-options .controls-container {
+  margin-bottom: 24px;
 }
 section.transactions-table .range-picker-container {
   margin-top: 12px;
