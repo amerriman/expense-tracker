@@ -18,7 +18,7 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
         for (i = 0; i < 15; i += 1) {
           // Start out with a darkened base color (negative brighten), and end
           // up with a much brighter color
-          colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+          colors.push(Highcharts.Color(base).brighten((i - 2) / 5).get());
         }
         return colors;
       }());
@@ -92,22 +92,20 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
         if(oldVal != newVal){
           $log.debug('updating chart data');
           if(vm.chart){
+            //update drilldown manually, doesn't work in the update function
+            vm.chart.options.drilldown.series = newVal.drilldown;
             vm.chart.update({
               series: [{
                 name: 'Expenses',
                 colorByPoint: true,
                 data: newVal.series
-              }],
-              drilldown:{
-                series: newVal.drilldown
-              }
-            })
+              }]
+            });
           }
         }
       });
 
       vm.$watch('opts', function (newVal, oldVal) {
-
         if(oldVal != newVal){
           $log.debug('updating chart data');
           var label = "{name} - ${y}";

@@ -30,14 +30,15 @@ app.service('chartDataService', ["$log", '$timeout', "expenseApi", function ($lo
       //add up all the amounts
       expArr.map(function(ex){
         var cat = ex.category;
-        var amt = parseInt(ex.amount);
+        var amt = parseFloat(ex.amount);
         var user = ex.user_indiv;
+        //add amounts, cast to number and fix at 2 decimals
         if(obj[cat] != null){
-          obj[cat].amount = amt + obj[cat].amount;
-          if(ex.user_indiv != null){
-            obj[cat][user] = obj[cat][user] + amt
+          obj[cat].amount = +(amt + obj[cat].amount).toFixed(2);
+          if(user != null){
+            obj[cat][user] = +(obj[cat][user] + amt).toFixed(2);
           } else {
-            obj[cat].unspecified = obj[cat].unspecified + amt
+            obj[cat].unspecified = +(obj[cat].unspecified + amt).toFixed(2);
           }
         } else {
           $log.debug("category does not exist")
@@ -57,7 +58,7 @@ app.service('chartDataService', ["$log", '$timeout', "expenseApi", function ($lo
             dataArray.push(dataObj);
           }
           var drilldownObj = {name: key, id: key, data: []};
-          var newObj = obj[key]
+          var newObj = obj[key];
           for(var newKey in newObj){
             var keyData = [];
             if(newObj.hasOwnProperty(newKey)){
