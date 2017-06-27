@@ -1,18 +1,31 @@
 app.service('chartDataService', ["$log", '$timeout', "expenseApi", function ($log, $timeout, expenseApi) {
   var chartDataService = {
-    pieData: function(catArr, expArr, users){
+    pieData: function(catArr, expArr, users, income, zeros){
       var obj = {};
       //set up object with categories and users for the drilldown
       catArr.map(function(cat){
-        obj[cat] = {
-          amount: 0,
-          unspecified: 0
-        };
-        users.forEach(function(u){
-          obj[cat][u] = 0
-        });
-        return obj[cat];
-        // return obj[cat] = 0
+        var catName = cat.category_name;
+        if(income === false){
+          if(cat.type !== 'income'){
+            obj[catName] = {
+              amount: 0,
+              unspecified: 0
+            };
+            users.forEach(function(u){
+              obj[catName][u] = 0
+            });
+            return obj[catName];
+          }
+        } else {
+          obj[catName] = {
+            amount: 0,
+            unspecified: 0
+          };
+          users.forEach(function(u){
+            obj[catName][u] = 0
+          });
+          return obj[catName];
+        }
       });
       //add up all the amounts
       expArr.map(function(ex){
@@ -36,7 +49,13 @@ app.service('chartDataService', ["$log", '$timeout', "expenseApi", function ($lo
       for(var key in obj) {
         if(obj.hasOwnProperty(key)) {
           var dataObj = {name: key, y: obj[key].amount, drilldown: key};
-          dataArray.push(dataObj);
+          if(zeros == false){
+            if(dataObj.y !== 0){
+              dataArray.push(dataObj);
+            }
+          } else {
+            dataArray.push(dataObj);
+          }
           var drilldownObj = {name: key, id: key, data: []};
           var newObj = obj[key]
           for(var newKey in newObj){

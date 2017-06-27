@@ -194,6 +194,18 @@ section.category-form .add-heading button {
 .analysis .message-section .fa-check-circle {
   color: #527E6A;
 }
+.analysis .analyze-options .btn-fixed {
+  width: 135px;
+}
+.analysis .analyze-options .btn-group-label {
+  float: left;
+  margin-top: 8px;
+  width: 174px;
+  font-size: 16px;
+}
+.analysis .analyze-options select.chart-select {
+  max-width: 270px;
+}
 section.transactions-table .range-picker-container {
   margin-top: 12px;
 }

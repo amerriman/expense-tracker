@@ -12,6 +12,8 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
       vm.chartOpts = "pie";
       vm.selectMonths = [];
       vm.selectYears = [];
+      vm.includeIncome = false;
+      vm.includeZeros = false;
 
       function messageTimeout(){
         vm.error = false;
@@ -44,7 +46,8 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         vm.title = selected;
         getExpenses(selected);
       };
-      
+
+      //This is crazy, do something about this.
       function categoryData(){
         var catArray = [];
         if(!vm.categories){
@@ -52,16 +55,18 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
           return
         } if(vm.categories.length == 0){
           $timeout(function(){
-            vm.categories.forEach(function(cat){
-              catArray.push(cat.category_name)
-            });
-            return catArray;
+            // vm.categories.forEach(function(cat){
+            //   catArray.push(cat.category_name)
+            // });
+            // return catArray;
+            return vm.categories;
           })
         } else {
-          vm.categories.forEach(function(cat){
-            catArray.push(cat.category_name)
-          });
-          return catArray;
+          // vm.categories.forEach(function(cat){
+          //   catArray.push(cat.category_name)
+          // });
+          // return catArray;
+          return vm.categories;
         }
         return catArray;
       }
@@ -82,7 +87,7 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         expenseApi.transactions.getRange(params).then(function(resp){
           vm.expenseArray = resp;
           //send the array and the category stuff away to be figured out
-          vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users)
+          vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users, vm.includeIncome, vm.includeZeros)
         })
       }
 
@@ -98,7 +103,25 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
           }
         }
       };
-      
+
+      vm.setIncome = function(income){
+        if(!income){
+          vm.includeIncome = false;
+        } else {
+          vm.includeIncome = income;
+        }
+        vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users, vm.includeIncome, vm.includeZeros)
+      };
+
+      vm.setZeros = function(zeros){
+        if(!zeros){
+          vm.includeZeros = false;
+        } else {
+          vm.includeZeros = zeros;
+        }
+        vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users, vm.includeIncome, vm.includeZeros)
+      };
+
       vm.setChartType = function(type){
         if(!type){
           return
