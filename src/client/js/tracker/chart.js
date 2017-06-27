@@ -10,18 +10,36 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
     transclude: true,
     link: function (vm, element, attrs, modelCtrl) {
 
-      // Make monochrome colors and set them as default for all pies - temporary
-      Highcharts.getOptions().plotOptions.pie.colors = (function () {
-        var colors = [],
-          base = Highcharts.getOptions().colors[0],
-          i;
-        for (i = 0; i < 15; i += 1) {
-          // Start out with a darkened base color (negative brighten), and end
-          // up with a much brighter color
-          colors.push(Highcharts.Color(base).brighten((i - 2) / 5).get());
+      var colors = ['#922B21', '#D98880', '#76448A', '#C39BD3', '#1A5276', '#2980B9', '#117864', '#1ABC9C', '#F7DC6F',
+      '#F39C12', '#D35400', '#E59866'];
+      //mix it up so it's a surprise every time...
+      function shuffle(arr) {
+        var result = [];
+        var workA = arr.slice(0);
+        while(workA.length > 0) {
+          var random = Math.floor(Math.random() * workA.length);
+          result.push(workA.splice(random,1)[0]);
         }
-        return colors;
-      }());
+        return result;
+      }
+
+
+      // Make monochrome colors and set them as default for all pies - temporary - would be cool to do 4-5 different
+      // color bases and then shuffle them.
+      // Highcharts.getOptions().plotOptions.pie.colors = (function () {
+      //   var colors = [],
+      //     base = Highcharts.getOptions().colors[0],
+      //     i;
+      //   for (i = 0; i < 15; i += 1) {
+      //     // Start out with a darkened base color (negative brighten), and end
+      //     // up with a much brighter color
+      //     colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+      //   }
+      //   return colors;
+      // }());
+
+      Highcharts.getOptions().plotOptions.pie.colors = (shuffle(colors));
+      Highcharts.getOptions().plotOptions.column.colors = (shuffle(colors));
 
       //basic options for all the charts
       vm.chartOptions = {
