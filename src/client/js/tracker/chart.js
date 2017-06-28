@@ -85,10 +85,10 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
       };
 
 
-      // //the opts must be initiated first - find a better way to deal with this and add a spinner
-      $timeout(function(){
-        vm.chart = Highcharts.chart(element[0], vm.chartOptions);
-      }, 1500);
+      // // //the opts must be initiated first - find a better way to deal with this and add a spinner
+      // $timeout(function(){
+      //   vm.chart = Highcharts.chart(element[0], vm.chartOptions);
+      // }, 1500);
 
 
       // Watchers
@@ -144,6 +144,19 @@ app.directive('hcChart', ["$timeout", "$log", "expenseApi", function ($timeout, 
       });
 
     // End Watchers
+
+      function init(){
+        if(vm.data && vm.data != null && vm.data.series && vm.data.series.length > 0){
+          vm.chart = Highcharts.chart(element[0], vm.chartOptions);
+        } else {
+          // //the opts must be initiated first - find a better way to deal with this and add a spinner
+          $timeout(function(){
+            init()
+          }, 1500);
+        }
+      }
+
+      init();
 
     }
   };

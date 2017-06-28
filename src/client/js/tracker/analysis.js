@@ -47,29 +47,6 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         getExpenses(selected);
       };
 
-      //This is crazy, do something about this.
-      function categoryData(){
-        var catArray = [];
-        if(!vm.categories){
-          //maybe log that there are no categories, so nothing can be done...
-          return
-        } if(vm.categories.length == 0){
-          $timeout(function(){
-            // vm.categories.forEach(function(cat){
-            //   catArray.push(cat.category_name)
-            // });
-            // return catArray;
-            return vm.categories;
-          })
-        } else {
-          // vm.categories.forEach(function(cat){
-          //   catArray.push(cat.category_name)
-          // });
-          // return catArray;
-          return vm.categories;
-        }
-        return catArray;
-      }
 
       function getExpenses(selected){
         var params = {
@@ -85,9 +62,12 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         }
 
         expenseApi.transactions.getRange(params).then(function(resp){
-          vm.expenseArray = resp
+          vm.expenseArray = resp;
           //send the array and the category stuff away to be figured out
-          vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users, vm.includeIncome, vm.includeZeros)
+          expenseApi.categories.getAll(params.id).then(function(resp){
+            vm.categoryArray = resp;
+            vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users, vm.includeIncome, vm.includeZeros);
+          })
         })
       }
 
@@ -129,18 +109,17 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         vm.chartOpts = type;
       };
 
-      function init(){
-        $log.debug("analize home");
+      function analysisInit(){
+        $log.debug("analyze home");
         vm.selectedMonth = moment().format('MMMM YYYY');
         vm.selectedYear = moment().format('YYYY');
         vm.title = moment().format('MMMM') + " " + moment().format('Y');
         getMonths();
         getYears();
-        vm.categoryArray = categoryData();
         getExpenses(vm.selectedMonth);
       }
 
-      init();
+      analysisInit();
 
     }]
   };
