@@ -33,6 +33,9 @@ var app = angular.module('myApp', [
     $auth.logout();
     delete $window.localStorage.uid;
     vm.currentUser = null;
+    vm.categories = null;
+    vm.transactions = null;
+    vm.users = null;
     $location.path('/');
   };
 

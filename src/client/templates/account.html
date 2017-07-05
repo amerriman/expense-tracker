@@ -48,7 +48,7 @@
         <!-- <h3>Categories</h3> -->
         <section class="category-group">
           <section class="category-form" id="section-category-form">
-            <div class="message-section" ng-if="categories.length == 0">
+            <div class="message-section" ng-if="categories.length == 0 || !categories">
               <p style="margin-bottom: 0;" class="alert alert-info" role="alert" id="categoryMessage">Set up categories for tracking your expenses and income. Example: "Groceries", "Paycheck", "Auto"</p>
             </div>
             <div class="add-heading">
