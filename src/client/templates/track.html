@@ -42,8 +42,12 @@
         <!-- cateogry dropdown -->
         <div class=" col-xs-12 col-md-4">
           <div class="form-group">
-            <label>Category * <span ng-click="toggleAddCategory()" style="color: green; font-size: 12px; cursor: pointer;">New</span></label>
-            <select class="form-control category-select" ng-model="transaction.category" ng-options="category as category.category_name for category in categories | orderBy: 'category_name'" ng-change="checkAmount()">
+            <label>Category <span ng-click="toggleAddCategory()" style="cursor: pointer;">
+              <i class="fa fa-plus-circle fa-category-add" aria-hidden="true"></i>
+            </span></label>
+            <select class="form-control category-select" ng-model="transaction.category"
+                    ng-options="category as category.category_name for category in categories | orderBy: 'category_name'"
+                    ng-change="checkAmount()">
               <option label="" value=""></option>
             </select>
           </div>
@@ -55,12 +59,6 @@
             <input type="number" step="0.01" min="0" class="form-control" placeholder="$" ng-model="transaction.amount">
           </div>
         </div>
-<!--         <div class="col-xs-3 col-md-1">
-          <div class="form-group">
-            <button class="quick-add-category-btn btn btn-info btn-sm" ng-click="toggleAddCategory()">Add New</button>
-          </div>
-        </div> -->
-
 
         <!-- individual user (if exists) -->
         <div class="col-xs-12 col-md-4" ng-if="users.length > 0">

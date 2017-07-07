@@ -1,7 +1,9 @@
-.transaction-form .quick-add-category-btn {
-  margin-top: 25px;
-  margin-left: 8px;
-  font-size: 9px;
+.transaction-form .fa-category-add {
+  color: green;
+  font-size: 17px;
+  position: relative;
+  top: 2px;
+  left: 2px;
 }
 .transaction-form .btn-date {
   margin-top: 22px;
