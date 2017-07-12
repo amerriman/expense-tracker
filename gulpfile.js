@@ -36,12 +36,8 @@ var paths = {
     './src/client/js/*.js',
     './src/client/js/**/*.js'
   ],
-  server: [
-    './src/server/bin/www'
-  ],
-  distServer: [
-    './dist/server/bin/www'
-  ]
+  server: './src/server/bin/www',
+  distServer: './dist/server/bin/www'
 };
 
 var nodemonConfig = {
