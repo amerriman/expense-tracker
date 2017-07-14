@@ -1,6 +1,6 @@
 <section class="transactions-table">
   <div class="col-xs-12">
-    <div class="btn-group range-btn-group">
+    <div class="btn-group range-btn-group" ng-if="!isAnalyzing">
       <button type="button" ng-click="toggleRange(7)" ng-class="{active: expenseRange == 7}" class="btn btn-blue">7 Days</button>
       <button type="button" ng-click="toggleRange(14)" ng-class="{active: expenseRange == 14}" class="btn btn-blue">14 Days</button>
       <button type="button" ng-click="toggleRange(30)" ng-class="{active: expenseRange == 30}" class="btn btn-blue">30 Days</button>
@@ -9,7 +9,7 @@
     <div class="message-section" ng-show="rangeError">
       <p class="alert alert-danger" role="alert" id="transactionTableMessage">{{message}}</p>
     </div>
-    <div class="range-picker-container form-inline" ng-show="expenseRange == 'other'">
+    <div class="range-picker-container form-inline" ng-show="expenseRange == 'other' && !isAnalyzing">
       <div class="form-group">
         <div class="input-group date btn-date" id="date-range-picker-start" datepicker ng-model="dateRangeStart">
           <input data-format="mm-dd-yyyy" type="text" class="form-control phone-btn btn-blue" placeholder="Start" id="date-range-picker-start-sm">

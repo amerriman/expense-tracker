@@ -211,6 +211,12 @@ section.category-form .add-heading button {
 .analysis .analyze-options .controls-container {
   margin-bottom: 24px;
 }
+.analysis .chart .chart-data {
+  min-width: 310px;
+  height: 500px;
+  max-width: 600px;
+  margin: 0 auto 32px auto;
+}
 section.transactions-table .range-picker-container {
   margin-top: 12px;
 }

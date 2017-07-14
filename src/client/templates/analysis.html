@@ -54,8 +54,19 @@
 
   <section class="chart">
     <div class="col-xs-12 col-sm-12 col-md-9">
-      <!--<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>-->
-      <div ng-if="chartData != null" hc-chart title="{{title}}" chartdata="chartData" chartopts="chartOpts" style="min-width: 310px; height: 500px; max-width: 600px; margin: 0 auto"></div>
+      <div class="chart-data" ng-if="chartData != null" hc-chart title="{{title}}" chartdata="chartData" chartopts="chartOpts" style=""></div>
+    </div>
+  </section>
+
+  <section class="transactions-options">
+    <div class="col-xs-12 col-sm-4">
+    </div>
+  </section>
+
+  <section class="transactions-list">
+    <div class="col-xs-12 col-sm-8">
+      <h4 style="display: inline-block;">Transactions for {{title}}</h4>
+      <div style="margin-top: 10px;" transactions-list></div>
     </div>
   </section>
 

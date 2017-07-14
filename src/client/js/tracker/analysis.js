@@ -14,6 +14,7 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
       vm.selectYears = [];
       vm.includeIncome = false;
       vm.includeZeros = false;
+      vm.isAnalyzing = true;
 
       function messageTimeout(){
         vm.error = false;
@@ -63,12 +64,21 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
 
         expenseApi.transactions.getRange(params).then(function(resp){
           vm.expenseArray = resp;
+          formatTransactions(vm.expenseArray);
+
           //send the array and the category stuff away to be figured out
           expenseApi.categories.getAll(params.id).then(function(resp){
             vm.categoryArray = resp;
             vm.chartData = chartDataService.pieData(vm.categoryArray, vm.expenseArray, vm.users, vm.includeIncome, vm.includeZeros);
           })
         })
+      }
+
+      function formatTransactions(expenseArr){
+        expenseArr.forEach(function(transaction){
+          transaction.date = moment.utc(transaction.date).format('L');
+        });
+        vm.displayTransactions = expenseArr;
       }
 
       vm.setTime = function(time){
