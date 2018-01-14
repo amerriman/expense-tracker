@@ -71,7 +71,6 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         expenseApi.transactions.getRange(params).then(function(resp){
           //TODO give user indication something is incorrect if there are no transactions
           vm.expenseArray = resp;
-          console.log(vm.expenseArray, "I am zee expense array")
           formatTransactions(vm.expenseArray);
           calculateTotals(vm.expenseArray);
 
@@ -100,10 +99,10 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         }
         expenseArr.forEach(function(transaction){
           if(transaction.type === "expense") {
-            vm.expensesTotal += parseFloat(transaction.amount)
+            vm.expensesTotal += parseFloat(transaction.amount);
           }
           if(transaction.type === "income"){
-            vm.incomeTotal += parseFloat(transaction.amount)
+            vm.incomeTotal += parseFloat(transaction.amount);
           }
         });
         vm.overUnder = vm.incomeTotal - vm.expensesTotal;
