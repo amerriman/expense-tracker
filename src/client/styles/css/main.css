@@ -217,6 +217,9 @@ section.category-form .add-heading button {
   max-width: 600px;
   margin: 0 auto 32px auto;
 }
+.analysis .transaction-totals .totals {
+  display: inline-block;
+}
 section.transactions-table .range-picker-container {
   margin-top: 12px;
 }

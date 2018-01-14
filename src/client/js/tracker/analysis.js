@@ -15,6 +15,9 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
       vm.includeIncome = false;
       vm.includeZeros = false;
       vm.isAnalyzing = true;
+      vm.expensesTotal = null;
+      vm.incomeTotal = null;
+      vm.overUnder = null;
 
       function messageTimeout(){
         vm.error = false;
@@ -50,6 +53,9 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
 
 
       function getExpenses(selected){
+        vm.expensesTotal = null;
+        vm.incomeTotal = null;
+        vm.overUnder = null;
         var params = {
           id: vm.currentUser.username
         };
@@ -63,8 +69,11 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         }
 
         expenseApi.transactions.getRange(params).then(function(resp){
+          //TODO give user indication something is incorrect if there are no transactions
           vm.expenseArray = resp;
+          console.log(vm.expenseArray, "I am zee expense array")
           formatTransactions(vm.expenseArray);
+          calculateTotals(vm.expenseArray);
 
           //send the array and the category stuff away to be figured out
           expenseApi.categories.getAll(params.id).then(function(resp){
@@ -74,11 +83,30 @@ app.directive('analysis', ["$window", "$timeout", "$location", "$log", "expenseA
         })
       }
 
+
       function formatTransactions(expenseArr){
+        if(!expenseArr) {
+          return
+        }
         expenseArr.forEach(function(transaction){
           transaction.date = moment.utc(transaction.date).format('L');
         });
         vm.displayTransactions = expenseArr;
+      }
+
+      function calculateTotals(expenseArr) {
+        if(!expenseArr) {
+          return
+        }
+        expenseArr.forEach(function(transaction){
+          if(transaction.type === "expense") {
+            vm.expensesTotal += parseFloat(transaction.amount)
+          }
+          if(transaction.type === "income"){
+            vm.incomeTotal += parseFloat(transaction.amount)
+          }
+        });
+        vm.overUnder = vm.incomeTotal - vm.expensesTotal;
       }
 
       vm.setTime = function(time){
